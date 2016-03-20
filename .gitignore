@@ -1,0 +1,13 @@
+.vs
+*.cache
+*.exe
+*.log
+*.sdf
+*.map
+bin
+obj
+[Tt]est[Rr]esults
+packages
+FakesAssemblies
+/logs
+*.user
