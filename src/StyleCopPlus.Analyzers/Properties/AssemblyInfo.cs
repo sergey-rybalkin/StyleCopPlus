@@ -5,5 +5,5 @@
 [assembly: AssemblyProduct("StyleCopPlus.Analyzers")]
 [assembly: AssemblyCopyright("Copyright © 2016")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]

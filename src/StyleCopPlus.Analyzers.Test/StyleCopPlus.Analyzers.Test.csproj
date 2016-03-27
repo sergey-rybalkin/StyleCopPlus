@@ -108,6 +108,11 @@
     <EmbeddedResource Include="Playground\SP2100\MethodDefinition.cs" />
     <EmbeddedResource Include="Playground\SP2100\MethodInvocation.cs" />
     <EmbeddedResource Include="Playground\SP2100\MethodInvocationWithAssignment.cs" />
+    <EmbeddedResource Include="Playground\SP2100\ConstructorDefinitionFixed.cs" />
+    <EmbeddedResource Include="Playground\SP2100\ConstructorInvocationFixed.cs" />
+    <EmbeddedResource Include="Playground\SP2100\MethodDefinitionFixed.cs" />
+    <EmbeddedResource Include="Playground\SP2100\MethodInvocationFixed.cs" />
+    <EmbeddedResource Include="Playground\SP2100\MethodInvocationWithAssignmentFixed.cs" />
     <Compile Include="SP2100FixProviderTests.cs" />
     <Compile Include="Verifiers\CodeFixVerifier.cs" />
     <Compile Include="Verifiers\DiagnosticVerifier.cs" />

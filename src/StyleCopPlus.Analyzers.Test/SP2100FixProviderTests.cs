@@ -12,7 +12,8 @@ namespace StyleCopPlus.Analyzers.Test
         [TestMethod]
         public void Fixes_LongConstructorDefinition()
         {
-            var test = DataHelper.GetEmbeddedResource(DataHelper.SP2100ConstructorDefinition);
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2100ConstructorDefinition);
+            string expected = DataHelper.GetEmbeddedResource(DataHelper.SP2100ConstructorDefinitionFixed);
 
             VerifyCSharpFix(test, test);
         }

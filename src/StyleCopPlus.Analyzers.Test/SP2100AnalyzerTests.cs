@@ -20,18 +20,44 @@ namespace StyleCopPlus.Analyzers.Test
         [TestMethod]
         public void Reports_LongConstructorDefinition()
         {
-            var test = DataHelper.GetEmbeddedResource(DataHelper.SP2100ConstructorDefinition);
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2100ConstructorDefinition);
+            DiagnosticResult expected = CreateResult(132, 5);
 
-            var expected = new DiagnosticResult
-            {
-                Id = SP2100Analyzer.DiagnosticId,
-                Message = string.Format(SP2100Analyzer.MessageFormat, Settings.SP2100MaxLineLength, 132),
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[] {
-                            new DiagnosticResultLocation("Test0.cs", 5, Settings.SP2100MaxLineLength + 1)
-                        }
-            };
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
+        [TestMethod]
+        public void Reports_LongConstructorInvocation()
+        {
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2100ConstructorInvocation);
+            DiagnosticResult expected = CreateResult(173, 17);
+
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
+        [TestMethod]
+        public void Reports_LongMethodDefinition()
+        {
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2100MethodDefinition);
+            DiagnosticResult expected = CreateResult(129, 5);
+
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
+        [TestMethod]
+        public void Reports_LongMethodInvocation()
+        {
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2100MethodInvocation);
+            DiagnosticResult expected = CreateResult(121, 16);
+
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
+        [TestMethod]
+        public void Reports_LongMethodInvocationWithAssignment()
+        {
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2100MethodInvocationWithAssignment);
+            DiagnosticResult expected = CreateResult(134, 16);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -39,6 +65,23 @@ namespace StyleCopPlus.Analyzers.Test
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
             return new SP2100Analyzer();
+        }
+
+        private DiagnosticResult CreateResult(int exceededLineLength, int lineNumber)
+        {
+            return new DiagnosticResult
+            {
+                Id = SP2100Analyzer.DiagnosticId,
+                Message = string.Format(
+                    SP2100Analyzer.MessageFormat,
+                    Settings.SP2100MaxLineLength,
+                    exceededLineLength),
+                Severity = DiagnosticSeverity.Warning,
+                Locations = new[]
+                {
+                     new DiagnosticResultLocation("Test0.cs", lineNumber, Settings.SP2100MaxLineLength + 1)
+                }
+            };
         }
     }
 }

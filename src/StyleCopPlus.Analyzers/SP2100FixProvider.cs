@@ -12,7 +12,8 @@ namespace StyleCopPlus.Analyzers
     /// <summary>
     /// Tries to fix SP2100 warning by splitting long code lines where possible.
     /// </summary>
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP2100FixProvider)), Shared]
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP2100FixProvider))]
+    [Shared]
     public class SP2100FixProvider : CodeFixProvider
     {
         private const string Title = "Format code";
