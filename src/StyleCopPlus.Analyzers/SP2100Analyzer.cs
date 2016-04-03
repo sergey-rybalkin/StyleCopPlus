@@ -44,6 +44,8 @@ namespace StyleCopPlus.Analyzers
         /// <param name="context">Analysis context to register actions in.</param>
         public override void Initialize(AnalysisContext context)
         {
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
+            context.EnableConcurrentExecution();
             context.RegisterSyntaxTreeAction(HandleSyntaxTree);
         }
 
@@ -65,7 +67,7 @@ namespace StyleCopPlus.Analyzers
                 if (lineSpan.Length <= maxLength)
                     continue;
 
-                TextSpan excess = TextSpan.FromBounds(lineSpan.Start + maxLength, lineSpan.End);
+                TextSpan excess = TextSpan.FromBounds(lineSpan.Start, lineSpan.End);
                 Location location = Location.Create(context.Tree, excess);
                 context.ReportDiagnostic(Diagnostic.Create(_rule, location, maxLength, lineSpan.Length));
             }

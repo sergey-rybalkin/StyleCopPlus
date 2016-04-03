@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CodeActions;
+using Microsoft.CodeAnalysis.Text;
 
 namespace StyleCopPlus.Analyzers
 {
@@ -56,15 +57,14 @@ namespace StyleCopPlus.Analyzers
                                     .GetSyntaxRootAsync(context.CancellationToken)
                                     .ConfigureAwait(false);
 
-            var diagnostic = context.Diagnostics.First();
-            var diagnosticSpan = diagnostic.Location.SourceSpan;
+            Diagnostic diagnostic = context.Diagnostics.First();
+            TextSpan diagnosticSpan = diagnostic.Location.SourceSpan;
+            CodeAction action = CodeAction.Create(
+                title: Title,
+                createChangedSolution: c => FormatCodeAsync(context.Document, c),
+                equivalenceKey: Title);
 
-            context.RegisterCodeFix(
-                CodeAction.Create(
-                    title: Title,
-                    createChangedSolution: c => FormatCodeAsync(context.Document, c),
-                    equivalenceKey: Title),
-                diagnostic);
+            context.RegisterCodeFix(action, diagnostic);
         }
 
         private async Task<Solution> FormatCodeAsync(Document document, CancellationToken c)
