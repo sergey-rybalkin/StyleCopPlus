@@ -44,6 +44,8 @@ namespace StyleCopPlus.Analyzers
         /// <param name="context">Analysis context to register actions in.</param>
         public override void Initialize(AnalysisContext context)
         {
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
+            context.EnableConcurrentExecution();
             context.RegisterSyntaxTreeAction(HandleSyntaxTree);
         }
 
