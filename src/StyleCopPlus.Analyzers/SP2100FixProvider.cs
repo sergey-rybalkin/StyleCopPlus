@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CodeActions;
+using Microsoft.CodeAnalysis.Text;
 
 namespace StyleCopPlus.Analyzers
 {
     /// <summary>
     /// Tries to fix SP2100 warning by splitting long code lines where possible.
     /// </summary>
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP2100FixProvider)), Shared]
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP2100FixProvider))]
+    [Shared]
     public class SP2100FixProvider : CodeFixProvider
     {
         private const string Title = "Format code";
@@ -55,15 +57,14 @@ namespace StyleCopPlus.Analyzers
                                     .GetSyntaxRootAsync(context.CancellationToken)
                                     .ConfigureAwait(false);
 
-            var diagnostic = context.Diagnostics.First();
-            var diagnosticSpan = diagnostic.Location.SourceSpan;
+            Diagnostic diagnostic = context.Diagnostics.First();
+            TextSpan diagnosticSpan = diagnostic.Location.SourceSpan;
+            CodeAction action = CodeAction.Create(
+                title: Title,
+                createChangedSolution: c => FormatCodeAsync(context.Document, c),
+                equivalenceKey: Title);
 
-            context.RegisterCodeFix(
-                CodeAction.Create(
-                    title: Title,
-                    createChangedSolution: c => FormatCodeAsync(context.Document, c),
-                    equivalenceKey: Title),
-                diagnostic);
+            context.RegisterCodeFix(action, diagnostic);
         }
 
         private async Task<Solution> FormatCodeAsync(Document document, CancellationToken c)

@@ -29,5 +29,12 @@ namespace StyleCopPlus.Analyzers.Test.Helpers
         internal const string SP2100MethodInvocation = "SP2100.MethodInvocation.cs";
         internal const string SP2100MethodInvocationWithAssignment =
             "SP2100.MethodInvocationWithAssignment.cs";
+
+        internal const string SP2100ConstructorDefinitionFixed = "SP2100.ConstructorDefinitionFixed.cs";
+        internal const string SP2100ConstructorInvocationFixed = "SP2100.ConstructorInvocationFixed.cs";
+        internal const string SP2100MethodDefinitionFixed = "SP2100.MethodDefinitionFixed.cs";
+        internal const string SP2100MethodInvocationFixed = "SP2100.MethodInvocationFixed.cs";
+        internal const string SP2100MethodInvocationWithAssignmentFixed =
+            "SP2100.MethodInvocationWithAssignmentFixed.cs";
     }
 }
