@@ -63,7 +63,8 @@ namespace StyleCopPlus.Analyzers
             {
                 TextSpan lineSpan = line.Span;
 
-                // Tab symbol is not counted here in order to optimize performance.
+                // Visual length can exceed lineSpan.Length if it has tab symbols. Assume that user does not
+                // use tabs and there is another rule that validates this.
                 if (lineSpan.Length <= maxLength)
                     continue;
 

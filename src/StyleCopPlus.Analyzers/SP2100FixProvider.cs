@@ -1,12 +1,14 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using System.Composition;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CodeActions;
+using Microsoft.CodeAnalysis.CodeFixes;
+using Microsoft.CodeAnalysis.Editing;
 using Microsoft.CodeAnalysis.Text;
+using StyleCopPlus.Analyzers.CodeFormatters;
 
 namespace StyleCopPlus.Analyzers
 {
@@ -15,9 +17,9 @@ namespace StyleCopPlus.Analyzers
     /// </summary>
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP2100FixProvider))]
     [Shared]
-    public class SP2100FixProvider : CodeFixProvider
+    public class SP2100FixProvider : StyleCopPlusCodeFixProvider
     {
-        private const string Title = "Format code";
+        private const string Title = "Split line";
 
         /// <summary>
         /// Gets a list of diagnostic IDs that this provider can provider fixes for.
@@ -51,25 +53,44 @@ namespace StyleCopPlus.Analyzers
         /// <see cref="P:Microsoft.CodeAnalysis.CodeFixes.CodeFixProvider.FixableDiagnosticIds" /> for the
         /// current provider.
         /// </param>
-        public override async Task RegisterCodeFixesAsync(CodeFixContext context)
+        public override Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            var root = await context.Document
-                                    .GetSyntaxRootAsync(context.CancellationToken)
-                                    .ConfigureAwait(false);
+            foreach (Diagnostic diagnostic in context.Diagnostics)
+            {
+                TextSpan diagnosticSpan = diagnostic.Location.SourceSpan;
+                CodeAction action = CodeAction.Create(
+                    Title,
+                    c => FormatCodeAsync(context.Document, diagnostic, c),
+                    Title);
 
-            Diagnostic diagnostic = context.Diagnostics.First();
-            TextSpan diagnosticSpan = diagnostic.Location.SourceSpan;
-            CodeAction action = CodeAction.Create(
-                title: Title,
-                createChangedSolution: c => FormatCodeAsync(context.Document, c),
-                equivalenceKey: Title);
+                context.RegisterCodeFix(action, diagnostic);
+            }
 
-            context.RegisterCodeFix(action, diagnostic);
+            return CompletedTask;
         }
 
-        private async Task<Solution> FormatCodeAsync(Document document, CancellationToken c)
+        private async Task<Document> FormatCodeAsync(
+            Document document,
+            Diagnostic diagnostic,
+            CancellationToken cancellationToken)
         {
-            return document.Project.Solution;
+            SyntaxNode syntaxRoot =
+                await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
+            DocumentEditor editor =
+                await DocumentEditor.CreateAsync(document, cancellationToken).ConfigureAwait(false);
+            SyntaxNode targetNode = syntaxRoot.FindNode(diagnostic.Location.SourceSpan);
+
+            ILongLineSplitter formatter = CodeFormattersFactory.CreateLineSplitter(editor, targetNode);
+            try
+            {
+                formatter.SplitCodeLine();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return editor.GetChangedDocument();
         }
     }
 }
