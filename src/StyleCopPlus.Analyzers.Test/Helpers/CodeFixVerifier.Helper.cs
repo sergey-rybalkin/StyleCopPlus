@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.Simplification;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System;
 
 namespace TestHelper
 {
@@ -77,7 +78,9 @@ namespace TestHelper
         {
             var simplifiedDoc = Simplifier.ReduceAsync(document, Simplifier.Annotation).Result;
             var root = simplifiedDoc.GetSyntaxRootAsync().Result;
-            root = Formatter.Format(root, Formatter.Annotation, simplifiedDoc.Project.Solution.Workspace);
+            var workspace = simplifiedDoc.Project.Solution.Workspace;
+
+            root = Formatter.Format(root, Formatter.Annotation, workspace);
             return root.GetText().ToString();
         }
     }

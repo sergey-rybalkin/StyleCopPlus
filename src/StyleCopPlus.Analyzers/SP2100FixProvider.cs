@@ -81,14 +81,11 @@ namespace StyleCopPlus.Analyzers
             SyntaxNode targetNode = syntaxRoot.FindNode(diagnostic.Location.SourceSpan);
 
             ILongLineSplitter formatter = CodeFormattersFactory.CreateLineSplitter(editor, targetNode);
-            try
-            {
+
+            if (null != formatter)
                 formatter.SplitCodeLine();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            else
+                return document;
 
             return editor.GetChangedDocument();
         }

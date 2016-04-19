@@ -32,15 +32,28 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
         /// </summary>
         public void SplitCodeLine()
         {
+            SyntaxTriviaList newCommaTrivia = SyntaxTriviaList.Create(SyntaxFactory.CarriageReturnLineFeed);
+            newCommaTrivia = newCommaTrivia.AddRange(_node.GetLeadingTrivia());
+            newCommaTrivia = newCommaTrivia.Add(SyntaxFactory.Whitespace("    "));
+
             var commas = _node.DescendantTokens()
                               .Where(token => token.IsKind(SyntaxKind.CommaToken))
                               .ToList();
 
+            SyntaxToken openParen = _node.ParameterList
+                                         .DescendantTokens()
+                                         .Where(token => token.IsKind(SyntaxKind.OpenParenToken))
+                                         .First();
+
             Dictionary<SyntaxToken, SyntaxToken> replacements =
-                new Dictionary<SyntaxToken, SyntaxToken>(commas.Count);
+                new Dictionary<SyntaxToken, SyntaxToken>(commas.Count + 1);
 
             foreach (var comma in commas)
-                replacements[comma] = comma.WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed);
+            {
+                replacements[comma] = comma.WithTrailingTrivia(newCommaTrivia);
+            }
+
+            replacements[openParen] = openParen.WithTrailingTrivia(newCommaTrivia);
 
             var updatedNode = _node.ReplaceTokens(
                 replacements.Keys,
