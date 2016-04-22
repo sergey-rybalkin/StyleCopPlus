@@ -21,7 +21,7 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
         /// </summary>
         /// <param name="editor">Editor for the document that contains target constructor definition.</param>
         /// <param name="node">Constructor definition syntax node.</param>
-        public ConstructorDefinitionSplitter(DocumentEditor editor, ConstructorDeclarationSyntax node)
+        internal ConstructorDefinitionSplitter(DocumentEditor editor, ConstructorDeclarationSyntax node)
         {
             _node = node;
             _editor = editor;
@@ -32,6 +32,10 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
         /// </summary>
         public void SplitCodeLine()
         {
+            // We can move constructor parameters to the new line only if it has them.
+            if (_node.ParameterList.Parameters.Count == 0)
+                return;
+
             SyntaxTriviaList newCommaTrivia = SyntaxTriviaList.Create(SyntaxFactory.CarriageReturnLineFeed);
             newCommaTrivia = newCommaTrivia.AddRange(_node.GetLeadingTrivia());
             newCommaTrivia = newCommaTrivia.Add(SyntaxFactory.Whitespace("    "));
@@ -49,9 +53,7 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
                 new Dictionary<SyntaxToken, SyntaxToken>(commas.Count + 1);
 
             foreach (var comma in commas)
-            {
                 replacements[comma] = comma.WithTrailingTrivia(newCommaTrivia);
-            }
 
             replacements[openParen] = openParen.WithTrailingTrivia(newCommaTrivia);
 

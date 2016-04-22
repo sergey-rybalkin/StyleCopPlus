@@ -1,4 +1,6 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Linq;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Editing;
 
@@ -16,9 +18,26 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
         /// <param name="node">Syntax node containing long code line.</param>
         internal static ILongLineSplitter CreateLineSplitter(DocumentEditor editor, SyntaxNode node)
         {
-            ConstructorDeclarationSyntax constructor = node as ConstructorDeclarationSyntax;
-            if (null != constructor)
-                return new ConstructorDefinitionSplitter(editor, constructor);
+            switch (node.RawKind)
+            {
+                case (int)SyntaxKind.ConstructorDeclaration:
+                    return new ConstructorDefinitionSplitter(editor, (ConstructorDeclarationSyntax)node);
+                case (int)SyntaxKind.LocalDeclarationStatement:
+                    return GetSplitterForLocalDeclaration(editor, node);
+                default:
+                    return null;
+            }
+        }
+
+        private static ILongLineSplitter GetSplitterForLocalDeclaration(
+            DocumentEditor editor,
+            SyntaxNode node)
+        {
+            var constructorCall = node.DescendantNodes()
+                                      .OfType<ObjectCreationExpressionSyntax>()
+                                      .FirstOrDefault();
+            if (null != constructorCall)
+                return new ConstructorInvocationSplitter(editor, constructorCall);
 
             return null;
         }

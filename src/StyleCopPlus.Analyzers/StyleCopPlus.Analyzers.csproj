@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="CodeFormatters\CodeFormattersFactory.cs" />
     <Compile Include="CodeFormatters\ConstructorDefinitionSplitter.cs" />
+    <Compile Include="CodeFormatters\ConstructorInvocationSplitter.cs" />
     <Compile Include="CodeFormatters\ILongLineSplitter.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SP2100Analyzer.cs" />
