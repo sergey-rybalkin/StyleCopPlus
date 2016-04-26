@@ -79,10 +79,10 @@ namespace StyleCopPlus.Analyzers
                 await DocumentEditor.CreateAsync(document, cancellationToken).ConfigureAwait(false);
             SyntaxNode targetNode = syntaxRoot.FindNode(diagnostic.Location.SourceSpan);
 
-            ILongLineSplitter formatter = CodeFormattersFactory.CreateLineSplitter(editor, targetNode);
+            ILongLineSplitter formatter = CodeFormattersFactory.CreateLineSplitter(targetNode);
 
             if (null != formatter)
-                formatter.SplitCodeLine();
+                formatter.SplitCodeLine(editor);
             else
                 return document;
 

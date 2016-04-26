@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Editing;
 
 namespace StyleCopPlus.Analyzers.CodeFormatters
 {
@@ -11,6 +12,7 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
         /// <summary>
         /// Splits long code line into several smaller lines in order to match max line length requirement.
         /// </summary>
-        void SplitCodeLine();
+        /// <param name="editor">Editor for the target document.</param>
+        void SplitCodeLine(DocumentEditor editor);
     }
 }
