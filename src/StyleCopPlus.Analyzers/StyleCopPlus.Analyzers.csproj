@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CodeFormatters\CodeFormatterBase.cs" />
     <Compile Include="CodeFormatters\CodeFormattersFactory.cs" />
     <Compile Include="CodeFormatters\ConstructorDefinitionSplitter.cs" />
     <Compile Include="CodeFormatters\ConstructorInvocationSplitter.cs" />

@@ -36,8 +36,11 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
             var constructorCall = node.DescendantNodes()
                                       .OfType<ObjectCreationExpressionSyntax>()
                                       .FirstOrDefault();
-            if (null != constructorCall)
-                return new ConstructorInvocationSplitter(editor, constructorCall);
+
+            // If local declaration contains a call to the constructor with multiple arguments then we can
+            // split it to reduce line length. 
+            if (null != constructorCall && constructorCall.ArgumentList.Arguments.Count > 1)
+                return new ConstructorInvocationSplitter(editor, node, constructorCall);
 
             return null;
         }
