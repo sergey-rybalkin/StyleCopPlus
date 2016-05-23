@@ -55,6 +55,15 @@ namespace StyleCopPlus.Analyzers.Test
             VerifyCSharpFix(test, expected);
         }
 
+        [TestMethod]
+        public void Fixes_LongFluentApiCalls()
+        {
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2100FluentApi);
+            string expected = DataHelper.GetEmbeddedResource(DataHelper.SP2100FluentApiFixed);
+
+            VerifyCSharpFix(test, expected);
+        }
+
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
             return new SP2100Analyzer();

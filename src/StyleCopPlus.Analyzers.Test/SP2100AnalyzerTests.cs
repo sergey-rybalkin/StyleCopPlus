@@ -62,6 +62,15 @@ namespace StyleCopPlus.Analyzers.Test
             VerifyCSharpDiagnostic(test, expected);
         }
 
+        [TestMethod]
+        public void Reports_LongFluentApiCalls()
+        {
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2100FluentApi);
+            DiagnosticResult expected = CreateResult(182, 36);
+
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
             return new SP2100Analyzer();
