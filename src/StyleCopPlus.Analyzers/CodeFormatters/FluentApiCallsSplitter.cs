@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Editing;
 
@@ -23,12 +24,31 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
         }
 
         /// <summary>
-        /// Splits code line.
+        /// Splits code line by placing each fluent API call on its own line.
         /// </summary>
         /// <param name="editor">Editor for the target document.</param>
         public void SplitCodeLine(DocumentEditor editor)
         {
-            
+            SyntaxTriviaList newDotTrivia = SyntaxTriviaList.Create(SyntaxFactory.CarriageReturnLineFeed);
+            newDotTrivia = newDotTrivia.AddRange(_parentNode.GetLeadingTrivia());
+            newDotTrivia = newDotTrivia.Add(Indent);
+
+            Dictionary<SyntaxToken, SyntaxToken> replacements =
+                new Dictionary<SyntaxToken, SyntaxToken>(_fluentCalls.Count - 1);
+
+            for (int index = 1; index < _fluentCalls.Count; index++)
+            {
+                SyntaxToken dot = _fluentCalls[index].ChildTokens()
+                                                     .First(token => token.IsKind(SyntaxKind.DotToken));
+
+                replacements[dot] = dot.WithTrailingTrivia(newDotTrivia);
+            }
+
+            var updatedNode = _parentNode.ReplaceTokens(
+                replacements.Keys,
+                (original, mayRewrite) => replacements[original]);
+
+            editor.ReplaceNode(_parentNode, updatedNode);
         }
 
         /// <summary>

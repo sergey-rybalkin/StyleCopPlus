@@ -51,9 +51,6 @@ namespace StyleCopPlus.Analyzers
 
         private static void HandleSyntaxTree(SyntaxTreeAnalysisContext context)
         {
-            if (IsGeneratedCode(context))
-                return;
-
             SourceText text;
             if (!context.Tree.TryGetText(out text))
                 return;

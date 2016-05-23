@@ -15,7 +15,9 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
         {
             ILongLineSplitter retVal;
 
-            if (ArgumentsListSplitter.TryCreateSplitterFor(node, out retVal))
+            if (FluentApiCallsSplitter.TryCreateSplitterFor(node, out retVal))
+                return retVal;
+            else if (ArgumentsListSplitter.TryCreateSplitterFor(node, out retVal))
                 return retVal;
 
             return null;

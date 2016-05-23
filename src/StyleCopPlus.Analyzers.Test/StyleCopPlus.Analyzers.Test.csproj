@@ -113,6 +113,8 @@
     <EmbeddedResource Include="Playground\SP2100\MethodDefinitionFixed.cs" />
     <EmbeddedResource Include="Playground\SP2100\MethodInvocationFixed.cs" />
     <EmbeddedResource Include="Playground\SP2100\MethodInvocationWithAssignmentFixed.cs" />
+    <EmbeddedResource Include="Playground\SP2100\FluentApi.cs" />
+    <EmbeddedResource Include="Playground\SP2100\FluentApiFixed.cs" />
     <Compile Include="SP2100FixProviderTests.cs" />
     <Compile Include="Verifiers\CodeFixVerifier.cs" />
     <Compile Include="Verifiers\DiagnosticVerifier.cs" />

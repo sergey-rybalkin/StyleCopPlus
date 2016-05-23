@@ -12,7 +12,13 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
     {
         protected static readonly SyntaxTrivia Indent = SyntaxFactory.Whitespace("    ");
 
-        protected SyntaxNode SplitArgumentsList(SyntaxNode node, SyntaxTriviaList baseIndentation)
+        /// <summary>
+        /// Formats comma separated lists like arguments or parameters by inserting line breaks after each
+        /// item and applying indentation.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <param name="baseIndentation">Indentation trivia of the parent node.</param>
+        protected SyntaxNode SplitCommaSeparatedList(SyntaxNode node, SyntaxTriviaList baseIndentation)
         {
             SyntaxTriviaList newCommaTrivia = SyntaxTriviaList.Create(SyntaxFactory.CarriageReturnLineFeed);
             newCommaTrivia = newCommaTrivia.AddRange(baseIndentation);

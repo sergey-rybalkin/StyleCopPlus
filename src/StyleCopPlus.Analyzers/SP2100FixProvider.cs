@@ -18,7 +18,7 @@ namespace StyleCopPlus.Analyzers
     [Shared]
     public class SP2100FixProvider : StyleCopPlusCodeFixProvider
     {
-        private const string Title = "Split line";
+        private const string Title = "Format to multiple lines";
 
         /// <summary>
         /// Gets a list of diagnostic IDs that this provider can provider fixes for.

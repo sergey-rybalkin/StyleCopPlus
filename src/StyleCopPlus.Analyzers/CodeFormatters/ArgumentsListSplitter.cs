@@ -30,7 +30,7 @@ namespace StyleCopPlus.Analyzers.CodeFormatters
         /// <param name="editor">Editor for the target document.</param>
         public void SplitCodeLine(DocumentEditor editor)
         {
-            SyntaxNode updatedNode = SplitArgumentsList(_targetNode, _parentNode.GetLeadingTrivia());
+            SyntaxNode updatedNode = SplitCommaSeparatedList(_targetNode, _parentNode.GetLeadingTrivia());
             editor.ReplaceNode(_targetNode, updatedNode);
         }
 

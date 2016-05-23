@@ -8,9 +8,5 @@ namespace StyleCopPlus.Analyzers
     /// </summary>
     public abstract class StyleCopPlusAnalyzer : DiagnosticAnalyzer
     {
-        protected static bool IsGeneratedCode(SyntaxTreeAnalysisContext context)
-        {
-            return context.Tree.FilePath.EndsWith("Generated.cs", StringComparison.Ordinal);
-        }
     }
 }
