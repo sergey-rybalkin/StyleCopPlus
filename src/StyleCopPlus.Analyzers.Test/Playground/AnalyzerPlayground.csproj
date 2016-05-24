@@ -47,6 +47,9 @@
     <Compile Include="SP2100\MethodInvocation.cs" />
     <Compile Include="SP2100\MethodInvocationWithAssignment.cs" />
     <Compile Include="SP2100\FluentApi.cs" />
+    <Compile Include="SP2002\EmptyLine.cs" />
+    <Compile Include="SP2002\EmptyLineFixed.cs" />
+    <Compile Include="SP2002\NonEmptyLine.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

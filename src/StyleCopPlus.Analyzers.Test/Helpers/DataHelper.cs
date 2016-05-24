@@ -38,5 +38,9 @@ namespace StyleCopPlus.Analyzers.Test.Helpers
         internal const string SP2100MethodInvocationFixed = "SP2100.MethodInvocationFixed.cs";
         internal const string SP2100MethodInvocationWithAssignmentFixed =
             "SP2100.MethodInvocationWithAssignmentFixed.cs";
+
+        internal const string SP2002EmptyLine = "SP2002.EmptyLine.cs";
+        internal const string SP2002EmptyLineFixed = "SP2002.EmptyLineFixed.cs";
+        internal const string SP2002NonEmptyLine = "SP2002.NonEmptyLine.cs";
     }
 }
