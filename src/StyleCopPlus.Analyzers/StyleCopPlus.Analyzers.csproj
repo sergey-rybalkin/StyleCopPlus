@@ -42,9 +42,13 @@
     <Compile Include="CodeFormatters\ILongLineSplitter.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SP2002Analyzer.cs" />
+    <Compile Include="SP2002FixProvider.cs" />
     <Compile Include="SP2100Analyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SP2100FixProvider.cs" />
+    <Compile Include="SP2101Analyzer.cs" />
+    <Compile Include="SP2102Analyzer.cs" />
+    <Compile Include="SP2103Analyzer.cs" />
     <Compile Include="StyleCopPlusAnalyzer.cs" />
     <Compile Include="StyleCopPlusCodeFixProvider.cs" />
   </ItemGroup>

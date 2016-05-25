@@ -5,27 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
-using Microsoft.CodeAnalysis.Editing;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
-using StyleCopPlus.Analyzers.CodeFormatters;
 
 namespace StyleCopPlus.Analyzers
 {
     /// <summary>
     /// Tries to fix SP2100 warning by splitting long code lines where possible.
     /// </summary>
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP2100FixProvider))]
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP2002FixProvider))]
     [Shared]
-    public class SP2100FixProvider : StyleCopPlusCodeFixProvider
+    public class SP2002FixProvider : StyleCopPlusCodeFixProvider
     {
-        private const string Title = "Format to multiple lines";
+        private const string Title = "Remove empty line";
 
         /// <summary>
         /// Gets a list of diagnostic IDs that this provider can provider fixes for.
         /// </summary>
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(SP2100Analyzer.DiagnosticId); }
+            get { return ImmutableArray.Create(SP2002Analyzer.DiagnosticId); }
         }
 
         /// <summary>
@@ -60,20 +59,16 @@ namespace StyleCopPlus.Analyzers
             Diagnostic diagnostic,
             CancellationToken cancellationToken)
         {
+            int eolTriviaPosition = diagnostic.Location.SourceSpan.Start - 1;
+            SyntaxTrivia emptyTrivia = SyntaxFactory.Whitespace(string.Empty);
+
             SyntaxNode syntaxRoot =
                 await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
-            DocumentEditor editor =
-                await DocumentEditor.CreateAsync(document, cancellationToken).ConfigureAwait(false);
-            SyntaxNode targetNode = syntaxRoot.FindNode(diagnostic.Location.SourceSpan);
 
-            ILongLineSplitter formatter = CodeFormattersFactory.CreateLineSplitter(targetNode);
+            SyntaxTrivia target = syntaxRoot.FindTrivia(eolTriviaPosition, true);
+            SyntaxNode newSyntaxRoot = syntaxRoot.ReplaceTrivia(target, emptyTrivia);
 
-            if (null != formatter)
-                formatter.SplitCodeLine(editor);
-            else
-                return document;
-
-            return editor.GetChangedDocument();
+            return document.WithSyntaxRoot(newSyntaxRoot);
         }
     }
 }

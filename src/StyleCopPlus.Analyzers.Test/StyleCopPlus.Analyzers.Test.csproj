@@ -119,6 +119,7 @@
     <EmbeddedResource Include="Playground\SP2002\EmptyLineFixed.cs" />
     <EmbeddedResource Include="Playground\SP2002\NonEmptyLine.cs" />
     <Compile Include="SP2002AnalyzerTests.cs" />
+    <Compile Include="SP2002FixProviderTests.cs" />
     <Compile Include="SP2100FixProviderTests.cs" />
     <Compile Include="Verifiers\CodeFixVerifier.cs" />
     <Compile Include="Verifiers\DiagnosticVerifier.cs" />
