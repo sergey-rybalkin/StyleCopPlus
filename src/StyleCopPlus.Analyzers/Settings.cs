@@ -14,5 +14,15 @@
         /// Maximum number of lines in file.
         /// </summary>
         public const int SP2103MaxFileLength = 400;
+
+        /// <summary>
+        /// Maximum number of lines in property accessor.
+        /// </summary>
+        public const int SP2102MaxPropertyAccessorLength = 40;
+
+        /// <summary>
+        /// Maximum number of lines in method.
+        /// </summary>
+        public const int SP2101MaxMethodLength = 50;
     }
 }

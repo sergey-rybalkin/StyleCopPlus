@@ -9,17 +9,17 @@ namespace StyleCopPlus.Analyzers
     /// SP2100 rule analyzer - validates that code lines do not exceed configured length.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class SP2100Analyzer : StyleCopPlusAnalyzer
+    public class SP2102Analyzer : StyleCopPlusAnalyzer
     {
-        public const string DiagnosticId = "SP2100";
+        public const string DiagnosticId = "SP2102";
 
         public const string Category = "Maintainability";
 
-        public const string Title = "Code line is too long.";
+        public const string Title = "Property accessor is too long.";
 
-        public const string MessageFormat = "Code line should not exceed {0} characters (now {1}).";
+        public const string MessageFormat = "Property accessor body should not exceed {0} lines (now {1}).";
 
-        public const string Description = "Code line should not exceed {0} characters.";
+        public const string Description = "Property accessor body should not exceed {0} lines.";
 
         private static DiagnosticDescriptor _rule = new DiagnosticDescriptor(
             DiagnosticId,
@@ -28,7 +28,7 @@ namespace StyleCopPlus.Analyzers
             Category,
             DiagnosticSeverity.Warning,
             isEnabledByDefault: true,
-            description: string.Format(Description, Settings.SP2100MaxLineLength));
+            description: string.Format(Description, Settings.SP2102MaxPropertyAccessorLength));
 
         /// <summary>
         /// Gets a set of descriptors for the diagnostics that this analyzer is capable of producing.
@@ -46,29 +46,12 @@ namespace StyleCopPlus.Analyzers
         {
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.EnableConcurrentExecution();
-            context.RegisterSyntaxTreeAction(HandleSyntaxTree);
+            context.RegisterCodeBlockAction(HandleCodeBlock);
         }
 
-        private static void HandleSyntaxTree(SyntaxTreeAnalysisContext context)
+        private static void HandleCodeBlock(CodeBlockAnalysisContext context)
         {
-            SourceText text;
-            if (!context.Tree.TryGetText(out text))
-                return;
 
-            int maxLength = Settings.SP2100MaxLineLength;
-            foreach (TextLine line in text.Lines)
-            {
-                TextSpan lineSpan = line.Span;
-
-                // Visual length can exceed lineSpan.Length if it has tab symbols. Assume that user does not
-                // use tabs and there is another rule that validates this.
-                if (lineSpan.Length <= maxLength)
-                    continue;
-
-                TextSpan excess = TextSpan.FromBounds(lineSpan.Start, lineSpan.End);
-                Location location = Location.Create(context.Tree, excess);
-                context.ReportDiagnostic(Diagnostic.Create(_rule, location, maxLength, lineSpan.Length));
-            }
         }
     }
 }

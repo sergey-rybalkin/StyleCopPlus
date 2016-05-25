@@ -63,7 +63,7 @@ namespace StyleCopPlus.Analyzers
                 return;
 
             // Only mark the first line past the limit.
-            Location location = Location.Create(tree, text.Lines[fileLength].Span);
+            Location location = Location.Create(tree, text.Lines[Settings.SP2103MaxFileLength].Span);
             var diagnostic = Diagnostic.Create(
                 _rule,
                 location,
