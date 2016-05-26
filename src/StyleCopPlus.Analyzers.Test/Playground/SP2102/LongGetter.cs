@@ -1,0 +1,53 @@
+namespace SP2102
+{
+    public class LongGetter
+    {
+        public int InvalidProperty
+        {
+            get
+            {
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 ;
+                 return 1;
+            }
+        }
+    }
+}

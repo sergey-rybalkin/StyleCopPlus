@@ -39,6 +39,19 @@ namespace StyleCopPlus.Analyzers.Test.Helpers
         internal const string SP2100MethodInvocationWithAssignmentFixed =
             "SP2100.MethodInvocationWithAssignmentFixed.cs";
 
+        internal const string SP2101LongConstructor = "SP2101.LongConstructor.cs";
+        internal const string SP2101LongFinalizer = "SP2101.LongFinalizer.cs";
+        internal const string SP2101LongMethod = "SP2101.LongMethod.cs";
+        internal const string SP2101LongStaticConstructor = "SP2101.LongStaticConstructor.cs";
+        internal const string SP2101ValidClass = "SP2101.ValidClass.cs";
+
+        internal const string SP2102LongGetter = "SP2102.LongGetter.cs";
+        internal const string SP2102LongSetter = "SP2102.LongSetter.cs";
+        internal const string SP2102ValidClass = "SP2102.ValidClass.cs";
+
+        internal const string SP2103LongClass = "SP2103.LongClass.cs";
+        internal const string SP2103ValidClass = "SP2103.ValidClass.cs";
+
         internal const string SP2002EmptyLine = "SP2002.EmptyLine.cs";
         internal const string SP2002EmptyLineFixed = "SP2002.EmptyLineFixed.cs";
         internal const string SP2002NonEmptyLine = "SP2002.NonEmptyLine.cs";
