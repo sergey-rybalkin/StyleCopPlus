@@ -21,7 +21,7 @@ namespace StyleCopPlus.Analyzers.Test
         public void Reports_LongConstructor()
         {
             string test = DataHelper.GetEmbeddedResource(DataHelper.SP2101LongConstructor);
-            DiagnosticResult expected = CreateResult(132, 5);
+            DiagnosticResult expected = CreateResult(54, 5, 16);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -30,7 +30,7 @@ namespace StyleCopPlus.Analyzers.Test
         public void Reports_LongStaticConstructor()
         {
             string test = DataHelper.GetEmbeddedResource(DataHelper.SP2101LongStaticConstructor);
-            DiagnosticResult expected = CreateResult(132, 5);
+            DiagnosticResult expected = CreateResult(54, 10, 16);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -39,7 +39,7 @@ namespace StyleCopPlus.Analyzers.Test
         public void Reports_LongMethod()
         {
             string test = DataHelper.GetEmbeddedResource(DataHelper.SP2101LongMethod);
-            DiagnosticResult expected = CreateResult(132, 5);
+            DiagnosticResult expected = CreateResult(54, 15, 21);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -48,7 +48,7 @@ namespace StyleCopPlus.Analyzers.Test
         public void Reports_LongFinalizer()
         {
             string test = DataHelper.GetEmbeddedResource(DataHelper.SP2101LongFinalizer);
-            DiagnosticResult expected = CreateResult(132, 5);
+            DiagnosticResult expected = CreateResult(54, 20, 10);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -58,7 +58,7 @@ namespace StyleCopPlus.Analyzers.Test
             return new SP2101Analyzer();
         }
 
-        private DiagnosticResult CreateResult(int linesCount, int lineNumber)
+        private DiagnosticResult CreateResult(int linesCount, int lineNumber, int column)
         {
             return new DiagnosticResult
             {
@@ -70,7 +70,7 @@ namespace StyleCopPlus.Analyzers.Test
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[]
                 {
-                     new DiagnosticResultLocation("Test0.cs", lineNumber, 0)
+                     new DiagnosticResultLocation("Test0.cs", lineNumber, column)
                 }
             };
         }

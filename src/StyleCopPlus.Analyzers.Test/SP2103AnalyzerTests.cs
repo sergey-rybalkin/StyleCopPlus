@@ -18,7 +18,7 @@ namespace StyleCopPlus.Analyzers.Test
         }
 
         [TestMethod]
-        public void Reports_LongConstructorDefinition()
+        public void Reports_LongFiles()
         {
             var test = DataHelper.GetEmbeddedResource(DataHelper.SP2103LongClass);
             DiagnosticResult expected = CreateResult("Test0.cs", 401);

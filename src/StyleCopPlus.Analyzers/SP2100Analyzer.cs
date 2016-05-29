@@ -65,8 +65,7 @@ namespace StyleCopPlus.Analyzers
                 if (lineSpan.Length <= maxLength)
                     continue;
 
-                TextSpan excess = TextSpan.FromBounds(lineSpan.Start, lineSpan.End);
-                Location location = Location.Create(context.Tree, excess);
+                Location location = Location.Create(context.Tree, lineSpan);
                 context.ReportDiagnostic(Diagnostic.Create(_rule, location, maxLength, lineSpan.Length));
             }
         }
