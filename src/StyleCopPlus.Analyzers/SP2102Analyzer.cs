@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 
 namespace StyleCopPlus.Analyzers
 {
@@ -51,7 +51,24 @@ namespace StyleCopPlus.Analyzers
 
         private static void HandleCodeBlock(CodeBlockAnalysisContext context)
         {
+            if (!IsInsideProperty(context))
+                return;
 
+            int lines = GetNumberOfLinesInCodeBlock(context.CodeBlock);
+            if (lines <= Settings.SP2102MaxPropertyAccessorLength)
+                return;
+
+            // Report diagnostic on the symbol definition that is in the same file as its long body.
+            Location location =
+                context.OwningSymbol.Locations.First(l => l.SourceTree == context.CodeBlock.SyntaxTree);
+
+            Diagnostic result = Diagnostic.Create(
+                _rule,
+                location,
+                Settings.SP2102MaxPropertyAccessorLength,
+                lines);
+
+            context.ReportDiagnostic(result);
         }
     }
 }

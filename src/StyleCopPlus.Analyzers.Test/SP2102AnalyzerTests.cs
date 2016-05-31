@@ -21,7 +21,7 @@ namespace StyleCopPlus.Analyzers.Test
         public void Reports_LongGetter()
         {
             string test = DataHelper.GetEmbeddedResource(DataHelper.SP2102LongGetter);
-            DiagnosticResult expected = CreateResult(132, 5);
+            DiagnosticResult expected = CreateResult(44, 7, 13);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -30,7 +30,7 @@ namespace StyleCopPlus.Analyzers.Test
         public void Reports_LongSetter()
         {
             string test = DataHelper.GetEmbeddedResource(DataHelper.SP2102LongSetter);
-            DiagnosticResult expected = CreateResult(132, 5);
+            DiagnosticResult expected = CreateResult(44, 8, 13);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -40,7 +40,7 @@ namespace StyleCopPlus.Analyzers.Test
             return new SP2102Analyzer();
         }
 
-        private DiagnosticResult CreateResult(int linesCount, int lineNumber)
+        private DiagnosticResult CreateResult(int linesCount, int lineNumber, int column)
         {
             return new DiagnosticResult
             {
@@ -52,7 +52,7 @@ namespace StyleCopPlus.Analyzers.Test
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[]
                 {
-                     new DiagnosticResultLocation("Test0.cs", lineNumber, 0)
+                     new DiagnosticResultLocation("Test0.cs", lineNumber, column)
                 }
             };
         }

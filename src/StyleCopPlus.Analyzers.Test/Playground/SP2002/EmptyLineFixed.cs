@@ -1,6 +1,6 @@
 ﻿namespace AnalyzerPlayground
 {
-    public class EmptyLine
+    public class EmptyLineFixed
     {
     }
 }

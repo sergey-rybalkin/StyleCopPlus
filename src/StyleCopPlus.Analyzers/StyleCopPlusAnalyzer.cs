@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.CodeAnalysis.Text;
 
 namespace StyleCopPlus.Analyzers
 {
@@ -37,6 +38,34 @@ namespace StyleCopPlus.Analyzers
             ushort blockKind = (ushort)block.RawKind;
 
             return blockKind >= MethodSyntaxLowerBound && blockKind <= MethodSyntaxUppderBound;
+        }
+
+        /// <summary>
+        /// Checks whether specified code block is inside property getter or setter.
+        /// </summary>
+        /// <param name="context">Analysis context for the block to check.</param>
+        protected static bool IsInsideProperty(CodeBlockAnalysisContext context)
+        {
+            if (context.OwningSymbol.Kind != SymbolKind.Method)
+                return false;
+
+            SyntaxNode block = context.CodeBlock;
+            ushort blockKind = (ushort)block.RawKind;
+
+            return blockKind == (ushort)SyntaxKind.GetAccessorDeclaration ||
+                   blockKind == (ushort)SyntaxKind.SetAccessorDeclaration;
+        }
+
+        protected static int GetNumberOfLinesInCodeBlock(SyntaxNode codeBlock)
+        {
+            SyntaxTree syntax = codeBlock.SyntaxTree;
+            SourceText treeText;
+            if (null == syntax || !syntax.TryGetText(out treeText))
+                return 0;
+
+            SourceText blockText = treeText.GetSubText(codeBlock.Span);
+
+            return blockText.Lines.Count;
         }
     }
 }

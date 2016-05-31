@@ -2,7 +2,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 
 namespace StyleCopPlus.Analyzers
 {
@@ -55,22 +54,19 @@ namespace StyleCopPlus.Analyzers
             if (!IsInsideMethod(context))
                 return;
 
-            SyntaxTree syntax = context.CodeBlock.SyntaxTree;
-            SourceText treeText;
-            if (null == syntax || !syntax.TryGetText(out treeText))
-                return;
-
-            SourceText blockText = treeText.GetSubText(context.CodeBlock.Span);
-            if (blockText.Lines.Count <= Settings.SP2101MaxMethodLength)
+            int lines = GetNumberOfLinesInCodeBlock(context.CodeBlock);
+            if (lines <= Settings.SP2101MaxMethodLength)
                 return;
 
             // Report diagnostic on the symbol definition that is in the same file as its long body.
-            Location diagnosticLocation = context.OwningSymbol.Locations.First(l => l.SourceTree == syntax);
+            Location location =
+                context.OwningSymbol.Locations.First(l => l.SourceTree == context.CodeBlock.SyntaxTree);
+
             Diagnostic result = Diagnostic.Create(
                 _rule,
-                diagnosticLocation,
+                location,
                 Settings.SP2101MaxMethodLength,
-                blockText.Lines.Count);
+                lines);
 
             context.ReportDiagnostic(result);
         }
