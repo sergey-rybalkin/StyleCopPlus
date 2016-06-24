@@ -26,6 +26,16 @@ namespace StyleCopPlus.Analyzers
         private static readonly ushort MethodSyntaxUppderBound = (ushort)MethodSyntaxKinds.Max();
 
         /// <summary>
+        /// Called once at session start to register actions in the analysis context.
+        /// </summary>
+        /// <param name="context">Analysis context to register actions in.</param>
+        public override void Initialize(AnalysisContext context)
+        {
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
+            context.EnableConcurrentExecution();
+        }
+
+        /// <summary>
         /// Checks whether specified code block is inside a method-like declaration.
         /// </summary>
         /// <param name="context">Analysis context for the block to check.</param>

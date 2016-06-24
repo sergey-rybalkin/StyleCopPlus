@@ -40,6 +40,8 @@
     <Compile Include="CodeFormatters\ArgumentsListSplitter.cs" />
     <Compile Include="CodeFormatters\FluentApiCallsSplitter.cs" />
     <Compile Include="CodeFormatters\ILongLineSplitter.cs" />
+    <Compile Include="Refactorings\DuplicateMethodRefactoringProvider.cs" />
+    <Compile Include="Refactorings\SyntaxNodeRefactoringProviderBase.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SP2002Analyzer.cs" />
     <Compile Include="SP2002FixProvider.cs" />
