@@ -6,3 +6,6 @@ install:
 build_script:
   - nuget restore -Verbosity quiet
   - msbuild /p:configuration=Release /v:m
+
+after_build:
+  - ps: Get-ChildItem .\src\StyleCopPlus.Analyzers\bin\Release\StyleCopPlus.Analyzers.1.2.0.0.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
