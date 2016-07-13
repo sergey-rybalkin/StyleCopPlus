@@ -3,9 +3,15 @@ image: Visual Studio 2015
 install:
   - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
 
+before_build:
+  - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
+
 build_script:
   - nuget restore -Verbosity quiet
-  - msbuild /p:configuration=Release /v:m
+  - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
 after_build:
-  - ps: Get-ChildItem .\src\StyleCopPlus.Analyzers\bin\Release\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: Get-ChildItem .\src\StyleCopPlus\bin\Release\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+
+after_test:
+  - ps: Vsix-PushArtifacts -path .\src\StyleCopPlus.Vsix\bin\Release\*.vsix | Vsix-PublishToGallery -path .\src\StyleCopPlus.Vsix\bin\Release\*.vsix
