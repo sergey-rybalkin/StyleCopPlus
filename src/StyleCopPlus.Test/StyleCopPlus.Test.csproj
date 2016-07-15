@@ -128,6 +128,10 @@
     <EmbeddedResource Include="Playground\SP2002\EmptyLine.cs" />
     <EmbeddedResource Include="Playground\SP2002\EmptyLineFixed.cs" />
     <EmbeddedResource Include="Playground\SP2002\NonEmptyLine.cs" />
+    <EmbeddedResource Include="Playground\SP1131\IncorrectOperands.cs" />
+    <EmbeddedResource Include="Playground\SP1131\IncorrectOperandsFixed.cs" />
+    <Compile Include="SP1131AnalyzerTests.cs" />
+    <Compile Include="SP1131FixProviderTests.cs" />
     <Compile Include="SP2002AnalyzerTests.cs" />
     <Compile Include="SP2002FixProviderTests.cs" />
     <Compile Include="SP2100FixProviderTests.cs" />

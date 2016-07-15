@@ -44,6 +44,8 @@
     <Compile Include="Refactorings\DuplicateMethodRefactoringProvider.cs" />
     <Compile Include="Refactorings\SyntaxNodeRefactoringProviderBase.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="SP1131Analyzer.cs" />
+    <Compile Include="SP1131FixProvider.cs" />
     <Compile Include="SP2002Analyzer.cs" />
     <Compile Include="SP2002FixProvider.cs" />
     <Compile Include="SP2100Analyzer.cs" />

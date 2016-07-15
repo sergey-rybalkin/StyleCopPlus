@@ -55,5 +55,8 @@ namespace StyleCopPlus.Test.Helpers
         internal const string SP2002EmptyLine = "SP2002.EmptyLine.cs";
         internal const string SP2002EmptyLineFixed = "SP2002.EmptyLineFixed.cs";
         internal const string SP2002NonEmptyLine = "SP2002.NonEmptyLine.cs";
+
+        internal const string SP1131IncorrectOperands = "SP1131.IncorrectOperands.cs";
+        internal const string SP1131IncorrectOperandsFixed = "SP1131.IncorrectOperandsFixed.cs";
     }
 }
