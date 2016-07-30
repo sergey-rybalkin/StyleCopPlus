@@ -58,5 +58,8 @@ namespace StyleCopPlus.Test.Helpers
 
         internal const string SP1131IncorrectOperands = "SP1131.IncorrectOperands.cs";
         internal const string SP1131IncorrectOperandsFixed = "SP1131.IncorrectOperandsFixed.cs";
+
+        internal const string RefactoringsCreateVariable = "Refactorings.CreateVariable.cs";
+        internal const string RefactoringsCreateVariableNew = "Refactorings.CreateVariableNew.cs";
     }
 }

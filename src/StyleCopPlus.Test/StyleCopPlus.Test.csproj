@@ -130,6 +130,9 @@
     <EmbeddedResource Include="Playground\SP2002\NonEmptyLine.cs" />
     <EmbeddedResource Include="Playground\SP1131\IncorrectOperands.cs" />
     <EmbeddedResource Include="Playground\SP1131\IncorrectOperandsFixed.cs" />
+    <EmbeddedResource Include="Playground\Refactorings\CreateVariable.cs" />
+    <EmbeddedResource Include="Playground\Refactorings\CreateVariableNew.cs" />
+    <Compile Include="Refactorings\CreateVariableFromInvocationRefactoringTests.cs" />
     <Compile Include="SP1131AnalyzerTests.cs" />
     <Compile Include="SP1131FixProviderTests.cs" />
     <Compile Include="SP2002AnalyzerTests.cs" />
@@ -139,6 +142,7 @@
     <Compile Include="SP2102AnalyzerTests.cs" />
     <Compile Include="SP2103AnalyzerTests.cs" />
     <Compile Include="Verifiers\CodeFixVerifier.cs" />
+    <Compile Include="Verifiers\CodeRefactoringVerifier.cs" />
     <Compile Include="Verifiers\DiagnosticVerifier.cs" />
     <Compile Include="Helpers\CodeFixVerifier.Helper.cs" />
     <Compile Include="Helpers\DiagnosticResult.cs" />

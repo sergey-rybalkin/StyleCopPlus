@@ -62,6 +62,8 @@
     <Compile Include="SP2002\NonEmptyLine.cs" />
     <Compile Include="SP1131\IncorrectOperands.cs" />
     <Compile Include="SP1131\IncorrectOperandsFixed.cs" />
+    <Compile Include="Refactorings\CreateVariable.cs" />
+    <Compile Include="Refactorings\CreateVariableNew.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

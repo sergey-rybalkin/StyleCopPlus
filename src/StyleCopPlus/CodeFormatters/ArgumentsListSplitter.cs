@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Editing;
 
@@ -30,7 +31,19 @@ namespace StyleCopPlus.CodeFormatters
         /// <param name="editor">Editor for the target document.</param>
         public void SplitCodeLine(DocumentEditor editor)
         {
-            SyntaxNode updatedNode = SplitCommaSeparatedList(_targetNode, _parentNode.GetLeadingTrivia());
+            SyntaxTriviaList baseTrivia = _parentNode.GetLeadingTrivia();
+            SyntaxTriviaList newLeadingTrivia = new SyntaxTriviaList();
+
+            foreach (var trivia in baseTrivia)
+            {
+                if ((int)SyntaxKind.WhitespaceTrivia == trivia.RawKind)
+                {
+                    newLeadingTrivia = newLeadingTrivia.Add(trivia);
+                    break;
+                }
+            }
+
+            SyntaxNode updatedNode = SplitCommaSeparatedList(_targetNode, newLeadingTrivia);
             editor.ReplaceNode(_targetNode, updatedNode);
         }
 

@@ -23,16 +23,15 @@ namespace StyleCopPlus.Refactorings
         /// <param name="context">Code context to compute refactorings for.</param>
         public override async Task ComputeRefactoringsAsync(CodeRefactoringContext context)
         {
-            var document = context.Document;
-            if (document.Project.Solution.Workspace.Kind == WorkspaceKind.MiscellaneousFiles)
+            Document document = context.Document;
+            TextSpan span = context.Span;
+            CancellationToken cancellationToken = context.CancellationToken;
+
+            if (WorkspaceKind.MiscellaneousFiles == document.Project.Solution.Workspace.Kind)
                 return;
 
-            var span = context.Span;
+            // Ignore if editor has selected text.
             if (!span.IsEmpty)
-                return;
-
-            var cancellationToken = context.CancellationToken;
-            if (cancellationToken.IsCancellationRequested)
                 return;
 
             var model = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
@@ -42,7 +41,7 @@ namespace StyleCopPlus.Refactorings
 
             var node = root.FindNode(span, false, true);
             var foundNode = (T)node.AncestorsAndSelf().FirstOrDefault(n => n is T);
-            if (foundNode == null)
+            if (null == foundNode)
                 return;
 
             foreach (var action in GetActions(document, model, root, span, foundNode, cancellationToken))

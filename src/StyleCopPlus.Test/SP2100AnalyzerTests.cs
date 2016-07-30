@@ -39,7 +39,7 @@ namespace StyleCopPlus.Test
         public void Reports_LongMethodDefinition()
         {
             string test = DataHelper.GetEmbeddedResource(DataHelper.SP2100MethodDefinition);
-            DiagnosticResult expected = CreateResult(129, 5);
+            DiagnosticResult expected = CreateResult(129, 16);
 
             VerifyCSharpDiagnostic(test, expected);
         }

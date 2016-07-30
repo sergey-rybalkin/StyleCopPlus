@@ -36,11 +36,7 @@ namespace StyleCopPlus
         private static readonly ImmutableArray<SyntaxKind> HandledBinaryExpressionKinds =
             ImmutableArray.Create(
                 SyntaxKind.EqualsExpression,
-                SyntaxKind.NotEqualsExpression,
-                SyntaxKind.GreaterThanExpression,
-                SyntaxKind.LessThanExpression,
-                SyntaxKind.GreaterThanOrEqualExpression,
-                SyntaxKind.LessThanOrEqualExpression);
+                SyntaxKind.NotEqualsExpression);
 
         /// <summary>
         /// Gets a set of descriptors for the diagnostics that this analyzer is capable of producing.
