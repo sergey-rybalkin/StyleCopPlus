@@ -5,11 +5,8 @@ namespace SP2102
         private int _val;
         public int InvalidProperty
         {
-            set
+            /*C*/set
             {
-                 ;
-                 ;
-                 ;
                  ;
                  ;
                  ;

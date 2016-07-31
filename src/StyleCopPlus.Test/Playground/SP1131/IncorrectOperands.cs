@@ -4,7 +4,7 @@
     {
         public void Test(int i)
         {
-            if (i != 1)
+            if (/*C*/i != 1)
                i = 1;
         }
     }

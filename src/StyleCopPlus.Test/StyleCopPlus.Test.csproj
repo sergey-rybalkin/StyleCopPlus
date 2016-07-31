@@ -102,7 +102,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\DataHelper.cs" />
     <EmbeddedResource Include="Playground\SP2100\ConstructorDefinition.cs" />
     <EmbeddedResource Include="Playground\SP2100\ConstructorInvocation.cs" />
     <EmbeddedResource Include="Playground\SP2100\MethodDefinition.cs" />
@@ -130,24 +129,36 @@
     <EmbeddedResource Include="Playground\SP2002\NonEmptyLine.cs" />
     <EmbeddedResource Include="Playground\SP1131\IncorrectOperands.cs" />
     <EmbeddedResource Include="Playground\SP1131\IncorrectOperandsFixed.cs" />
-    <EmbeddedResource Include="Playground\Refactorings\CreateVariable.cs" />
-    <EmbeddedResource Include="Playground\Refactorings\CreateVariableNew.cs" />
+    <Compile Include="Helpers\DataHelper.cs" />
+    <Compile Include="Helpers\DataHelper.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataHelper.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Playground\CreateVariable\ConstructorCall.cs" />
+    <EmbeddedResource Include="Playground\CreateVariable\ConstructorCallGold.cs" />
+    <EmbeddedResource Include="Playground\CreateVariable\FluentApiCalls.cs" />
+    <EmbeddedResource Include="Playground\CreateVariable\FluentApiCallsGold.cs" />
+    <EmbeddedResource Include="Playground\CreateVariable\PropertyCall.cs" />
+    <EmbeddedResource Include="Playground\CreateVariable\PropertyCallGold.cs" />
+    <EmbeddedResource Include="Playground\CreateVariable\StaticCall.cs" />
+    <EmbeddedResource Include="Playground\CreateVariable\StaticCallGold.cs" />
     <Compile Include="Refactorings\CreateVariableFromInvocationRefactoringTests.cs" />
-    <Compile Include="SP1131AnalyzerTests.cs" />
-    <Compile Include="SP1131FixProviderTests.cs" />
-    <Compile Include="SP2002AnalyzerTests.cs" />
-    <Compile Include="SP2002FixProviderTests.cs" />
-    <Compile Include="SP2100FixProviderTests.cs" />
-    <Compile Include="SP2101AnalyzerTests.cs" />
-    <Compile Include="SP2102AnalyzerTests.cs" />
-    <Compile Include="SP2103AnalyzerTests.cs" />
+    <Compile Include="Analyzers\SP1131AnalyzerTests.cs" />
+    <Compile Include="CodeFixes\SP1131FixProviderTests.cs" />
+    <Compile Include="Analyzers\SP2002AnalyzerTests.cs" />
+    <Compile Include="CodeFixes\SP2002FixProviderTests.cs" />
+    <Compile Include="CodeFixes\SP2100FixProviderTests.cs" />
+    <Compile Include="Analyzers\SP2101AnalyzerTests.cs" />
+    <Compile Include="Analyzers\SP2102AnalyzerTests.cs" />
+    <Compile Include="Analyzers\SP2103AnalyzerTests.cs" />
     <Compile Include="Verifiers\CodeFixVerifier.cs" />
     <Compile Include="Verifiers\CodeRefactoringVerifier.cs" />
     <Compile Include="Verifiers\DiagnosticVerifier.cs" />
     <Compile Include="Helpers\CodeFixVerifier.Helper.cs" />
     <Compile Include="Helpers\DiagnosticResult.cs" />
     <Compile Include="Helpers\DiagnosticVerifier.Helper.cs" />
-    <Compile Include="SP2100AnalyzerTests.cs" />
+    <Compile Include="Analyzers\SP2100AnalyzerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +176,14 @@
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Helpers\DataHelper.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DataHelper.Generated.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

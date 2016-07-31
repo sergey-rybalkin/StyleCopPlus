@@ -98,15 +98,24 @@ namespace TestHelper
         #endregion
 
         #region Set up compilation and documents
+
         /// <summary>
-        /// Given an array of strings as sources and a language, turn them into a project and return the documents and spans of it.
+        /// Given an array of strings as sources and a language, turn them into a project and return the
+        /// documents and spans of it.
         /// </summary>
-        /// <param name="sources">Classes in the form of strings</param>
-        /// <param name="language">The language the source code is in</param>
-        /// <returns>A Tuple containing the Documents produced from the sources and their TextSpans if relevant</returns>
+        /// <param name="sources">Classes in the form of strings.</param>
+        /// <param name="language">The language the source code is in.</param>
+        /// <exception cref="ArgumentException">
+        /// Thrown when one or more arguments have unsupported or illegal values.
+        /// </exception>
+        /// <exception cref="SystemException">Thrown when a System error condition occurs.</exception>
+        ///
+        /// ### <returns>
+        /// A Tuple containing the Documents produced from the sources and their TextSpans if relevant.
+        /// </returns>
         private static Document[] GetDocuments(string[] sources, string language)
         {
-            if (language != LanguageNames.CSharp && language != LanguageNames.VisualBasic)
+            if (LanguageNames.CSharp != language && LanguageNames.VisualBasic != language)
             {
                 throw new ArgumentException("Unsupported Language");
             }
@@ -164,7 +173,7 @@ namespace TestHelper
             }
             return solution.GetProject(projectId);
         }
+
         #endregion
     }
 }
-

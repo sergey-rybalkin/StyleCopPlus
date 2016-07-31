@@ -1,14 +1,14 @@
 ﻿using System.IO;
 
-namespace AnalyzerPlayground.Refactorings
+namespace AnalyzerPlayground.CreateVariable
 {
-    public class CreateVariablePlayground
+    public class StaticCall
     {
         public void TestMethodCall()
         {
             // test
 
-            File.ReadAllText(@"c:\temp\test.txt");
+            File.ReadAllText/*C*/(@"c:\temp\test.txt");
 
             // test
         }

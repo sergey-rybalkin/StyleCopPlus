@@ -40,7 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SP2100\SP2100All.cs" />
+    <Compile Include="CreateVariable\ConstructorCall.cs" />
+    <Compile Include="CreateVariable\FluentApiCalls.cs" />
+    <Compile Include="CreateVariable\PropertyCall.cs" />
+    <Compile Include="CreateVariable\StaticCall.cs" />
+    <Compile Include="SP2100\All.cs" />
     <Compile Include="SP2100\ConstructorDefinition.cs" />
     <Compile Include="SP2100\ConstructorInvocation.cs" />
     <Compile Include="SP2100\MethodDefinition.cs" />
@@ -62,8 +66,6 @@
     <Compile Include="SP2002\NonEmptyLine.cs" />
     <Compile Include="SP1131\IncorrectOperands.cs" />
     <Compile Include="SP1131\IncorrectOperandsFixed.cs" />
-    <Compile Include="Refactorings\CreateVariable.cs" />
-    <Compile Include="Refactorings\CreateVariableNew.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

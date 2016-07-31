@@ -3,8 +3,10 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestHelper;
 using StyleCopPlus.Test.Helpers;
+using StyleCopPlus.CodeFixes;
+using StyleCopPlus.Analyzers;
 
-namespace StyleCopPlus.Test
+namespace StyleCopPlus.Test.CodeFixes
 {
     [TestClass]
     public class SP2100FixProviderTests : CodeFixVerifier
@@ -66,12 +68,12 @@ namespace StyleCopPlus.Test
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
-            return new SP2100Analyzer();
+            return new SP2100LineTooLongAnalyzer();
         }
 
         protected override CodeFixProvider GetCSharpCodeFixProvider()
         {
-            return new SP2100FixProvider();
+            return new SP2100LineTooLongFixProvider();
         }
     }
 }

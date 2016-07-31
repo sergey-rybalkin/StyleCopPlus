@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeRefactorings;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
 
 namespace StyleCopPlus.Refactorings
 {
@@ -18,35 +16,31 @@ namespace StyleCopPlus.Refactorings
         SyntaxNodeRefactoringProviderBase<MethodDeclarationSyntax>
     {
         protected override IEnumerable<CodeAction> GetActions(
-            Document document,
-            SemanticModel semanticModel,
-            SyntaxNode root,
-            TextSpan span,
-            MethodDeclarationSyntax node,
-            CancellationToken cancellationToken)
+            SyntaxNodeRefactoringContext<MethodDeclarationSyntax> context)
         {
             // Make duplicate method action available only on method identifier
-            if (!node.Identifier.Span.IntersectsWith(span))
+            if (!context.TargetNode.Identifier.Span.IntersectsWith(context.Span))
                 yield break;
 
-            yield return CodeAction.Create("Duplicate method", t => DuplicateNode(node, root, document));
+            yield return CodeAction.Create("Duplicate method", t => DuplicateNode(context));
         }
 
-        private static Task<Document> DuplicateNode(SyntaxNode node, SyntaxNode root, Document document)
+        private static Task<Document> DuplicateNode(
+            SyntaxNodeRefactoringContext<MethodDeclarationSyntax> context)
         {
-            SyntaxNode updatedNode = node;
-            SyntaxTriviaList trivia = node.GetLeadingTrivia();
+            SyntaxNode updatedNode = context.TargetNode;
+            SyntaxTriviaList trivia = context.TargetNode.GetLeadingTrivia();
 
             // When necessary add additional empty line to separate new method with original
             if (trivia.Count < 2)
             {
                 trivia = trivia.Insert(0, SyntaxFactory.CarriageReturnLineFeed);
-                updatedNode = node.WithLeadingTrivia(trivia);
+                updatedNode = context.TargetNode.WithLeadingTrivia(trivia);
             }
 
-            var newRoot = root.InsertNodesAfter(node, new[] { updatedNode });
+            var newRoot = context.SyntaxRoot.InsertNodesAfter(context.TargetNode, new[] { updatedNode });
 
-            return Task.FromResult(document.WithSyntaxRoot(newRoot));
+            return Task.FromResult(context.Document.WithSyntaxRoot(newRoot));
         }
     }
 }

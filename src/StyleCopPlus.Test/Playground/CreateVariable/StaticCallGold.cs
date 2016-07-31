@@ -1,8 +1,8 @@
 ﻿using System.IO;
 
-namespace AnalyzerPlayground.Refactorings
+namespace AnalyzerPlayground.CreateVariable
 {
-    public class CreateVariablePlayground
+    public class StaticCall
     {
         public void TestMethodCall()
         {

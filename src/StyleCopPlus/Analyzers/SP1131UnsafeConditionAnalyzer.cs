@@ -4,13 +4,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace StyleCopPlus
+namespace StyleCopPlus.Analyzers
 {
     /// <summary>
     /// SP1131 rule analyzer - validates that constants always come first in conditional operator.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class SP1131Analyzer : StyleCopPlusAnalyzer
+    public class SP1131UnsafeConditionAnalyzer : StyleCopPlusAnalyzer
     {
         public const string DiagnosticId = "SP1131";
 

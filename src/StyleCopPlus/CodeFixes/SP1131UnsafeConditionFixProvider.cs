@@ -7,15 +7,16 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using StyleCopPlus.Analyzers;
 
-namespace StyleCopPlus
+namespace StyleCopPlus.CodeFixes
 {
     /// <summary>
     /// Tries to fix SP1131 warning by swapping comparison operands.
     /// </summary>
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP1131FixProvider))]
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP1131UnsafeConditionFixProvider))]
     [Shared]
-    public class SP1131FixProvider : StyleCopPlusCodeFixProvider
+    public class SP1131UnsafeConditionFixProvider : StyleCopPlusCodeFixProvider
     {
         private const string Title = "Swap comparison operands";
 
@@ -24,7 +25,7 @@ namespace StyleCopPlus
         /// </summary>
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(SP1131Analyzer.DiagnosticId); }
+            get { return ImmutableArray.Create(SP1131UnsafeConditionAnalyzer.DiagnosticId); }
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace StyleCopPlus
                     CodeAction.Create(
                         Title,
                         c => GetTransformedDocumentAsync(context.Document, diagnostic, c),
-                        nameof(SP1131FixProvider)),
+                        nameof(SP1131UnsafeConditionFixProvider)),
                     diagnostic);
             }
 
@@ -86,30 +87,6 @@ namespace StyleCopPlus
                 case SyntaxKind.EqualsEqualsToken:
                 case SyntaxKind.ExclamationEqualsToken:
                     return operatorToken;
-
-                case SyntaxKind.GreaterThanToken:
-                    return SyntaxFactory.Token(
-                        operatorToken.LeadingTrivia,
-                        SyntaxKind.LessThanToken,
-                        operatorToken.TrailingTrivia);
-
-                case SyntaxKind.GreaterThanEqualsToken:
-                    return SyntaxFactory.Token(
-                        operatorToken.LeadingTrivia,
-                        SyntaxKind.LessThanEqualsToken,
-                        operatorToken.TrailingTrivia);
-
-                case SyntaxKind.LessThanToken:
-                    return SyntaxFactory.Token(
-                        operatorToken.LeadingTrivia,
-                        SyntaxKind.GreaterThanToken,
-                        operatorToken.TrailingTrivia);
-
-                case SyntaxKind.LessThanEqualsToken:
-                    return SyntaxFactory.Token(
-                        operatorToken.LeadingTrivia,
-                        SyntaxKind.GreaterThanEqualsToken,
-                        operatorToken.TrailingTrivia);
 
                 default:
                     return SyntaxFactory.Token(SyntaxKind.None);

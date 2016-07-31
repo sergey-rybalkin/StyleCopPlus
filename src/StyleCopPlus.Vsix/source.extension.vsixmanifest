@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204" Version="1.4.3" Language="en-US" Publisher="Sergey Rybalkin"/>
+    <Identity Id="StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204" Version="1.4.4" Language="en-US" Publisher="Sergey Rybalkin"/>
     <DisplayName>StyleCopPlus</DisplayName>
     <Description xml:space="preserve">A set of analyzers and refactorings based on StyleCopPlus project implemented with Roslyn engine.</Description>
     <MoreInfo>https://github.com/sergey-rybalkin/StyleCopPlus.Analyzers</MoreInfo>

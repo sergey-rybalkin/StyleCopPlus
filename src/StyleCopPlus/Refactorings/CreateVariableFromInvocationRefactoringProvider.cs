@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeRefactorings;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace StyleCopPlus.Refactorings
@@ -16,36 +15,49 @@ namespace StyleCopPlus.Refactorings
     /// </summary>
     [ExportCodeRefactoringProvider(LanguageNames.CSharp, Name = "CreateVariableFromInvocation")]
     public class CreateVariableFromInvocationRefactoringProvider :
-        SyntaxNodeRefactoringProviderBase<InvocationExpressionSyntax>
+        SyntaxNodeRefactoringProviderBase<ExpressionStatementSyntax>
     {
-        protected override IEnumerable<CodeAction> GetActions(
-            Document document,
-            SemanticModel semanticModel,
-            SyntaxNode root,
-            TextSpan span,
-            InvocationExpressionSyntax node,
-            CancellationToken cancellationToken)
+        private static readonly HashSet<Type> _supportedExpressionTypes = new HashSet<Type>
         {
-            // Ensure that target invocation expression result is not assigned yet.
-            if (node.Parent is EqualsValueClauseSyntax)
+            typeof(ObjectCreationExpressionSyntax),
+            typeof(InvocationExpressionSyntax),
+            typeof(MemberAccessExpressionSyntax)
+        };
+
+        protected override IEnumerable<CodeAction> GetActions(
+            SyntaxNodeRefactoringContext<ExpressionStatementSyntax> context)
+        {
+            ExpressionStatementSyntax node = context.TargetNode;
+
+            if (!_supportedExpressionTypes.Contains(node.Expression.GetType()))
                 return Enumerable.Empty<CodeAction>();
 
-            CodeAction retVal = CodeAction.Create(
-                "Create variable",
-                t => CreateVariable(node, root, document));
+            string type = GetVariableType(context);
+            if ("void" == type)
+                return Enumerable.Empty<CodeAction>();
 
-            return new[] { retVal };
+            CodeAction implicitVariableAction = CodeAction.Create(
+                "Create implicit variable",
+                t => CreateVariable(context, "var"));
+
+            CodeAction explicitVariableAction = CodeAction.Create(
+                "Create explicit variable",
+                t => CreateVariable(context, type));
+
+            return new[] { implicitVariableAction, explicitVariableAction };
         }
 
         private static Task<Document> CreateVariable(
-            InvocationExpressionSyntax node,
-            SyntaxNode root,
-            Document document)
+            SyntaxNodeRefactoringContext<ExpressionStatementSyntax> context,
+            string variableType)
         {
-            var newNode =
+            ExpressionSyntax node = context.TargetNode.Expression;
+            SymbolInfo symbol = context.SemanticModel.GetSymbolInfo(node);
+
+            SyntaxNode newNode =
                 LocalDeclarationStatement(
                     VariableDeclaration(
-                        IdentifierName("var"))
+                        IdentifierName(variableType))
                     .WithVariables(
                         SingletonSeparatedList(
                             VariableDeclarator(
@@ -55,9 +67,42 @@ namespace StyleCopPlus.Refactorings
                                     node.WithoutTrivia())))))
                 .WithLeadingTrivia(node.Parent.GetLeadingTrivia());
 
-            var newRoot = root.ReplaceNode(node.Parent, newNode);
+            SyntaxNode newRoot = context.SyntaxRoot.ReplaceNode(node.Parent, newNode);
 
-            return Task.FromResult(document.WithSyntaxRoot(newRoot));
+            return Task.FromResult(context.Document.WithSyntaxRoot(newRoot));
+        }
+
+        private static string GetVariableType(SyntaxNodeRefactoringContext<ExpressionStatementSyntax> context)
+        {
+            ExpressionSyntax node = context.TargetNode.Expression;
+            SymbolInfo symbolInfo = context.SemanticModel.GetSymbolInfo(node);
+
+            IMethodSymbol method = symbolInfo.Symbol as IMethodSymbol;
+            if (null != method && MethodKind.Constructor == method.MethodKind)
+            {
+                return method.ContainingType.ToMinimalDisplayString(
+                    context.SemanticModel,
+                    context.Span.Start,
+                    SymbolDisplayFormat.MinimallyQualifiedFormat);
+            }
+            else if (null != method && MethodKind.Constructor != method.MethodKind)
+            {
+                return method.ReturnType.ToMinimalDisplayString(
+                    context.SemanticModel,
+                    context.Span.Start,
+                    SymbolDisplayFormat.MinimallyQualifiedFormat);
+            }
+
+            IPropertySymbol property = symbolInfo.Symbol as IPropertySymbol;
+            if (null != property)
+            {
+                return property.Type.ToMinimalDisplayString(
+                    context.SemanticModel,
+                    context.Span.Start,
+                    SymbolDisplayFormat.MinimallyQualifiedFormat);
+            }
+
+            return "var";
         }
     }
 }

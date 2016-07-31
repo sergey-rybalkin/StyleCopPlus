@@ -1,10 +1,11 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StyleCopPlus.Analyzers;
 using StyleCopPlus.Test.Helpers;
 using TestHelper;
 
-namespace StyleCopPlus.Test
+namespace StyleCopPlus.Test.Analyzers
 {
     [TestClass]
     public class SP2101AnalyzerTests : DiagnosticVerifier
@@ -55,16 +56,16 @@ namespace StyleCopPlus.Test
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
-            return new SP2101Analyzer();
+            return new SP2101MethodTooLongAnalyzer();
         }
 
         private DiagnosticResult CreateResult(int linesCount, int lineNumber, int column)
         {
             return new DiagnosticResult
             {
-                Id = SP2101Analyzer.DiagnosticId,
+                Id = SP2101MethodTooLongAnalyzer.DiagnosticId,
                 Message = string.Format(
-                    SP2101Analyzer.MessageFormat,
+                    SP2101MethodTooLongAnalyzer.MessageFormat,
                     Settings.SP2101MaxMethodLength,
                     linesCount),
                 Severity = DiagnosticSeverity.Warning,

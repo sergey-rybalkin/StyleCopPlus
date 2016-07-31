@@ -45,7 +45,10 @@ namespace StyleCopPlus.Test.Verifiers
             var sourceText = newDocument.GetTextAsync(CancellationToken.None).Result;
             var text = sourceText.ToString();
 
-            Assert.AreEqual(text, expected);
+            string normalizedText = text.Replace("\r\n", "\n").Replace("\t", "    ");
+            string normalizedExpected = expected.Replace("\r\n", "\n").Replace("\t", "    ");
+
+            Assert.AreEqual(normalizedText, normalizedExpected);
         }
     }
 }

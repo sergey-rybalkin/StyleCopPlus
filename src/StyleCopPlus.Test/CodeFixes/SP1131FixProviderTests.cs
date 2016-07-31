@@ -3,8 +3,10 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestHelper;
 using StyleCopPlus.Test.Helpers;
+using StyleCopPlus.Analyzers;
+using StyleCopPlus.CodeFixes;
 
-namespace StyleCopPlus.Test
+namespace StyleCopPlus.Test.CodeFixes
 {
     [TestClass]
     public class SP1131FixProviderTests : CodeFixVerifier
@@ -20,12 +22,12 @@ namespace StyleCopPlus.Test
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
-            return new SP1131Analyzer();
+            return new SP1131UnsafeConditionAnalyzer();
         }
 
         protected override CodeFixProvider GetCSharpCodeFixProvider()
         {
-            return new SP1131FixProvider();
+            return new SP1131UnsafeConditionFixProvider();
         }
     }
 }

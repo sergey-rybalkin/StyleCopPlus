@@ -26,7 +26,9 @@ namespace TestHelper
         }
 
         public string Path { get; }
+
         public int Line { get; }
+
         public int Column { get; }
     }
 
@@ -42,9 +44,8 @@ namespace TestHelper
             get
             {
                 if (this.locations == null)
-                {
                     this.locations = new DiagnosticResultLocation[] { };
-                }
+
                 return this.locations;
             }
 

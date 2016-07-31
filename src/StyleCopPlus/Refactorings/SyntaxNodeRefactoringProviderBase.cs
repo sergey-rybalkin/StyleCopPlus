@@ -44,16 +44,18 @@ namespace StyleCopPlus.Refactorings
             if (null == foundNode)
                 return;
 
-            foreach (var action in GetActions(document, model, root, span, foundNode, cancellationToken))
+            var refactoringContext = new SyntaxNodeRefactoringContext<T>(
+                document,
+                model,
+                root,
+                foundNode,
+                span,
+                cancellationToken);
+
+            foreach (var action in GetActions(refactoringContext))
                 context.RegisterRefactoring(action);
         }
 
-        protected abstract IEnumerable<CodeAction> GetActions(
-            Document document,
-            SemanticModel semanticModel,
-            SyntaxNode root,
-            TextSpan span,
-            T node,
-            CancellationToken cancellationToken);
+        protected abstract IEnumerable<CodeAction> GetActions(SyntaxNodeRefactoringContext<T> context);
     }
 }

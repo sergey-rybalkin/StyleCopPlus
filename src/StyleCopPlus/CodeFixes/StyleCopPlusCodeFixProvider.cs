@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CodeFixes;
 
-namespace StyleCopPlus
+namespace StyleCopPlus.CodeFixes
 {
     /// <summary>
     /// Base class for all code fix providers that contains common functionality and helper members;

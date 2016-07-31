@@ -11,12 +11,44 @@ namespace StyleCopPlus.Test.Refactorings
     public class CreateVariableFromInvocationRefactoringTests : CodeRefactoringVerifier
     {
         [TestMethod]
-        public void CreatesVariableForMethodCall()
+        public void CreatesVariableForConstructorCall()
         {
-            string test = DataHelper.GetEmbeddedResource(DataHelper.RefactoringsCreateVariable);
-            string expected = DataHelper.GetEmbeddedResource(DataHelper.RefactoringsCreateVariableNew);
+            VerifyRefactoringWithResources(
+                DataHelper.CreateVariableConstructorCall,
+                DataHelper.CreateVariableConstructorCallGold);
+        }
 
-            VerifyRefactoring(test, expected, TextSpan.FromBounds(210, 210));
+        [TestMethod]
+        public void CreatesVariableForFluentApiCalls()
+        {
+            VerifyRefactoringWithResources(
+                DataHelper.CreateVariableFluentApiCalls,
+                DataHelper.CreateVariableFluentApiCallsGold);
+        }
+
+        [TestMethod]
+        public void CreatesVariableForPropertyCall()
+        {
+            VerifyRefactoringWithResources(
+                DataHelper.CreateVariablePropertyCall,
+                DataHelper.CreateVariablePropertyCallGold);
+        }
+
+        [TestMethod]
+        public void CreatesVariableForStaticCall()
+        {
+            VerifyRefactoringWithResources(
+                DataHelper.CreateVariableStaticCall,
+                DataHelper.CreateVariableStaticCallGold);
+        }
+
+        private void VerifyRefactoringWithResources(string testResource, string expectedResource)
+        {
+            int cursorPosition;
+            string test = DataHelper.GetEmbeddedResource(testResource, out cursorPosition);
+            string expected = DataHelper.GetEmbeddedResource(expectedResource);
+
+            VerifyRefactoring(test, expected, TextSpan.FromBounds(cursorPosition, cursorPosition));
         }
 
         protected override CodeRefactoringProvider CreateProvider()

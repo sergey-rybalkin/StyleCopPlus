@@ -1,9 +1,11 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StyleCopPlus.Analyzers;
 using StyleCopPlus.Test.Helpers;
 using TestHelper;
-namespace StyleCopPlus.Test
+
+namespace StyleCopPlus.Test.Analyzers
 {
     [TestClass]
     public class SP2002AnalyzerTests : DiagnosticVerifier
@@ -27,15 +29,15 @@ namespace StyleCopPlus.Test
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
-            return new SP2002Analyzer();
+            return new SP2002LastLineEmptyAnalyzer();
         }
 
         private DiagnosticResult CreateResult(int lineNumber)
         {
             return new DiagnosticResult
             {
-                Id = SP2002Analyzer.DiagnosticId,
-                Message = SP2002Analyzer.MessageFormat,
+                Id = SP2002LastLineEmptyAnalyzer.DiagnosticId,
+                Message = SP2002LastLineEmptyAnalyzer.MessageFormat,
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[]
                 {

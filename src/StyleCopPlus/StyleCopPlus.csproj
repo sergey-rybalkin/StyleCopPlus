@@ -43,20 +43,21 @@
     <Compile Include="CodeFormatters\ILongLineSplitter.cs" />
     <Compile Include="Refactorings\CreateVariableFromInvocationRefactoringProvider.cs" />
     <Compile Include="Refactorings\DuplicateMethodRefactoringProvider.cs" />
+    <Compile Include="Refactorings\SyntaxNodeRefactoringContext.cs" />
     <Compile Include="Refactorings\SyntaxNodeRefactoringProviderBase.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="SP1131Analyzer.cs" />
-    <Compile Include="SP1131FixProvider.cs" />
-    <Compile Include="SP2002Analyzer.cs" />
-    <Compile Include="SP2002FixProvider.cs" />
-    <Compile Include="SP2100Analyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SP2100FixProvider.cs" />
-    <Compile Include="SP2101Analyzer.cs" />
-    <Compile Include="SP2102Analyzer.cs" />
-    <Compile Include="SP2103Analyzer.cs" />
-    <Compile Include="StyleCopPlusAnalyzer.cs" />
-    <Compile Include="StyleCopPlusCodeFixProvider.cs" />
+    <Compile Include="Analyzers\SP1131UnsafeConditionAnalyzer.cs" />
+    <Compile Include="CodeFixes\SP1131UnsafeConditionFixProvider.cs" />
+    <Compile Include="Analyzers\SP2002LastLineEmptyAnalyzer.cs" />
+    <Compile Include="CodeFixes\SP2002LastLineEmptyFixProvider.cs" />
+    <Compile Include="Analyzers\SP2100LineTooLongAnalyzer.cs" />
+    <Compile Include="CodeFixes\SP2100LineTooLongFixProvider.cs" />
+    <Compile Include="Analyzers\SP2101MethodTooLongAnalyzer.cs" />
+    <Compile Include="Analyzers\SP2102PropertyTooLongAnalyzer.cs" />
+    <Compile Include="Analyzers\SP2103FileTooLongAnalyzer.cs" />
+    <Compile Include="Analyzers\StyleCopPlusAnalyzer.cs" />
+    <Compile Include="CodeFixes\StyleCopPlusCodeFixProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

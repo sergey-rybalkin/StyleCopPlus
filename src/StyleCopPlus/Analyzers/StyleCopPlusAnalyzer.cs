@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 
-namespace StyleCopPlus
+namespace StyleCopPlus.Analyzers
 {
     /// <summary>
     /// Base class for all analyzers.
@@ -21,7 +21,7 @@ namespace StyleCopPlus
         };
 
         // Performance hack. All values in MethodSyntaxKinds are declared next to each other, so we don't have
-        // to compare target value to each item in the array - range comparison is enough. 
+        // to compare target value to each item in the array - range comparison is enough.
         private static readonly ushort MethodSyntaxLowerBound = (ushort)MethodSyntaxKinds.Min();
         private static readonly ushort MethodSyntaxUppderBound = (ushort)MethodSyntaxKinds.Max();
 
@@ -41,7 +41,7 @@ namespace StyleCopPlus
         /// <param name="context">Analysis context for the block to check.</param>
         protected static bool IsInsideMethod(CodeBlockAnalysisContext context)
         {
-            if (context.OwningSymbol.Kind != SymbolKind.Method)
+            if (SymbolKind.Method != context.OwningSymbol.Kind)
                 return false;
 
             SyntaxNode block = context.CodeBlock;
@@ -56,14 +56,14 @@ namespace StyleCopPlus
         /// <param name="context">Analysis context for the block to check.</param>
         protected static bool IsInsideProperty(CodeBlockAnalysisContext context)
         {
-            if (context.OwningSymbol.Kind != SymbolKind.Method)
+            if (SymbolKind.Method != context.OwningSymbol.Kind)
                 return false;
 
             SyntaxNode block = context.CodeBlock;
             ushort blockKind = (ushort)block.RawKind;
 
-            return blockKind == (ushort)SyntaxKind.GetAccessorDeclaration ||
-                   blockKind == (ushort)SyntaxKind.SetAccessorDeclaration;
+            return (ushort)SyntaxKind.GetAccessorDeclaration == blockKind ||
+                   (ushort)SyntaxKind.SetAccessorDeclaration == blockKind;
         }
 
         protected static int GetNumberOfLinesInCodeBlock(SyntaxNode codeBlock)

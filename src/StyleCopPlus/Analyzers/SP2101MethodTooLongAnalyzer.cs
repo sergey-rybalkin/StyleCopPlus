@@ -1,15 +1,15 @@
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace StyleCopPlus
+namespace StyleCopPlus.Analyzers
 {
     /// <summary>
     /// SP2100 rule analyzer - validates that code lines do not exceed configured length.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class SP2101Analyzer : StyleCopPlusAnalyzer
+    public class SP2101MethodTooLongAnalyzer : StyleCopPlusAnalyzer
     {
         public const string DiagnosticId = "SP2101";
 

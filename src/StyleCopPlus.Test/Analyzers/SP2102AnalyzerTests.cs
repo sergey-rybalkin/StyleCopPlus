@@ -1,10 +1,11 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StyleCopPlus.Analyzers;
 using StyleCopPlus.Test.Helpers;
 using TestHelper;
 
-namespace StyleCopPlus.Test
+namespace StyleCopPlus.Test.Analyzers
 {
     [TestClass]
     public class SP2102AnalyzerTests : DiagnosticVerifier
@@ -20,8 +21,10 @@ namespace StyleCopPlus.Test
         [TestMethod]
         public void Reports_LongGetter()
         {
-            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2102LongGetter);
-            DiagnosticResult expected = CreateResult(44, 7, 13);
+            int line, column;
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2102LongGetter, out line, out column);
+            DiagnosticResult expected =
+                CreateResult(Settings.SP2102MaxPropertyAccessorLength + 1, line, column);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -29,24 +32,26 @@ namespace StyleCopPlus.Test
         [TestMethod]
         public void Reports_LongSetter()
         {
-            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2102LongSetter);
-            DiagnosticResult expected = CreateResult(44, 8, 13);
+            int line, column;
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP2102LongSetter, out line, out column);
+            DiagnosticResult expected =
+                CreateResult(Settings.SP2102MaxPropertyAccessorLength + 1, line, column);
 
             VerifyCSharpDiagnostic(test, expected);
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
-            return new SP2102Analyzer();
+            return new SP2102PropertyTooLongAnalyzer();
         }
 
         private DiagnosticResult CreateResult(int linesCount, int lineNumber, int column)
         {
             return new DiagnosticResult
             {
-                Id = SP2102Analyzer.DiagnosticId,
+                Id = SP2102PropertyTooLongAnalyzer.DiagnosticId,
                 Message = string.Format(
-                    SP2102Analyzer.MessageFormat,
+                    SP2102PropertyTooLongAnalyzer.MessageFormat,
                     Settings.SP2102MaxPropertyAccessorLength,
                     linesCount),
                 Severity = DiagnosticSeverity.Warning,

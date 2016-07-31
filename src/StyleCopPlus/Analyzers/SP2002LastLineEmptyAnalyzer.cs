@@ -3,13 +3,13 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 
-namespace StyleCopPlus
+namespace StyleCopPlus.Analyzers
 {
     /// <summary>
     /// SP2002 rule analyzer - validates that file does not end with an empty line.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class SP2002Analyzer : StyleCopPlusAnalyzer
+    public class SP2002LastLineEmptyAnalyzer : StyleCopPlusAnalyzer
     {
         public const string DiagnosticId = "SP2002";
 

@@ -32,7 +32,7 @@ namespace StyleCopPlus.CodeFormatters
         public void SplitCodeLine(DocumentEditor editor)
         {
             SyntaxTriviaList baseTrivia = _parentNode.GetLeadingTrivia();
-            SyntaxTriviaList newLeadingTrivia = new SyntaxTriviaList();
+            SyntaxTriviaList newLeadingTrivia = default(SyntaxTriviaList);
 
             foreach (var trivia in baseTrivia)
             {

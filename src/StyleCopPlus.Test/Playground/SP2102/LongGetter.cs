@@ -4,11 +4,8 @@ namespace SP2102
     {
         public int InvalidProperty
         {
-            get
+            /*C*/get
             {
-                 ;
-                 ;
-                 ;
                  ;
                  ;
                  ;
