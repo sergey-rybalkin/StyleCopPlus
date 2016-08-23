@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -30,21 +29,14 @@ namespace StyleCopPlus.Refactorings
             ExpressionStatementSyntax node = context.TargetNode;
 
             if (!_supportedExpressionTypes.Contains(node.Expression.GetType()))
-                return Enumerable.Empty<CodeAction>();
+                yield break;
 
             string type = GetVariableType(context);
             if ("void" == type)
-                return Enumerable.Empty<CodeAction>();
+                yield break;
 
-            CodeAction implicitVariableAction = CodeAction.Create(
-                "Create implicit variable",
-                t => CreateVariable(context, "var"));
-
-            CodeAction explicitVariableAction = CodeAction.Create(
-                "Create explicit variable",
-                t => CreateVariable(context, type));
-
-            return new[] { implicitVariableAction, explicitVariableAction };
+            yield return CodeAction.Create("Create implicit variable", t => CreateVariable(context, "var"));
+            yield return CodeAction.Create("Create explicit variable", t => CreateVariable(context, type));
         }
 
         private static Task<Document> CreateVariable(
@@ -76,27 +68,21 @@ namespace StyleCopPlus.Refactorings
         {
             ExpressionSyntax node = context.TargetNode.Expression;
             SymbolInfo symbolInfo = context.SemanticModel.GetSymbolInfo(node);
+            ITypeSymbol type = null;
 
             IMethodSymbol method = symbolInfo.Symbol as IMethodSymbol;
             if (null != method && MethodKind.Constructor == method.MethodKind)
-            {
-                return method.ContainingType.ToMinimalDisplayString(
-                    context.SemanticModel,
-                    context.Span.Start,
-                    SymbolDisplayFormat.MinimallyQualifiedFormat);
-            }
+                type = method.ContainingType;
             else if (null != method && MethodKind.Constructor != method.MethodKind)
-            {
-                return method.ReturnType.ToMinimalDisplayString(
-                    context.SemanticModel,
-                    context.Span.Start,
-                    SymbolDisplayFormat.MinimallyQualifiedFormat);
-            }
+                type = method.ReturnType;
 
             IPropertySymbol property = symbolInfo.Symbol as IPropertySymbol;
             if (null != property)
+                type = property.Type;
+
+            if (null != type)
             {
-                return property.Type.ToMinimalDisplayString(
+                return type.ToMinimalDisplayString(
                     context.SemanticModel,
                     context.Span.Start,
                     SymbolDisplayFormat.MinimallyQualifiedFormat);

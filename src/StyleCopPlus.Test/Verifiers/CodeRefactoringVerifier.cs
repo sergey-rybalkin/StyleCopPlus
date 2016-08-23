@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeRefactorings;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StyleCopPlus.Test.Helpers;
 using TestHelper;
 
 namespace StyleCopPlus.Test.Verifiers
@@ -18,7 +19,11 @@ namespace StyleCopPlus.Test.Verifiers
     {
         protected abstract CodeRefactoringProvider CreateProvider();
 
-        protected void VerifyRefactoring(string original, string expected, TextSpan cursorPos)
+        protected void VerifyRefactoring(
+            string original,
+            string expected,
+            TextSpan cursorPos,
+            int actionIndex = 0)
         {
             Document document = CreateDocument(original);
 
@@ -34,9 +39,7 @@ namespace StyleCopPlus.Test.Verifiers
             provider.ComputeRefactoringsAsync(context).Wait();
             ImmutableArray<CodeAction> refactorings = builder.ToImmutable();
 
-            Assert.AreEqual(1, refactorings.Length);
-
-            var operations = refactorings[0].GetOperationsAsync(CancellationToken.None).Result;
+            var operations = refactorings[actionIndex].GetOperationsAsync(CancellationToken.None).Result;
 
             var operation = operations.Single();
             var workspace = document.Project.Solution.Workspace;
@@ -49,6 +52,41 @@ namespace StyleCopPlus.Test.Verifiers
             string normalizedExpected = expected.Replace("\r\n", "\n").Replace("\t", "    ");
 
             Assert.AreEqual(normalizedText, normalizedExpected);
+        }
+
+        protected void VerifyRefactoringWithResources(string testKey, string expectedKey, int actionIndex = 0)
+        {
+            int cursorPosition;
+            string test = DataHelper.GetEmbeddedResource(testKey, out cursorPosition);
+            string expected = DataHelper.GetEmbeddedResource(expectedKey);
+            TextSpan cursor = TextSpan.FromBounds(cursorPosition, cursorPosition);
+
+            VerifyRefactoring(test, expected, cursor, actionIndex);
+        }
+
+        protected void VerifyNoRefactoring(string resourceKey)
+        {
+            int cursorPosition;
+            string test = DataHelper.GetEmbeddedResource(
+                DataHelper.CreateVariableVoidCall,
+                out cursorPosition);
+
+            TextSpan cursorSpan = TextSpan.FromBounds(cursorPosition, cursorPosition);
+            Document document = CreateDocument(test);
+
+            var builder = ImmutableArray.CreateBuilder<CodeAction>();
+            Action<CodeAction> registerRefactoring = a => builder.Add(a);
+            var provider = CreateProvider();
+            var context = new CodeRefactoringContext(
+                document,
+                cursorSpan,
+                registerRefactoring,
+                CancellationToken.None);
+
+            provider.ComputeRefactoringsAsync(context).Wait();
+            ImmutableArray<CodeAction> refactorings = builder.ToImmutable();
+
+            Assert.AreEqual(refactorings.Length, 0);
         }
     }
 }

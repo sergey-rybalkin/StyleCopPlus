@@ -42,13 +42,46 @@ namespace StyleCopPlus.Test.Refactorings
                 DataHelper.CreateVariableStaticCallGold);
         }
 
-        private void VerifyRefactoringWithResources(string testResource, string expectedResource)
+        [TestMethod]
+        public void CreatesVariableForConstructorCallTyped()
         {
-            int cursorPosition;
-            string test = DataHelper.GetEmbeddedResource(testResource, out cursorPosition);
-            string expected = DataHelper.GetEmbeddedResource(expectedResource);
+            VerifyRefactoringWithResources(
+                DataHelper.CreateVariableConstructorCall,
+                DataHelper.CreateVariableConstructorCallGoldTyped,
+                1);
+        }
 
-            VerifyRefactoring(test, expected, TextSpan.FromBounds(cursorPosition, cursorPosition));
+        [TestMethod]
+        public void CreatesVariableForFluentApiCallsTyped()
+        {
+            VerifyRefactoringWithResources(
+                DataHelper.CreateVariableFluentApiCalls,
+                DataHelper.CreateVariableFluentApiCallsGoldTyped,
+                1);
+        }
+
+        [TestMethod]
+        public void CreatesVariableForPropertyCallTyped()
+        {
+            VerifyRefactoringWithResources(
+                DataHelper.CreateVariablePropertyCall,
+                DataHelper.CreateVariablePropertyCallGoldTyped,
+                1);
+        }
+
+        [TestMethod]
+        public void CreatesVariableForStaticCallTyped()
+        {
+            VerifyRefactoringWithResources(
+                DataHelper.CreateVariableStaticCall,
+                DataHelper.CreateVariableStaticCallGoldTyped,
+                1);
+        }
+
+        [TestMethod]
+        public void IgnoresVoidMethods()
+        {
+            VerifyNoRefactoring(DataHelper.CreateVariableVoidCall);
         }
 
         protected override CodeRefactoringProvider CreateProvider()
