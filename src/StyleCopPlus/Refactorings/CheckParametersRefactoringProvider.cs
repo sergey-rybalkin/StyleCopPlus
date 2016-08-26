@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeRefactorings;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace StyleCopPlus.Refactorings
 {
@@ -37,10 +39,43 @@ namespace StyleCopPlus.Refactorings
             SyntaxNodeRefactoringContext<ParameterSyntax> context,
             IParameterSymbol parameter)
         {
-            SyntaxFactory.ParseStatement(
-                $"Verify.ArgumentNotNull({parameter.Name}, nameof(\"{parameter.Name}\"));");
+            string validationMethod =
+                "String" == parameter.Type.Name ? "ArgumentNotEmpty" : "ArgumentNotNull";
 
-            return Task.FromResult(context.Document);
+            StatementSyntax newStatement = ExpressionStatement(
+                InvocationExpression(
+                    MemberAccessExpression(
+                        SyntaxKind.SimpleMemberAccessExpression,
+                        IdentifierName(@"Verify"),
+                        IdentifierName(validationMethod)))
+                .WithArgumentList(
+                    ArgumentList(
+                        SeparatedList<ArgumentSyntax>(
+                            new SyntaxNodeOrToken[]
+                            {
+                                Argument(
+                                    IdentifierName(parameter.Name)),
+                                Token(SyntaxKind.CommaToken),
+                                Argument(
+                                    InvocationExpression(
+                                        IdentifierName(@"nameof"))
+                                    .WithArgumentList(
+                                        ArgumentList(
+                                            SingletonSeparatedList(
+                                                Argument(
+                                                    IdentifierName(parameter.Name))))))
+                            }))));
+
+            MethodDeclarationSyntax method =
+                context.TargetNode.Ancestors().OfType<MethodDeclarationSyntax>().First();
+
+            var firstNode = method.Body.ChildNodes().FirstOrDefault();
+            var newBody = null != firstNode ?
+                method.Body.InsertNodesBefore(firstNode, new[] { newStatement }) :
+                Block(newStatement);
+            var newRoot = context.SyntaxRoot.ReplaceNode(method.Body, newBody);
+
+            return Task.FromResult(context.Document.WithSyntaxRoot(newRoot));
         }
     }
 }

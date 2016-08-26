@@ -4,7 +4,7 @@
     {
         public void TestMethod(string param1)
         {
-            Verify.ArgumentNotNull(param1, nameof(param1));
+            Verify.ArgumentNotEmpty(param1, nameof(param1));
         }
     }
 }
