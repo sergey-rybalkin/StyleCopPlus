@@ -10,6 +10,8 @@ namespace StyleCopPlus.Test.Helpers
     [GeneratedCode("TestHelperGenerator", "1.0")]
     public static partial class DataHelper
     {
+        public const string CheckParametersConstructorParameter = "CheckParameters.ConstructorParameter.cs";
+        public const string CheckParametersConstructorParameterGold = "CheckParameters.ConstructorParameterGold.cs";
         public const string CheckParametersGenericParameter = "CheckParameters.GenericParameter.cs";
         public const string CheckParametersGenericParameterGold = "CheckParameters.GenericParameterGold.cs";
         public const string CheckParametersOutParameter = "CheckParameters.OutParameter.cs";
@@ -30,6 +32,8 @@ namespace StyleCopPlus.Test.Helpers
         public const string CreateVariableStaticCallGold = "CreateVariable.StaticCallGold.cs";
         public const string CreateVariableStaticCallGoldTyped = "CreateVariable.StaticCallGoldTyped.cs";
         public const string CreateVariableVoidCall = "CreateVariable.VoidCall.cs";
+        public const string IntroduceFieldReadonlyField = "IntroduceField.ReadonlyField.cs";
+        public const string IntroduceFieldReadonlyFieldGold = "IntroduceField.ReadonlyFieldGold.cs";
         public const string SP1131IncorrectOperands = "SP1131.IncorrectOperands.cs";
         public const string SP1131IncorrectOperandsFixed = "SP1131.IncorrectOperandsFixed.cs";
         public const string SP2002EmptyLine = "SP2002.EmptyLine.cs";

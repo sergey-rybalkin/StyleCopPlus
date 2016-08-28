@@ -44,6 +44,7 @@
     <Compile Include="Refactorings\CheckParametersRefactoringProvider.cs" />
     <Compile Include="Refactorings\CreateVariableFromInvocationRefactoringProvider.cs" />
     <Compile Include="Refactorings\DuplicateMethodRefactoringProvider.cs" />
+    <Compile Include="Refactorings\IntroduceFieldRefactoringProvider.cs" />
     <Compile Include="Refactorings\SyntaxNodeRefactoringContext.cs" />
     <Compile Include="Refactorings\SyntaxNodeRefactoringProviderBase.cs" />
     <Compile Include="Settings.cs" />

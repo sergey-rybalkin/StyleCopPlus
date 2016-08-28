@@ -155,6 +155,10 @@
     <EmbeddedResource Include="Playground\CheckParameters\ReferenceParameterGold.cs" />
     <EmbeddedResource Include="Playground\CheckParameters\RefParameter.cs" />
     <EmbeddedResource Include="Playground\CheckParameters\ValueTypeParameter.cs" />
+    <EmbeddedResource Include="Playground\CheckParameters\ConstructorParameter.cs" />
+    <EmbeddedResource Include="Playground\CheckParameters\ConstructorParameterGold.cs" />
+    <EmbeddedResource Include="Playground\IntroduceField\ReadonlyField.cs" />
+    <EmbeddedResource Include="Playground\IntroduceField\ReadonlyFieldGold.cs" />
     <Compile Include="Refactorings\CheckParametersRefactoringProviderTests.cs" />
     <Compile Include="Refactorings\CreateVariableFromInvocationRefactoringTests.cs" />
     <Compile Include="Analyzers\SP1131AnalyzerTests.cs" />
@@ -165,6 +169,7 @@
     <Compile Include="Analyzers\SP2101AnalyzerTests.cs" />
     <Compile Include="Analyzers\SP2102AnalyzerTests.cs" />
     <Compile Include="Analyzers\SP2103AnalyzerTests.cs" />
+    <Compile Include="Refactorings\IntroduceFieldRefactoringProviderTests.cs" />
     <Compile Include="Verifiers\CodeFixVerifier.cs" />
     <Compile Include="Verifiers\CodeRefactoringVerifier.cs" />
     <Compile Include="Verifiers\DiagnosticVerifier.cs" />

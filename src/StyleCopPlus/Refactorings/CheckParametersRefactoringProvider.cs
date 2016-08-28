@@ -14,8 +14,8 @@ namespace StyleCopPlus.Refactorings
     /// Provides refactoring that adds method parameters validation.
     /// </summary>
     [ExportCodeRefactoringProvider(LanguageNames.CSharp, Name = "CheckParameters")]
-    public class CheckParametersRefactoringProvider :
-        SyntaxNodeRefactoringProviderBase<ParameterSyntax>
+        public class CheckParametersRefactoringProvider :
+            SyntaxNodeRefactoringProviderBase<ParameterSyntax>
     {
         protected override IEnumerable<CodeAction> GetActions(
             SyntaxNodeRefactoringContext<ParameterSyntax> context)
@@ -42,7 +42,7 @@ namespace StyleCopPlus.Refactorings
             string validationMethod =
                 "String" == parameter.Type.Name ? "ArgumentNotEmpty" : "ArgumentNotNull";
 
-            StatementSyntax newStatement = ExpressionStatement(
+            StatementSyntax validationStatement = ExpressionStatement(
                 InvocationExpression(
                     MemberAccessExpression(
                         SyntaxKind.SimpleMemberAccessExpression,
@@ -66,13 +66,17 @@ namespace StyleCopPlus.Refactorings
                                                     IdentifierName(parameter.Name))))))
                             }))));
 
-            MethodDeclarationSyntax method =
-                context.TargetNode.Ancestors().OfType<MethodDeclarationSyntax>().First();
+            // Supports methods, constructors, operators etc. except for indexers.
+            BaseMethodDeclarationSyntax method =
+                context.TargetNode.Ancestors().OfType<BaseMethodDeclarationSyntax>().FirstOrDefault();
+
+            if (null == method)
+                return Task.FromResult(context.Document);
 
             var firstNode = method.Body.ChildNodes().FirstOrDefault();
             var newBody = null != firstNode ?
-                method.Body.InsertNodesBefore(firstNode, new[] { newStatement }) :
-                Block(newStatement);
+                method.Body.InsertNodesBefore(firstNode, new[] { validationStatement }) :
+                Block(validationStatement);
             var newRoot = context.SyntaxRoot.ReplaceNode(method.Body, newBody);
 
             return Task.FromResult(context.Document.WithSyntaxRoot(newRoot));

@@ -1,5 +1,4 @@
 ﻿using Microsoft.CodeAnalysis.CodeRefactorings;
-using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StyleCopPlus.Refactorings;
 using StyleCopPlus.Test.Helpers;
@@ -42,6 +41,14 @@ namespace StyleCopPlus.Test.Refactorings
         public void IgnoresValueTypeParameters()
         {
             VerifyNoRefactoring(DataHelper.CheckParametersValueTypeParameter);
+        }
+
+        [TestMethod]
+        public void ChecksConstructorParameter()
+        {
+            VerifyRefactoringWithResources(
+                DataHelper.CheckParametersConstructorParameter,
+                DataHelper.CheckParametersConstructorParameterGold);
         }
 
         protected override CodeRefactoringProvider CreateProvider()
