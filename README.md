@@ -10,9 +10,7 @@ additional refactorings and analyzers. Original project is available on
 This project is available as a NuGet package and VSIX extension. Currently Roslyn does not support loading 
 refactorings from NuGet packages so you need to install VSIX extension in order to get full functionality.
 
-[Latest VSIX package](http://vsixgallery.com/extension/StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204/)
-
-[Latest NuGet Package](https://ci.appveyor.com/project/sergey-rybalkin/stylecopplus-analyzers/build/artifacts)
+[Latest VSIX and NuGet Packages](https://ci.appveyor.com/project/sergey-rybalkin/stylecopplus-analyzers/build/artifacts)
 
 ## Analyzers
 
