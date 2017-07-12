@@ -14,8 +14,7 @@ namespace StyleCopPlus.CodeFixes
     /// <summary>
     /// Tries to fix SP1131 warning by swapping comparison operands.
     /// </summary>
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP1131UnsafeConditionFixProvider))]
-    [Shared]
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP1131UnsafeConditionFixProvider)), Shared]
     public class SP1131UnsafeConditionFixProvider : StyleCopPlusCodeFixProvider
     {
         private const string Title = "Swap comparison operands";
@@ -23,10 +22,8 @@ namespace StyleCopPlus.CodeFixes
         /// <summary>
         /// Gets a list of diagnostic IDs that this provider can provider fixes for.
         /// </summary>
-        public sealed override ImmutableArray<string> FixableDiagnosticIds
-        {
-            get { return ImmutableArray.Create(SP1131UnsafeConditionAnalyzer.DiagnosticId); }
-        }
+        public sealed override ImmutableArray<string> FixableDiagnosticIds =>
+            ImmutableArray.Create(SP1131UnsafeConditionAnalyzer.DiagnosticId);
 
         /// <summary>
         /// Computes one or more fixes for the specified
@@ -39,7 +36,7 @@ namespace StyleCopPlus.CodeFixes
         /// <see cref="P:Microsoft.CodeAnalysis.CodeFixes.CodeFixProvider.FixableDiagnosticIds" /> for the
         /// current provider.
         /// </param>
-        public override Task RegisterCodeFixesAsync(CodeFixContext context)
+        public sealed override Task RegisterCodeFixesAsync(CodeFixContext context)
         {
             foreach (var diagnostic in context.Diagnostics)
             {
@@ -51,7 +48,7 @@ namespace StyleCopPlus.CodeFixes
                     diagnostic);
             }
 
-            return CompletedTask;
+            return Task.CompletedTask;
         }
 
         private static async Task<Document> GetTransformedDocumentAsync(

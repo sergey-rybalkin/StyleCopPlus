@@ -14,8 +14,7 @@ namespace StyleCopPlus.CodeFixes
     /// <summary>
     /// Tries to fix SP2100 warning by splitting long code lines where possible.
     /// </summary>
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP2002LastLineEmptyFixProvider))]
-    [Shared]
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP2002LastLineEmptyFixProvider)), Shared]
     public class SP2002LastLineEmptyFixProvider : StyleCopPlusCodeFixProvider
     {
         private const string Title = "Remove empty line";
@@ -23,10 +22,8 @@ namespace StyleCopPlus.CodeFixes
         /// <summary>
         /// Gets a list of diagnostic IDs that this provider can provider fixes for.
         /// </summary>
-        public sealed override ImmutableArray<string> FixableDiagnosticIds
-        {
-            get { return ImmutableArray.Create(SP2002LastLineEmptyAnalyzer.DiagnosticId); }
-        }
+        public sealed override ImmutableArray<string> FixableDiagnosticIds =>
+            ImmutableArray.Create(SP2002LastLineEmptyAnalyzer.DiagnosticId);
 
         /// <summary>
         /// Computes one or more fixes for the specified
@@ -39,7 +36,7 @@ namespace StyleCopPlus.CodeFixes
         /// <see cref="P:Microsoft.CodeAnalysis.CodeFixes.CodeFixProvider.FixableDiagnosticIds" /> for the
         /// current provider.
         /// </param>
-        public override Task RegisterCodeFixesAsync(CodeFixContext context)
+        public sealed override Task RegisterCodeFixesAsync(CodeFixContext context)
         {
             foreach (Diagnostic diagnostic in context.Diagnostics)
             {
@@ -52,7 +49,7 @@ namespace StyleCopPlus.CodeFixes
                 context.RegisterCodeFix(action, diagnostic);
             }
 
-            return CompletedTask;
+            return Task.CompletedTask;
         }
 
         private async Task<Document> FormatCodeAsync(

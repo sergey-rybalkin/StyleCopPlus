@@ -121,6 +121,10 @@
     <value>StyleCopPlus</value>
   </data>
   <data name="112" xml:space="preserve">
-    <value>A set of analyzers and refactorings based on StyleCopPlus and implemented on Roslyn engine.</value>
+    <value>A set of analyzers and refactorings based on StyleCopPlus project implemented with Roslyn engine.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>source.extension.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

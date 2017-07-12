@@ -33,10 +33,8 @@ namespace StyleCopPlus.Analyzers
         /// <summary>
         /// Gets a set of descriptors for the diagnostics that this analyzer is capable of producing.
         /// </summary>
-        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
-        {
-            get { return ImmutableArray.Create(_rule); }
-        }
+        public sealed override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics =>
+            ImmutableArray.Create(_rule);
 
         /// <summary>
         /// Called once at session start to register actions in the analysis context.
@@ -55,7 +53,7 @@ namespace StyleCopPlus.Analyzers
                 return;
 
             TextLine lastLine = text.Lines[text.Lines.Count - 1];
-            if (lastLine.Span.Length == 0)
+            if (0 == lastLine.Span.Length)
             {
                 Location location = Location.Create(context.Tree, lastLine.Span);
                 context.ReportDiagnostic(Diagnostic.Create(_rule, location));
