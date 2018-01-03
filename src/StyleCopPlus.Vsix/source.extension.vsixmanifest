@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204" Version="1.6.1" Language="en-US" Publisher="Sergey Rybalkin"/>
-    <DisplayName>StyleCopPlus</DisplayName>
-    <Description xml:space="preserve">A set of analyzers and refactorings based on StyleCopPlus project implemented with Roslyn engine.</Description>
-    <MoreInfo>https://github.com/sergey-rybalkin/StyleCopPlus.Analyzers</MoreInfo>
-    <License>license.txt</License>
-    <GettingStartedGuide>https://github.com/sergey-rybalkin/StyleCopPlus.Analyzers/blob/master/README.md</GettingStartedGuide>
-    <Icon>Resources/Logo.png</Icon>
-    <PreviewImage>Resources/PreviewImage.png</PreviewImage>
-    <Tags>StyleCopPlus</Tags>
-  </Metadata>
-  <Installation>
-    <InstallationTarget Version="[15.0,]" Id="Microsoft.VisualStudio.Pro" />
-  </Installation>
-  <Dependencies>
-    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-  </Dependencies>
-  <Prerequisites>
-    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
-  </Prerequisites>
-  <Assets>
-    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="StyleCopPlus" Path="|StyleCopPlus|"/>
-    <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="StyleCopPlus" Path="|StyleCopPlus|"/>
-  </Assets>
+    <Metadata>
+        <Identity Id="StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204" Version="1.7.0" Language="en-US" Publisher="Sergey Rybalkin"/>
+        <DisplayName>StyleCopPlus</DisplayName>
+        <Description xml:space="preserve">A set of analyzers and refactorings based on StyleCopPlus project implemented with Roslyn engine.</Description>
+        <MoreInfo>https://github.com/sergey-rybalkin/StyleCopPlus.Analyzers</MoreInfo>
+        <License>license.txt</License>
+        <GettingStartedGuide>https://github.com/sergey-rybalkin/StyleCopPlus.Analyzers/blob/master/README.md</GettingStartedGuide>
+        <Icon>Resources/Logo.png</Icon>
+        <PreviewImage>Resources/PreviewImage.png</PreviewImage>
+        <Tags>StyleCopPlus</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Version="[15.0,]" Id="Microsoft.VisualStudio.Pro" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    </Dependencies>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="StyleCopPlus" Path="|StyleCopPlus|"/>
+        <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="StyleCopPlus" Path="|StyleCopPlus|"/>
+    </Assets>
 </PackageManifest>

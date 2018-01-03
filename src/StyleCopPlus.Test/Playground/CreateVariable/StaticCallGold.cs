@@ -8,7 +8,7 @@ namespace AnalyzerPlayground.CreateVariable
         {
             // test
 
-            var v = File.ReadAllText(@"c:\temp\test.txt");
+            var v = string.Format("{0}", "str");
 
             // test
         }

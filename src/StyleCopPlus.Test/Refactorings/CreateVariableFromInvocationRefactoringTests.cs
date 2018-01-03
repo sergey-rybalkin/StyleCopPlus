@@ -1,5 +1,4 @@
 ﻿using Microsoft.CodeAnalysis.CodeRefactorings;
-using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StyleCopPlus.Refactorings;
 using StyleCopPlus.Test.Helpers;

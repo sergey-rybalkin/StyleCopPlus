@@ -10,7 +10,7 @@
 
   <PropertyGroup>
     <PackageId>StyleCopPlus</PackageId>
-    <PackageVersion>1.6.0.0</PackageVersion>
+    <PackageVersion>1.7.0.0</PackageVersion>
     <Authors>jmarolf</Authors>
     <PackageProjectUrl>http://vsixgallery.com/extension/StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sergey-rybalkin/StyleCopPlus</RepositoryUrl>
@@ -20,11 +20,11 @@
     <Copyright>Copyright (c) 2017 Sergey Rybalkin</Copyright>
     <PackageTags>StyleCopPlus, StyleCop, CSharp, CodeAnalysis</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <Version>1.6.1</Version>
+    <Version>1.7.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.2.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.4.0" PrivateAssets="all" />
     <PackageReference Update="NETStandard.Library" PrivateAssets="all" />
   </ItemGroup>
 

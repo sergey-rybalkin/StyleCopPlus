@@ -51,7 +51,7 @@ namespace StyleCopPlus.Test.Verifiers
             string normalizedText = text.Replace("\r\n", "\n").Replace("\t", "    ");
             string normalizedExpected = expected.Replace("\r\n", "\n").Replace("\t", "    ");
 
-            Assert.AreEqual(normalizedText, normalizedExpected);
+            Assert.AreEqual(normalizedExpected, normalizedText);
         }
 
         protected void VerifyRefactoringWithResources(string testKey, string expectedKey, int actionIndex = 0)
