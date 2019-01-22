@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StyleCopPlus.Analyzers;
@@ -24,7 +24,7 @@ namespace StyleCopPlus.Test.Analyzers
             int line, column;
             string test = DataHelper.GetEmbeddedResource(DataHelper.SP2102LongGetter, out line, out column);
             DiagnosticResult expected =
-                CreateResult(Settings.SP2102MaxPropertyAccessorLength + 1, line, column);
+                CreateResult(Settings.SP2102MaxPropertyAccessorLengthDefault + 1, line, column);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -35,7 +35,7 @@ namespace StyleCopPlus.Test.Analyzers
             int line, column;
             string test = DataHelper.GetEmbeddedResource(DataHelper.SP2102LongSetter, out line, out column);
             DiagnosticResult expected =
-                CreateResult(Settings.SP2102MaxPropertyAccessorLength + 1, line, column);
+                CreateResult(Settings.SP2102MaxPropertyAccessorLengthDefault + 1, line, column);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -52,7 +52,7 @@ namespace StyleCopPlus.Test.Analyzers
                 Id = SP2102PropertyTooLongAnalyzer.DiagnosticId,
                 Message = string.Format(
                     SP2102PropertyTooLongAnalyzer.MessageFormat,
-                    Settings.SP2102MaxPropertyAccessorLength,
+                    Settings.SP2102MaxPropertyAccessorLengthDefault,
                     linesCount),
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[]

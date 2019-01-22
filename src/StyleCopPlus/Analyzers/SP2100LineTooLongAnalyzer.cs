@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
@@ -21,51 +21,54 @@ namespace StyleCopPlus.Analyzers
 
         public const string Description = "Code line should not exceed {0} characters.";
 
-        private static DiagnosticDescriptor _rule = new DiagnosticDescriptor(
+        private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,
             Title,
             MessageFormat,
             Category,
             DiagnosticSeverity.Warning,
             isEnabledByDefault: true,
-            description: string.Format(Description, Settings.SP2100MaxLineLength));
+            description: string.Format(Description, Settings.SP2100MaxLineLengthDefault));
+
+        private int _lineLengthLimit = Settings.SP2100MaxLineLengthDefault;
 
         /// <summary>
         /// Gets a set of descriptors for the diagnostics that this analyzer is capable of producing.
         /// </summary>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(_rule); }
+            get { return ImmutableArray.Create(Rule); }
         }
 
         /// <summary>
-        /// Called once at session start to register actions in the analysis context.
+        /// Registers analyzer actions for the specified compilation session using the specified settings.
         /// </summary>
         /// <param name="context">Analysis context to register actions in.</param>
-        public override void Initialize(AnalysisContext context)
+        /// <param name="settings">Options for controlling the operation.</param>
+        protected override void Register(CompilationStartAnalysisContext context, Settings settings)
         {
-            base.Initialize(context);
+            _lineLengthLimit = settings.SP2100MaxLineLength;
             context.RegisterSyntaxTreeAction(HandleSyntaxTree);
         }
 
-        private static void HandleSyntaxTree(SyntaxTreeAnalysisContext context)
+        private void HandleSyntaxTree(SyntaxTreeAnalysisContext context)
         {
             SourceText text;
             if (!context.Tree.TryGetText(out text))
                 return;
 
-            int maxLength = Settings.SP2100MaxLineLength;
             foreach (TextLine line in text.Lines)
             {
                 TextSpan lineSpan = line.Span;
 
                 // Visual length can exceed lineSpan.Length if it has tab symbols. Assume that user does not
                 // use tabs and there is another rule that validates this.
-                if (lineSpan.Length <= maxLength)
+                if (lineSpan.Length <= _lineLengthLimit)
                     continue;
 
                 Location location = Location.Create(context.Tree, lineSpan);
-                context.ReportDiagnostic(Diagnostic.Create(_rule, location, maxLength, lineSpan.Length));
+                context.ReportDiagnostic(
+                    Diagnostic.Create(Rule, location, _lineLengthLimit, lineSpan.Length));
             }
         }
     }

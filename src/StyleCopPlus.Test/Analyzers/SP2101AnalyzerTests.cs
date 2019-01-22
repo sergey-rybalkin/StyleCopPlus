@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StyleCopPlus.Analyzers;
@@ -66,7 +66,7 @@ namespace StyleCopPlus.Test.Analyzers
                 Id = SP2101MethodTooLongAnalyzer.DiagnosticId,
                 Message = string.Format(
                     SP2101MethodTooLongAnalyzer.MessageFormat,
-                    Settings.SP2101MaxMethodLength,
+                    Settings.SP2101MaxMethodLengthDefault,
                     linesCount),
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[]

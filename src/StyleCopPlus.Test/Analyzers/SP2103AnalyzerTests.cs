@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StyleCopPlus.Analyzers;
@@ -22,7 +22,7 @@ namespace StyleCopPlus.Test.Analyzers
         public void Reports_LongFiles()
         {
             var test = DataHelper.GetEmbeddedResource(DataHelper.SP2103LongClass);
-            DiagnosticResult expected = CreateResult("Test0.cs", Settings.SP2103MaxFileLength + 1);
+            DiagnosticResult expected = CreateResult("Test0.cs", Settings.SP2103MaxFileLengthDefault + 1);
 
             VerifyCSharpDiagnostic(test, expected);
         }
@@ -40,7 +40,7 @@ namespace StyleCopPlus.Test.Analyzers
                 Message = string.Format(
                     SP2103FileTooLongAnalyzer.MessageFormat,
                     fileName,
-                    Settings.SP2103MaxFileLength,
+                    Settings.SP2103MaxFileLengthDefault,
                     lines),
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[]

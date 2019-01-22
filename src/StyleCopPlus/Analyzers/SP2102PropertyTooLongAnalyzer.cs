@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -21,40 +21,43 @@ namespace StyleCopPlus.Analyzers
 
         public const string Description = "Property accessor body should not exceed {0} lines.";
 
-        private static DiagnosticDescriptor _rule = new DiagnosticDescriptor(
+        private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,
             Title,
             MessageFormat,
             Category,
             DiagnosticSeverity.Warning,
             isEnabledByDefault: true,
-            description: string.Format(Description, Settings.SP2102MaxPropertyAccessorLength));
+            description: string.Format(Description, Settings.SP2102MaxPropertyAccessorLengthDefault));
+
+        private int _memberLengthLimit = Settings.SP2102MaxPropertyAccessorLengthDefault;
 
         /// <summary>
         /// Gets a set of descriptors for the diagnostics that this analyzer is capable of producing.
         /// </summary>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(_rule); }
+            get { return ImmutableArray.Create(Rule); }
         }
 
         /// <summary>
-        /// Called once at session start to register actions in the analysis context.
+        /// Registers analyzer actions for the specified compilation session using the specified settings.
         /// </summary>
         /// <param name="context">Analysis context to register actions in.</param>
-        public override void Initialize(AnalysisContext context)
+        /// <param name="settings">Options for controlling the operation.</param>
+        protected override void Register(CompilationStartAnalysisContext context, Settings settings)
         {
-            base.Initialize(context);
+            _memberLengthLimit = settings.SP2102MaxPropertyAccessorLength;
             context.RegisterCodeBlockAction(HandleCodeBlock);
         }
 
-        private static void HandleCodeBlock(CodeBlockAnalysisContext context)
+        private void HandleCodeBlock(CodeBlockAnalysisContext context)
         {
             if (!IsInsideProperty(context))
                 return;
 
             int lines = GetNumberOfLinesInCodeBlock(context.CodeBlock);
-            if (lines <= Settings.SP2102MaxPropertyAccessorLength)
+            if (lines <= _memberLengthLimit)
                 return;
 
             // Report diagnostic on the symbol definition that is in the same file as its long body.
@@ -62,9 +65,9 @@ namespace StyleCopPlus.Analyzers
                 context.OwningSymbol.Locations.First(l => l.SourceTree == context.CodeBlock.SyntaxTree);
 
             Diagnostic result = Diagnostic.Create(
-                _rule,
+                Rule,
                 location,
-                Settings.SP2102MaxPropertyAccessorLength,
+                _memberLengthLimit,
                 lines);
 
             context.ReportDiagnostic(result);

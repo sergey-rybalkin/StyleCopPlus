@@ -1,4 +1,7 @@
-﻿using System.Linq;
+using System;
+using System.Collections.Immutable;
+using System.IO;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -11,6 +14,9 @@ namespace StyleCopPlus.Analyzers
     /// </summary>
     public abstract class StyleCopPlusAnalyzer : DiagnosticAnalyzer
     {
+        // Name of the StyleCop settings file that we inject our configuration into.
+        private const string SettingsFileName = "stylecop.json";
+
         private static readonly SyntaxKind[] MethodSyntaxKinds = new SyntaxKind[]
         {
             SyntaxKind.MethodDeclaration,
@@ -33,7 +39,19 @@ namespace StyleCopPlus.Analyzers
         {
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.EnableConcurrentExecution();
+
+            context.RegisterCompilationStartAction(ctx => {
+                Settings settings = ParseAnalyzerSettings(ctx.Options.AdditionalFiles);
+                Register(ctx, settings);
+            });
         }
+
+        /// <summary>
+        /// Registers analyzer actions for the specified compilation session using the specified settings.
+        /// </summary>
+        /// <param name="context">Analysis context to register actions in.</param>
+        /// <param name="settings">Options for controlling the operation.</param>
+        protected abstract void Register(CompilationStartAnalysisContext context, Settings settings);
 
         /// <summary>
         /// Checks whether specified code block is inside a method-like declaration.
@@ -76,6 +94,16 @@ namespace StyleCopPlus.Analyzers
             SourceText blockText = treeText.GetSubText(codeBlock.Span);
 
             return blockText.Lines.Count;
+        }
+
+        private static Settings ParseAnalyzerSettings(ImmutableArray<AdditionalText> additionalFiles)
+        {
+            AdditionalText settingsFile = additionalFiles.FirstOrDefault(
+                f => Path.GetFileName(f.Path)
+                         .Equals(SettingsFileName, StringComparison.Ordinal));
+
+            return null == settingsFile ? Settings.GetDefault() :
+                                          Settings.Parse(settingsFile.GetText().ToString());
         }
     }
 }

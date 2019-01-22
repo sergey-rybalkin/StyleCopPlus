@@ -15,11 +15,21 @@ refactorings from NuGet packages so you need to install VSIX extension in order 
 ## Analyzers
 
  - SP1131 (Unsafe Condition Analyzer) - validates that constant values are placed to the left of `==` and `!=` operators.
- - SP2002 (Last Line Empty Analyzer) - validates that files do not end with an empty line.
  - SP2100 (Line Too Long Analyzer) - validates that code lines do not exceed 110 symbols.
  - SP2101 (Method Too Long Analyzer) - validates that methods length do not exceed 50 lines.
  - SP2102 (Property Too Long Analyzer) - validates that property accessors do not exceed 40 lines.
  - SP2103 (File Too Long Analyzer) - validates that files length do not exceed 400 lines.
+
+## Configuration
+Analyzer line limits can be configured through [StyleCop configuration file](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/Configuration.md). Add the following snippet with configured values 
+to the end of the file:
+
+    "styleCopPlusRules": {
+        "maxLineLength": 110,
+        "maxFileLength": 400,
+        "maxPropertyAccessorLength": 40,
+        "maxMethodLength": 50
+    }
 
 ## Refactorings
 

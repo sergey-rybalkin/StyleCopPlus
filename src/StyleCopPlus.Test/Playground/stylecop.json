@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "indentation": {
+      "useTabs": false
+    },
+    "orderingRules": {
+      "usingDirectivesPlacement": "outsideNamespace"
+    },
+    "layoutRules": {
+       "newlineAtEndOfFile": "require"
+    },
+    "styleCopPlusRules": {
+        "maxLineLength": 110,
+        "maxFileLength": 400,
+        "maxPropertyAccessorLength": 40,
+        "maxMethodLength": 50
+    }
+  }
+}

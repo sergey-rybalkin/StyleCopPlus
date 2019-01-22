@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -24,7 +24,7 @@ namespace StyleCopPlus.Analyzers
         public const string Description = "When a comparison is made between a variable and a literal, " +
             "the variable should be placed on the right-hand-side to avoid accidental assignment.";
 
-        private static readonly DiagnosticDescriptor _rule = new DiagnosticDescriptor(
+        private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,
             Title,
             MessageFormat,
@@ -43,16 +43,16 @@ namespace StyleCopPlus.Analyzers
         /// </summary>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(_rule); }
+            get { return ImmutableArray.Create(Rule); }
         }
 
         /// <summary>
-        /// Called once at session start to register actions in the analysis context.
+        /// Registers analyzer actions for the specified compilation session using the specified settings.
         /// </summary>
         /// <param name="context">Analysis context to register actions in.</param>
-        public override void Initialize(AnalysisContext context)
+        /// <param name="settings">Options for controlling the operation.</param>
+        protected override void Register(CompilationStartAnalysisContext context, Settings settings)
         {
-            base.Initialize(context);
             context.RegisterSyntaxNodeAction(HandleSyntaxNode, HandledBinaryExpressionKinds);
         }
 
@@ -64,7 +64,7 @@ namespace StyleCopPlus.Analyzers
             if (IsLiteral(binaryExpression.Right, semanticModel) &&
                 !IsLiteral(binaryExpression.Left, semanticModel))
             {
-                context.ReportDiagnostic(Diagnostic.Create(_rule, binaryExpression.GetLocation()));
+                context.ReportDiagnostic(Diagnostic.Create(Rule, binaryExpression.GetLocation()));
             }
         }
 
@@ -78,8 +78,8 @@ namespace StyleCopPlus.Analyzers
             if (constantValue.HasValue)
                 return true;
 
-            IFieldSymbol fieldSymbol = semanticModel.GetSymbolInfo(expression).Symbol as IFieldSymbol;
-            if (fieldSymbol != null)
+            var fieldSymbol = semanticModel.GetSymbolInfo(expression).Symbol as IFieldSymbol;
+            if (null != fieldSymbol)
                 return fieldSymbol.IsStatic && fieldSymbol.IsReadOnly;
 
             return false;

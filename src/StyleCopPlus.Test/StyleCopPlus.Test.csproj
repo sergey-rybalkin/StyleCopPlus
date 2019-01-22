@@ -20,8 +20,6 @@
     <EmbeddedResource Include="Playground\SP2100\ConstructorInvocationFixed.cs" />
     <EmbeddedResource Include="Playground\CheckParameters\ConstructorParameter.cs" />
     <EmbeddedResource Include="Playground\CheckParameters\ConstructorParameterGold.cs" />
-    <EmbeddedResource Include="Playground\SP2002\EmptyLine.cs" />
-    <EmbeddedResource Include="Playground\SP2002\EmptyLineFixed.cs" />
     <EmbeddedResource Include="Playground\SP2100\FluentApi.cs" />
     <EmbeddedResource Include="Playground\CreateVariable\FluentApiCalls.cs" />
     <EmbeddedResource Include="Playground\CreateVariable\FluentApiCallsGold.cs" />
@@ -44,7 +42,6 @@
     <EmbeddedResource Include="Playground\SP2100\MethodInvocationFixed.cs" />
     <EmbeddedResource Include="Playground\SP2100\MethodInvocationWithAssignment.cs" />
     <EmbeddedResource Include="Playground\SP2100\MethodInvocationWithAssignmentFixed.cs" />
-    <EmbeddedResource Include="Playground\SP2002\NonEmptyLine.cs" />
     <EmbeddedResource Include="Playground\CheckParameters\OutParameter.cs" />
     <EmbeddedResource Include="Playground\CreateVariable\PropertyCall.cs" />
     <EmbeddedResource Include="Playground\CreateVariable\PropertyCallGold.cs" />
@@ -65,11 +62,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="4.19.4" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.4.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
+    <PackageReference Include="FluentAssertions" Version="5.6.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
   </ItemGroup>
 

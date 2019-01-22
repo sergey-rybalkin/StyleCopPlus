@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
@@ -21,34 +21,37 @@ namespace StyleCopPlus.Analyzers
 
         public const string Description = "File length should not exceed {0} lines.";
 
-        private static DiagnosticDescriptor _rule = new DiagnosticDescriptor(
+        private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,
             Title,
             MessageFormat,
             Category,
             DiagnosticSeverity.Warning,
             isEnabledByDefault: true,
-            description: string.Format(Description, Settings.SP2103MaxFileLength));
+            description: string.Format(Description, Settings.SP2103MaxFileLengthDefault));
+
+        private int _fileLengthLimit = Settings.SP2103MaxFileLengthDefault;
 
         /// <summary>
         /// Gets a set of descriptors for the diagnostics that this analyzer is capable of producing.
         /// </summary>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(_rule); }
+            get { return ImmutableArray.Create(Rule); }
         }
 
         /// <summary>
-        /// Called once at session start to register actions in the analysis context.
+        /// Registers analyzer actions for the specified compilation session using the specified settings.
         /// </summary>
         /// <param name="context">Analysis context to register actions in.</param>
-        public override void Initialize(AnalysisContext context)
+        /// <param name="settings">Options for controlling the operation.</param>
+        protected override void Register(CompilationStartAnalysisContext context, Settings settings)
         {
-            base.Initialize(context);
+            _fileLengthLimit = settings.SP2103MaxFileLength;
             context.RegisterSyntaxTreeAction(HandleSyntaxTree);
         }
 
-        private static void HandleSyntaxTree(SyntaxTreeAnalysisContext context)
+        private void HandleSyntaxTree(SyntaxTreeAnalysisContext context)
         {
             SyntaxTree tree = context.Tree;
             SourceText text;
@@ -58,16 +61,16 @@ namespace StyleCopPlus.Analyzers
 
             int fileLength = text.Lines.Count;
 
-            if (fileLength <= Settings.SP2103MaxFileLength)
+            if (fileLength <= _fileLengthLimit)
                 return;
 
             // Only mark the first line past the limit.
-            Location location = Location.Create(tree, text.Lines[Settings.SP2103MaxFileLength].Span);
+            Location location = Location.Create(tree, text.Lines[_fileLengthLimit].Span);
             var diagnostic = Diagnostic.Create(
-                _rule,
+                Rule,
                 location,
                 tree.FilePath,
-                Settings.SP2103MaxFileLength,
+                Settings.SP2103MaxFileLengthDefault,
                 fileLength);
 
             context.ReportDiagnostic(diagnostic);

@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleCopPlus", "src\StyleCopPlus\StyleCopPlus.csproj", "{E7653A2B-25C7-4F0F-A093-6D9EF14E3798}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleCopPlus", "src\StyleCopPlus\StyleCopPlus.csproj", "{E7653A2B-25C7-4F0F-A093-6D9EF14E3798}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleCopPlus.Test", "src\StyleCopPlus.Test\StyleCopPlus.Test.csproj", "{A6328FFE-99D4-4CFB-AB12-84F7CAA1A0CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleCopPlus.Test", "src\StyleCopPlus.Test\StyleCopPlus.Test.csproj", "{A6328FFE-99D4-4CFB-AB12-84F7CAA1A0CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleCopPlus.Vsix", "src\StyleCopPlus.Vsix\StyleCopPlus.Vsix.csproj", "{CF8193BF-97C1-42AB-8A8F-45F106560F5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4FF3022C-684E-47F1-976A-3CF3BFB8DFFE}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +35,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C6DF43B-94C6-4FE4-AE97-456FF200909F}
 	EndGlobalSection
 EndGlobal

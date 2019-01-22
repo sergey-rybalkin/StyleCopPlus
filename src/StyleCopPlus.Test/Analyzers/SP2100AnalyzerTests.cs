@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StyleCopPlus.Analyzers;
@@ -84,12 +84,15 @@ namespace StyleCopPlus.Test.Analyzers
                 Id = SP2100LineTooLongAnalyzer.DiagnosticId,
                 Message = string.Format(
                     SP2100LineTooLongAnalyzer.MessageFormat,
-                    Settings.SP2100MaxLineLength,
+                    Settings.SP2100MaxLineLengthDefault,
                     exceededLineLength),
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[]
                 {
-                     new DiagnosticResultLocation("Test0.cs", lineNumber, Settings.SP2100MaxLineLength + 1)
+                     new DiagnosticResultLocation(
+                         "Test0.cs",
+                         lineNumber,
+                         Settings.SP2100MaxLineLengthDefault + 1)
                 }
             };
         }

@@ -69,14 +69,14 @@
     <Compile Include="SP2102\ValidClass.cs" />
     <Compile Include="SP2103\LongClass.cs" />
     <Compile Include="SP2103\ValidClass.cs" />
-    <Compile Include="SP2002\EmptyLine.cs" />
-    <Compile Include="SP2002\EmptyLineFixed.cs" />
-    <Compile Include="SP2002\NonEmptyLine.cs" />
     <Compile Include="SP1131\IncorrectOperands.cs" />
     <Compile Include="SP1131\IncorrectOperandsFixed.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
