@@ -1,4 +1,4 @@
-image: Visual Studio 2019 Preview
+image: Visual Studio 2019
 
 branches:
   only:
@@ -11,7 +11,6 @@ before_build:
   - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
 
 build_script:
-  - nuget restore -Verbosity quiet
   - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
 after_build:

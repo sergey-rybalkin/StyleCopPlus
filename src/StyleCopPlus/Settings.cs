@@ -7,7 +7,7 @@ namespace StyleCopPlus
     /// </summary>
     public struct Settings
     {
-        // Avoid dependencies on JSON libraries by using regular expressions based settings parser.
+        // Avoid dependencies on JSON libraries by using regular expressions based settings parser.          
         private static readonly Regex LineLengthExpression =
             new Regex(@"""maxLineLength""\D+(\d+)", RegexOptions.Compiled);
 
@@ -39,7 +39,7 @@ namespace StyleCopPlus
         public int SP2103MaxFileLength { get; set; }
 
         /// <summary>
-        /// Gets or sets maximum number of lines in property accessor.
+        /// Gets or sets maximum number of lines in property accessors.
         /// </summary>
         public int SP2102MaxPropertyAccessorLength { get; set; }
 

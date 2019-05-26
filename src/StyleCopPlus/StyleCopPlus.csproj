@@ -3,37 +3,29 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageTargetFallback>portable-net45+win8+wp8+wpa81</PackageTargetFallback>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>StyleCopPlus</PackageId>
-    <PackageVersion>1.7.0.0</PackageVersion>
     <PackageVersion>2.0.0.0</PackageVersion>
     <Authors>Sergey Rybalkin</Authors>
     <PackageProjectUrl>http://vsixgallery.com/extension/StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sergey-rybalkin/StyleCopPlus</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn).</Description>
-    <PackageReleaseNotes>Upgraded to Roslyn version 2.10, SP2002 deprecated, integration with StyleCop configuration file.</PackageReleaseNotes>
     <Copyright>Copyright (c) 2019 Sergey Rybalkin</Copyright>
-    <PackageTags>StyleCopPlus, StyleCop, CSharp, CodeAnalysis</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <Version>1.8.0</Version>
     <PackageReleaseNotes>Upgraded to Roslyn version 3.</PackageReleaseNotes>
-    <Copyright>Copyright (c) 2019 Sergey Rybalkin</Copyright>
     <PackageTags>StyleCopPlus, StyleCop, CSharp, CodeAnalysis</PackageTags>
-    <NoPackageAnalysis>true</NoPackageAnalysis>
     <Version>2.0.0</Version>
     <Company>Sergey Rybalkin</Company>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.10.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.0.0" PrivateAssets="all" />
-    <PackageReference Update="NETStandard.Library" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.1.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.1.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
