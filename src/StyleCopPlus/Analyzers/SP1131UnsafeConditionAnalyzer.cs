@@ -54,19 +54,7 @@ namespace StyleCopPlus.Analyzers
             context.RegisterSyntaxNodeAction(HandleSyntaxNode, TargetBinaryExpressionKinds);
         }
 
-        private static void HandleSyntaxNode(SyntaxNodeAnalysisContext context)
-        {
-            var binaryExpression = (BinaryExpressionSyntax)context.Node;
-            var semanticModel = context.SemanticModel;
-
-            if (IsLiteral(binaryExpression.Right, semanticModel) ||
-                IsLiteral(binaryExpression.Left, semanticModel))
-            {
-                context.ReportDiagnostic(Diagnostic.Create(Rule, binaryExpression.GetLocation()));
-            }
-        }
-
-        private static bool IsLiteral(ExpressionSyntax expression, SemanticModel semanticModel)
+        internal static bool IsLiteral(ExpressionSyntax expression, SemanticModel semanticModel)
         {
             // Default expressions are most of the time constants, but not for default(MyStruct).
             if (expression.IsKind(SyntaxKind.DefaultExpression))
@@ -78,5 +66,17 @@ namespace StyleCopPlus.Analyzers
 
             return false;
         }
+
+        private static void HandleSyntaxNode(SyntaxNodeAnalysisContext context)
+        {
+            var binaryExpression = (BinaryExpressionSyntax)context.Node;
+            var semanticModel = context.SemanticModel;
+
+            if (IsLiteral(binaryExpression.Right, semanticModel) ||
+                IsLiteral(binaryExpression.Left, semanticModel))
+            {
+                context.ReportDiagnostic(Diagnostic.Create(Rule, binaryExpression.GetLocation()));
+            }
+        }        
     }
 }

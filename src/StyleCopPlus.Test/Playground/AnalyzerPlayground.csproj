@@ -69,8 +69,13 @@
     <Compile Include="SP2102\ValidClass.cs" />
     <Compile Include="SP2103\LongClass.cs" />
     <Compile Include="SP2103\ValidClass.cs" />
+    <Compile Include="SP1131\CorrectOperandsWithStatic.cs" />
     <Compile Include="SP1131\IncorrectOperands.cs" />
     <Compile Include="SP1131\IncorrectOperandsFixed.cs" />
+    <Compile Include="SP1131\IncorrectOperandsWithConst.cs" />
+    <Compile Include="SP1131\IncorrectOperandsWithConstFixed.cs" />
+    <Compile Include="SP1131\InvertedOperands.cs" />
+    <Compile Include="SP1131\InvertedOperandsFixed.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

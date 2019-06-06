@@ -60,18 +60,23 @@ namespace StyleCopPlus.CodeFixes
             var binaryExpression = (BinaryExpressionSyntax)syntaxRoot.FindNode(
                 diagnostic.Location.SourceSpan,
                 getInnermostNodeForTie: true);
-
-            var newBinaryExpression = TransformExpression(binaryExpression);
+            var model = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
+            var newBinaryExpression = TransformExpression(binaryExpression, model);
 
             return document.WithSyntaxRoot(syntaxRoot.ReplaceNode(binaryExpression, newBinaryExpression));
         }
 
-        private static BinaryExpressionSyntax TransformExpression(BinaryExpressionSyntax binaryExpression)
+        private static BinaryExpressionSyntax TransformExpression(
+            BinaryExpressionSyntax binaryExpression,
+            SemanticModel model)
         {
             var operatorToken = GetCorrectOperatorToken(binaryExpression.OperatorToken);
+            bool constOnLeft = SP1131UnsafeConditionAnalyzer.IsLiteral(binaryExpression.Left, model);
+            ExpressionSyntax newLeft = constOnLeft ? binaryExpression.Right : binaryExpression.Left;
+            ExpressionSyntax newRight = constOnLeft ? binaryExpression.Left : binaryExpression.Right;
 
-            return binaryExpression.WithLeft(binaryExpression.Left)
-                                   .WithRight(binaryExpression.Right)
+            return binaryExpression.WithLeft(newLeft)
+                                   .WithRight(newRight.WithoutTrailingTrivia())
                                    .WithOperatorToken(operatorToken);
         }
 

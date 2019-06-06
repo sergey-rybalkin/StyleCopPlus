@@ -30,6 +30,16 @@ namespace StyleCopPlus.Test.CodeFixes
             VerifyCSharpFix(test, expected);
         }
 
+        [TestMethod]
+        public void Fixes_ComparisonWithInvertedOperands()
+        {
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP1131InvertedOperands);
+            string expected =
+                DataHelper.GetEmbeddedResource(DataHelper.SP1131InvertedOperandsFixed);
+
+            VerifyCSharpFix(test, expected);
+        }
+
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
             return new SP1131UnsafeConditionAnalyzer();

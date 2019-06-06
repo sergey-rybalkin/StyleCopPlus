@@ -32,6 +32,8 @@
     <EmbeddedResource Include="Playground\SP1131\IncorrectOperandsFixed.cs" />
     <EmbeddedResource Include="Playground\SP1131\IncorrectOperandsWithConst.cs" />
     <EmbeddedResource Include="Playground\SP1131\IncorrectOperandsWithConstFixed.cs" />
+    <EmbeddedResource Include="Playground\SP1131\InvertedOperands.cs" />
+    <EmbeddedResource Include="Playground\SP1131\InvertedOperandsFixed.cs" />
     <EmbeddedResource Include="Playground\SP2103\LongClass.cs" />
     <EmbeddedResource Include="Playground\SP2101\LongConstructor.cs" />
     <EmbeddedResource Include="Playground\SP2101\LongFinalizer.cs" />
