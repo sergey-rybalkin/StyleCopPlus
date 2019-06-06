@@ -2,6 +2,8 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/k8pfm3e0miaqrada/branch/master?svg=true)](https://ci.appveyor.com/project/sergey-rybalkin/stylecopplus-analyzers/branch/master)
 
+[![codecov](https://codecov.io/gh/sergey-rybalkin/StyleCopPlus/branch/master/graph/badge.svg)](https://codecov.io/gh/sergey-rybalkin/StyleCopPlus)
+
 This project is an implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn) as well as some 
 additional refactorings and analyzers. Original project is available on 
 [CodePlex](https://stylecopplus.codeplex.com/).
