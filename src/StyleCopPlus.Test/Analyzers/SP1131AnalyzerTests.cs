@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StyleCopPlus.Analyzers;
@@ -11,17 +11,40 @@ namespace StyleCopPlus.Test.Analyzers
     public class SP1131AnalyzerTests : DiagnosticVerifier
     {
         [TestMethod]
-        public void Reports_IncorrectIfOperands()
+        public void Reports_ComparisonWithLiteral()
         {
-            int line, column;
             string test = DataHelper.GetEmbeddedResource(
                 DataHelper.SP1131IncorrectOperands,
-                out line,
-                out column);
+                out int line,
+                out int column);
 
             DiagnosticResult expected = CreateResult(line, column);
 
             VerifyCSharpDiagnostic(test, expected);
+        }
+
+        [TestMethod]
+        public void Reports_ComparisonWithConstant()
+        {
+            string test = DataHelper.GetEmbeddedResource(
+                DataHelper.SP1131IncorrectOperandsWithConst,
+                out int line,
+                out int column);
+
+            DiagnosticResult expected = CreateResult(line, column);
+
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
+        [TestMethod]
+        public void DoesNotReport_ComparisonWithStaticReadonly()
+        {
+            string test = DataHelper.GetEmbeddedResource(
+                DataHelper.SP1131CorrectOperandsWithStatic,
+                out _,
+                out _);
+
+            VerifyCSharpDiagnostic(test);
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()

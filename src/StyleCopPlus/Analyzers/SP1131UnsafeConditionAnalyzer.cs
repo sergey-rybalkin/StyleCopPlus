@@ -16,13 +16,13 @@ namespace StyleCopPlus.Analyzers
 
         public const string Category = "Readability";
 
-        public const string Title = "Use safe conditions.";
+        public const string Title = "Use constant pattern matching.";
 
         public const string MessageFormat =
-            "Constant values should appear on the left-hand side of comparisons";
+            "Use constant pattern matching instead of comparisons with constant values";
 
-        public const string Description = "When a comparison is made between a variable and a literal, " +
-            "the variable should be placed on the right-hand-side to avoid accidental assignment.";
+        public const string Description = "When a comparison is made between a variable and a constant, " +
+            "it is recommended to use constant pattern matching to avoid accidental assignment.";
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,
@@ -33,10 +33,8 @@ namespace StyleCopPlus.Analyzers
             isEnabledByDefault: true,
             description: Description);
 
-        private static readonly ImmutableArray<SyntaxKind> HandledBinaryExpressionKinds =
-            ImmutableArray.Create(
-                SyntaxKind.EqualsExpression,
-                SyntaxKind.NotEqualsExpression);
+        private static readonly ImmutableArray<SyntaxKind> TargetBinaryExpressionKinds =
+            ImmutableArray.Create(SyntaxKind.EqualsExpression);
 
         /// <summary>
         /// Gets a set of descriptors for the diagnostics that this analyzer is capable of producing.
@@ -53,7 +51,7 @@ namespace StyleCopPlus.Analyzers
         /// <param name="settings">Options for controlling the operation.</param>
         protected override void Register(CompilationStartAnalysisContext context, Settings settings)
         {
-            context.RegisterSyntaxNodeAction(HandleSyntaxNode, HandledBinaryExpressionKinds);
+            context.RegisterSyntaxNodeAction(HandleSyntaxNode, TargetBinaryExpressionKinds);
         }
 
         private static void HandleSyntaxNode(SyntaxNodeAnalysisContext context)
@@ -61,8 +59,8 @@ namespace StyleCopPlus.Analyzers
             var binaryExpression = (BinaryExpressionSyntax)context.Node;
             var semanticModel = context.SemanticModel;
 
-            if (IsLiteral(binaryExpression.Right, semanticModel) &&
-                !IsLiteral(binaryExpression.Left, semanticModel))
+            if (IsLiteral(binaryExpression.Right, semanticModel) ||
+                IsLiteral(binaryExpression.Left, semanticModel))
             {
                 context.ReportDiagnostic(Diagnostic.Create(Rule, binaryExpression.GetLocation()));
             }
@@ -77,10 +75,6 @@ namespace StyleCopPlus.Analyzers
             var constantValue = semanticModel.GetConstantValue(expression);
             if (constantValue.HasValue)
                 return true;
-
-            var fieldSymbol = semanticModel.GetSymbolInfo(expression).Symbol as IFieldSymbol;
-            if (null != fieldSymbol)
-                return fieldSymbol.IsStatic && fieldSymbol.IsReadOnly;
 
             return false;
         }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using System.Composition;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ namespace StyleCopPlus.CodeFixes
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SP1131UnsafeConditionFixProvider)), Shared]
     public class SP1131UnsafeConditionFixProvider : StyleCopPlusCodeFixProvider
     {
-        private const string Title = "Swap comparison operands";
+        private const string Title = "Replace with pattern matching";
 
         /// <summary>
         /// Gets a list of diagnostic IDs that this provider can provider fixes for.
@@ -68,12 +68,10 @@ namespace StyleCopPlus.CodeFixes
 
         private static BinaryExpressionSyntax TransformExpression(BinaryExpressionSyntax binaryExpression)
         {
-            var newLeft = binaryExpression.Right.WithTriviaFrom(binaryExpression.Left);
-            var newRight = binaryExpression.Left.WithTriviaFrom(binaryExpression.Right);
             var operatorToken = GetCorrectOperatorToken(binaryExpression.OperatorToken);
 
-            return binaryExpression.WithLeft(newLeft)
-                                   .WithRight(newRight)
+            return binaryExpression.WithLeft(binaryExpression.Left)
+                                   .WithRight(binaryExpression.Right)
                                    .WithOperatorToken(operatorToken);
         }
 
@@ -82,9 +80,7 @@ namespace StyleCopPlus.CodeFixes
             switch (operatorToken.Kind())
             {
                 case SyntaxKind.EqualsEqualsToken:
-                case SyntaxKind.ExclamationEqualsToken:
-                    return operatorToken;
-
+                    return SyntaxFactory.Token(SyntaxKind.IsKeyword);
                 default:
                     return SyntaxFactory.Token(SyntaxKind.None);
             }

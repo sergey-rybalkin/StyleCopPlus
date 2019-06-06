@@ -1,4 +1,4 @@
-﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ output extension=".Generated.cs" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="EnvDTE" #>
