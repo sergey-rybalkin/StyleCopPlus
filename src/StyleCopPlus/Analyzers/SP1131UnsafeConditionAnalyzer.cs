@@ -69,9 +69,17 @@ namespace StyleCopPlus.Analyzers
 
         private static void HandleSyntaxNode(SyntaxNodeAnalysisContext context)
         {
-            var binaryExpression = (BinaryExpressionSyntax)context.Node;
-            var semanticModel = context.SemanticModel;
+            // Make sure that node is not inside lambda expression as they do not support pattern matching.
+            SyntaxNode node = context.Node;
+            while (null != node.Parent)
+            {
+                node = node.Parent;
+                if (node is LambdaExpressionSyntax)
+                    return;
+            }
 
+            var binaryExpression = (BinaryExpressionSyntax)context.Node;
+            SemanticModel semanticModel = context.SemanticModel;
             if (IsLiteral(binaryExpression.Right, semanticModel) ||
                 IsLiteral(binaryExpression.Left, semanticModel))
             {

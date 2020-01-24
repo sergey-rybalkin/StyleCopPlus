@@ -52,6 +52,7 @@
     <Compile Include="CreateVariable\StaticCall.cs" />
     <Compile Include="CreateVariable\VoidCall.cs" />
     <Compile Include="IntroduceField\ReadonlyField.cs" />
+    <Compile Include="SP1131\OperandWithinLambda.cs" />
     <Compile Include="SP2100\All.cs" />
     <Compile Include="SP2100\ConstructorDefinition.cs" />
     <Compile Include="SP2100\ConstructorInvocation.cs" />

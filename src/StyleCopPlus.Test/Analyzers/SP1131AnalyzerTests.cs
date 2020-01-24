@@ -47,6 +47,17 @@ namespace StyleCopPlus.Test.Analyzers
             VerifyCSharpDiagnostic(test);
         }
 
+        [TestMethod]
+        public void DoesNotReport_ComparisonInsideLambda()
+        {
+            string test = DataHelper.GetEmbeddedResource(
+                DataHelper.SP1131OperandWithinLambda,
+                out _,
+                out _);
+
+            VerifyCSharpDiagnostic(test);
+        }
+
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
             return new SP1131UnsafeConditionAnalyzer();
