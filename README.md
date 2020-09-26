@@ -21,6 +21,7 @@ refactorings from NuGet packages so you need to install VSIX extension in order 
  - SP2101 (Method Too Long Analyzer) - validates that methods length do not exceed 50 lines.
  - SP2102 (Property Too Long Analyzer) - validates that property accessors do not exceed 40 lines.
  - SP2103 (File Too Long Analyzer) - validates that files length do not exceed 400 lines.
+ - SP1001 (Invalid Exception Message) - validates exception message to match best practices. Inspired by [Microsoft guidelines](https://docs.microsoft.com/en-us/dotnet/api/system.exception.message?view=netcore-3.1#remarks) and [StackOverflow discussion](https://stackoverflow.com/questions/1136829/do-you-end-your-exception-messages-with-a-period/34136055).
 
 ## Configuration
 Analyzer line limits can be configured through [StyleCop configuration file](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/Configuration.md). Add the following snippet with configured values 

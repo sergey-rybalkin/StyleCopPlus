@@ -1,0 +1,85 @@
+using System.Collections.Immutable;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Diagnostics;
+
+namespace StyleCopPlus.Analyzers
+{
+    /// <summary>
+    /// SP3001 rule analyzer - validates that exception message follows best practices.
+    /// </summary>
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
+    public class SP1001InvalidExceptionMessageAnalyzer : StyleCopPlusAnalyzer
+    {
+        public const string DiagnosticId = "SP1001";
+
+        public const string Category = "Readability";
+
+        public const string Title = "Follow exception message guidelines.";
+
+        public const string MessageFormat =
+            "Ensure that message is grammatically correct and that each sentence ends with a period";
+
+        public const string Description = "The text of the Message property should completely describe the " +
+            "error and, when possible, should also explain how to correct the error. Top-level exception " +
+            "handlers may display the message to end-users, so you should ensure that it is grammatically " +
+            "correct and that each sentence of the message ends with a period.";
+
+        private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
+            DiagnosticId,
+            Title,
+            MessageFormat,
+            Category,
+            DiagnosticSeverity.Warning,
+            isEnabledByDefault: true,
+            description: Description);
+
+        /// <summary>
+        /// Gets a set of descriptors for the diagnostics that this analyzer is capable of producing.
+        /// </summary>
+        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
+            => ImmutableArray.Create(Rule);
+
+        /// <summary>
+        /// Registers analyzer actions for the specified compilation session using the specified settings.
+        /// </summary>
+        /// <param name="context">Analysis context to register actions in.</param>
+        /// <param name="settings">Options for controlling the operation.</param>
+        protected override void Register(CompilationStartAnalysisContext context, Settings settings)
+        {
+            context.RegisterSyntaxNodeAction(HandleSyntaxNode, SyntaxKind.ThrowStatement);
+            context.RegisterSyntaxNodeAction(HandleSyntaxNode, SyntaxKind.ThrowExpression);
+        }
+
+        private static void HandleSyntaxNode(SyntaxNodeAnalysisContext context)
+        {
+            ObjectCreationExpressionSyntax node = null;
+            if (context.Node is ThrowStatementSyntax statement)
+                node = statement.Expression as ObjectCreationExpressionSyntax;
+            else if (context.Node is ThrowExpressionSyntax expression)
+                node = expression.Expression as ObjectCreationExpressionSyntax;
+
+            if (node is null)
+                return;
+
+            SymbolInfo symbol = context.SemanticModel.GetSymbolInfo(node);
+            if (symbol.Symbol != null && symbol.Symbol is IMethodSymbol constructor)
+            {
+                for (int i = 0; i < constructor.Parameters.Length; i++)
+                {
+                    if (constructor.Parameters[i].Name != "message")
+                        continue;
+
+                    ExpressionSyntax argument = node.ArgumentList.Arguments[i].Expression;
+                    Optional<object> messageValue = context.SemanticModel.GetConstantValue(argument);
+                    if (!messageValue.HasValue)
+                        return;
+
+                    if (!messageValue.ToString().EndsWith("."))
+                        context.ReportDiagnostic(Diagnostic.Create(Rule, argument.GetLocation()));
+                }
+            }
+        }
+    }
+}
