@@ -34,7 +34,7 @@ namespace StyleCopPlus.Analyzers
             description: Description);
 
         private static readonly ImmutableArray<SyntaxKind> TargetBinaryExpressionKinds =
-            ImmutableArray.Create(SyntaxKind.EqualsExpression);
+            ImmutableArray.Create(SyntaxKind.EqualsExpression, SyntaxKind.NotEqualsExpression);
 
         /// <summary>
         /// Gets a set of descriptors for the diagnostics that this analyzer is capable of producing.

@@ -40,6 +40,16 @@ namespace StyleCopPlus.Test.CodeFixes
             VerifyCSharpFix(test, expected);
         }
 
+        [TestMethod]
+        public void Fixes_NotEqualsOperator()
+        {
+            string test = DataHelper.GetEmbeddedResource(DataHelper.SP1131NotEqualsOperator);
+            string expected =
+                DataHelper.GetEmbeddedResource(DataHelper.SP1131NotEqualsOperatorFixed);
+
+            VerifyCSharpFix(test, expected);
+        }
+
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
             return new SP1131UnsafeConditionAnalyzer();

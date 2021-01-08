@@ -37,6 +37,19 @@ namespace StyleCopPlus.Test.Analyzers
         }
 
         [TestMethod]
+        public void Reports_InequalityWithConstant()
+        {
+            string test = DataHelper.GetEmbeddedResource(
+                DataHelper.SP1131NotEqualsOperator,
+                out int line,
+                out int column);
+
+            DiagnosticResult expected = CreateResult(line, column);
+
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
+        [TestMethod]
         public void DoesNotReport_ComparisonWithStaticReadonly()
         {
             string test = DataHelper.GetEmbeddedResource(

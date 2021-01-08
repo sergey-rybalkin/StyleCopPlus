@@ -81,6 +81,8 @@
     <Compile Include="SP1131\IncorrectOperandsWithConstFixed.cs" />
     <Compile Include="SP1131\InvertedOperands.cs" />
     <Compile Include="SP1131\InvertedOperandsFixed.cs" />
+    <Compile Include="SP1131\NotEqualsOperator.cs" />
+    <Compile Include="SP1131\NotEqualsOperatorFixed.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

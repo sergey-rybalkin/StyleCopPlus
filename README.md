@@ -16,7 +16,7 @@ refactorings from NuGet packages so you need to install VSIX extension in order 
 
 ## Analyzers
 
- - SP1131 (Unsafe Condition Analyzer) - validates that constant pattern matching is used instead of `==` operator to avoid typos like `if (flag = true)`.
+ - SP1131 (Unsafe Condition Analyzer) - validates that constant pattern matching is used instead of `==` operator to avoid typos like `if (flag = true)`, also suggests using negated not pattern instead of `!=` operator.
  - SP2100 (Line Too Long Analyzer) - validates that code lines do not exceed 110 symbols.
  - SP2101 (Method Too Long Analyzer) - validates that methods length do not exceed 50 lines.
  - SP2102 (Property Too Long Analyzer) - validates that property accessors do not exceed 40 lines.

@@ -15,23 +15,24 @@
     <RepositoryUrl>https://github.com/sergey-rybalkin/StyleCopPlus</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn).</Description>
-    <Copyright>Copyright (c) 2020 Sergey Rybalkin</Copyright>
+    <Copyright>Copyright (c) 2021 Sergey Rybalkin</Copyright>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <PackageReleaseNotes>Upgraded to Roslyn version 3.7, new analyzer for exception messages.</PackageReleaseNotes>
+    <PackageReleaseNotes>Upgraded to Roslyn version 3.8, support for negated not pattern in SP1131.</PackageReleaseNotes>
     <PackageTags>StyleCopPlus, StyleCop, CSharp, CodeAnalysis</PackageTags>
-    <Version>2.2.0</Version>
+    <Version>2.3.0</Version>
     <Company>Sergey Rybalkin</Company>
-    <AssemblyVersion>2.2.0.0</AssemblyVersion>
-    <FileVersion>2.2.0.0</FileVersion>
+    <AssemblyVersion>2.3.0.0</AssemblyVersion>
+    <FileVersion>2.3.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.7.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.7.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.8.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="true" PackagePath="tools" />
+    <None Remove="bin\Debug\netstandard2.0\\StyleCopPlus.dll" />
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
 

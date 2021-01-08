@@ -39,6 +39,8 @@
     <EmbeddedResource Include="Playground\SP1131\InvertedOperands.cs" />
     <EmbeddedResource Include="Playground\SP1131\InvertedOperandsFixed.cs" />
     <EmbeddedResource Include="Playground\SP1131\OperandWithinLambda.cs" />
+    <EmbeddedResource Include="Playground\SP1131\NotEqualsOperator.cs" />
+    <EmbeddedResource Include="Playground\SP1131\NotEqualsOperatorFixed.cs" />
     <EmbeddedResource Include="Playground\SP2103\LongClass.cs" />
     <EmbeddedResource Include="Playground\SP2101\LongConstructor.cs" />
     <EmbeddedResource Include="Playground\SP2101\LongFinalizer.cs" />
@@ -73,12 +75,12 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.7.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.7.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.8.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
     <PackageReference Include="NSubstitute" Version="4.2.2" />

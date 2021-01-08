@@ -66,28 +66,28 @@ namespace StyleCopPlus.CodeFixes
             return document.WithSyntaxRoot(syntaxRoot.ReplaceNode(binaryExpression, newBinaryExpression));
         }
 
-        private static BinaryExpressionSyntax TransformExpression(
+        private static IsPatternExpressionSyntax TransformExpression(
             BinaryExpressionSyntax binaryExpression,
             SemanticModel model)
         {
-            var operatorToken = GetCorrectOperatorToken(binaryExpression.OperatorToken);
             bool constOnLeft = SP1131UnsafeConditionAnalyzer.IsLiteral(binaryExpression.Left, model);
             ExpressionSyntax newLeft = constOnLeft ? binaryExpression.Right : binaryExpression.Left;
             ExpressionSyntax newRight = constOnLeft ? binaryExpression.Left : binaryExpression.Right;
+            var pattern = GetPatternExpression(binaryExpression.OperatorToken, newRight.WithoutTrivia());
 
-            return binaryExpression.WithLeft(newLeft)
-                                   .WithRight(newRight.WithoutTrailingTrivia())
-                                   .WithOperatorToken(operatorToken);
+            return SyntaxFactory.IsPatternExpression(newLeft, pattern);
         }
 
-        private static SyntaxToken GetCorrectOperatorToken(SyntaxToken operatorToken)
+        private static PatternSyntax GetPatternExpression(SyntaxToken @operator, ExpressionSyntax pattern)
         {
-            switch (operatorToken.Kind())
+            switch (@operator.Kind())
             {
                 case SyntaxKind.EqualsEqualsToken:
-                    return SyntaxFactory.Token(SyntaxKind.IsKeyword);
+                    return SyntaxFactory.ConstantPattern(pattern);
+                case SyntaxKind.ExclamationEqualsToken:
+                    return SyntaxFactory.UnaryPattern(SyntaxFactory.ConstantPattern(pattern));
                 default:
-                    return SyntaxFactory.Token(SyntaxKind.None);
+                    return SyntaxFactory.ConstantPattern(pattern);
             }
         }
     }
