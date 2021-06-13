@@ -58,6 +58,17 @@ namespace StyleCopPlus.Test.Analyzers
             VerifyCSharpDiagnostic(test);
         }
 
+        [TestMethod]
+        public void DoesNotThrow_WithoutMessageParameter()
+        {
+            string test = DataHelper.GetEmbeddedResource(
+                DataHelper.SP1001ThrowWithoutMessage,
+                out _,
+                out _);
+
+            VerifyCSharpDiagnostic(test);
+        }
+
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
             return new SP1001InvalidExceptionMessageAnalyzer();

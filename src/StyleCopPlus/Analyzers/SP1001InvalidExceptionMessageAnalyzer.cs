@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Immutable;
+using System.Linq;
+using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -52,6 +55,11 @@ namespace StyleCopPlus.Analyzers
             context.RegisterSyntaxNodeAction(HandleSyntaxNode, SyntaxKind.ThrowExpression);
         }
 
+        /// <summary>
+        /// Look for exception creation syntax, find value of the "message" parameter (if any) and ensure
+        /// that it ends with dot.
+        /// </summary>
+        /// <param name="context">Syntax node context for exception throw.</param>
         private static void HandleSyntaxNode(SyntaxNodeAnalysisContext context)
         {
             ObjectCreationExpressionSyntax node = null;
@@ -63,23 +71,49 @@ namespace StyleCopPlus.Analyzers
             if (node is null)
                 return;
 
-            SymbolInfo symbol = context.SemanticModel.GetSymbolInfo(node);
-            if (symbol.Symbol != null && symbol.Symbol is IMethodSymbol constructor)
+            SymbolInfo constructorSymbol = context.SemanticModel.GetSymbolInfo(node);
+            IMethodSymbol constructor = constructorSymbol.Symbol as IMethodSymbol;
+            if (constructor != null)
+                AnalyzeExceptionConstructor(constructor, node, context);
+        }
+
+        private static void AnalyzeExceptionConstructor(
+            IMethodSymbol constructor,
+            ObjectCreationExpressionSyntax node,
+            SyntaxNodeAnalysisContext context)
+        {
+            int messageParameterOrdinal = -1;
+            for (int i = 0; i < constructor.Parameters.Length; i++)
             {
-                for (int i = 0; i < constructor.Parameters.Length; i++)
+                if (constructor.Parameters[i].Name is "message")
                 {
-                    if (constructor.Parameters[i].Name != "message")
-                        continue;
-
-                    ExpressionSyntax argument = node.ArgumentList.Arguments[i].Expression;
-                    Optional<object> messageValue = context.SemanticModel.GetConstantValue(argument);
-                    if (!messageValue.HasValue)
-                        return;
-
-                    if (!messageValue.ToString().EndsWith("."))
-                        context.ReportDiagnostic(Diagnostic.Create(Rule, argument.GetLocation()));
+                    messageParameterOrdinal = i;
+                    break;
                 }
             }
+
+            if (messageParameterOrdinal is -1) // Exception constructor does not have "message" parameter.
+                return;
+
+            // Find "message" parameter passed by name,
+            ExpressionSyntax messageArgument =
+                node.ArgumentList
+                    .Arguments
+                    .FirstOrDefault(a => a.NameColon?.Name.Identifier.Text == "message")?
+                    .Expression;
+
+            // If named parameter was not passed try to find it by index.
+            if (messageArgument == null && node.ArgumentList.Arguments.Count < messageParameterOrdinal)
+                messageArgument = node.ArgumentList.Arguments[messageParameterOrdinal].Expression;
+            else
+                return;
+
+            Optional<object> messageValue = context.SemanticModel.GetConstantValue(messageArgument);
+            if (!messageValue.HasValue)
+                return;
+
+            if (!messageValue.ToString().EndsWith("."))
+                context.ReportDiagnostic(Diagnostic.Create(Rule, messageArgument.GetLocation()));
         }
     }
 }

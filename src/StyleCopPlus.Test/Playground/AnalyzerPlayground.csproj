@@ -54,6 +54,7 @@
     <Compile Include="IntroduceField\ReadonlyField.cs" />
     <Compile Include="SP1001\ThrowExpression.cs" />
     <Compile Include="SP1001\ThrowStatement.cs" />
+    <Compile Include="SP1001\ThrowWithoutMessage.cs" />
     <Compile Include="SP1001\ValidThrowExpression.cs" />
     <Compile Include="SP1001\ValidThrowStatement.cs" />
     <Compile Include="SP1131\OperandWithinLambda.cs" />

@@ -44,6 +44,7 @@ public const string CheckParametersConstructorParameter = "CheckParameters.Const
         public const string IntroduceFieldReadonlyFieldGold = "IntroduceField.ReadonlyFieldGold.cs";
         public const string SP1001ThrowExpression = "SP1001.ThrowExpression.cs";
         public const string SP1001ThrowStatement = "SP1001.ThrowStatement.cs";
+        public const string SP1001ThrowWithoutMessage = "SP1001.ThrowWithoutMessage.cs";
         public const string SP1001ValidThrowExpression = "SP1001.ValidThrowExpression.cs";
         public const string SP1001ValidThrowStatement = "SP1001.ValidThrowStatement.cs";
         public const string SP1131CorrectOperandsWithStatic = "SP1131.CorrectOperandsWithStatic.cs";

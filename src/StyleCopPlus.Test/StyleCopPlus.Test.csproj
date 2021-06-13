@@ -29,6 +29,7 @@
     <EmbeddedResource Include="Playground\CheckParameters\GenericParameterGold.cs" />
     <EmbeddedResource Include="Playground\SP1001\ThrowExpression.cs" />
     <EmbeddedResource Include="Playground\SP1001\ThrowStatement.cs" />
+    <EmbeddedResource Include="Playground\SP1001\ThrowWithoutMessage.cs" />
     <EmbeddedResource Include="Playground\SP1001\ValidThrowExpression.cs" />
     <EmbeddedResource Include="Playground\SP1001\ValidThrowStatement.cs" />
     <EmbeddedResource Include="Playground\SP1131\CorrectOperandsWithStatic.cs" />
@@ -75,14 +76,14 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.8.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.10.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.4" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.4" />
     <PackageReference Include="NSubstitute" Version="4.2.2" />
   </ItemGroup>
 
