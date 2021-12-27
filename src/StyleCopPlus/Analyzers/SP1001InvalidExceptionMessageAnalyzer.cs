@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -103,7 +101,7 @@ namespace StyleCopPlus.Analyzers
                     .Expression;
 
             // If named parameter was not passed try to find it by index.
-            if (messageArgument == null && node.ArgumentList.Arguments.Count < messageParameterOrdinal)
+            if (messageArgument == null && node.ArgumentList.Arguments.Count > messageParameterOrdinal)
                 messageArgument = node.ArgumentList.Arguments[messageParameterOrdinal].Expression;
             else
                 return;

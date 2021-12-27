@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204" Version="2.3.1" Language="en-US" Publisher="Sergey Rybalkin"/>
+        <Identity Id="StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204" Version="3.0.0" Language="en-US" Publisher="Sergey Rybalkin"/>
         <DisplayName>StyleCopPlus</DisplayName>
         <Description xml:space="preserve">A set of analyzers and refactorings based on StyleCopPlus project implemented with Roslyn engine.</Description>
         <MoreInfo>https://github.com/sergey-rybalkin/StyleCopPlus.Analyzers</MoreInfo>
-        <License>license.txt</License>
         <GettingStartedGuide>https://github.com/sergey-rybalkin/StyleCopPlus.Analyzers/blob/master/README.md</GettingStartedGuide>
         <Icon>Resources/Logo.png</Icon>
         <PreviewImage>Resources/PreviewImage.png</PreviewImage>
         <Tags>StyleCopPlus</Tags>
     </Metadata>
     <Installation>
-        <InstallationTarget Version="[16.0,17.0]" Id="Microsoft.VisualStudio.Pro" />
+        <InstallationTarget Version="[17.0]" Id="Microsoft.VisualStudio.Pro">
+            <ProductArchitecture>amd64</ProductArchitecture>
+        </InstallationTarget>
     </Installation>
     <Dependencies>
         <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.7.2,)" />

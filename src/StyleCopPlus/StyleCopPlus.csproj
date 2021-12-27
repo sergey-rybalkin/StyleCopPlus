@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <PackageId>StyleCopPlus</PackageId>
-    <PackageVersion>2.0.1.0</PackageVersion>
+    <PackageVersion>3.0.0.0</PackageVersion>
     <Authors>Sergey Rybalkin</Authors>
     <PackageProjectUrl>http://vsixgallery.com/extension/StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sergey-rybalkin/StyleCopPlus</RepositoryUrl>
@@ -17,17 +17,17 @@
     <Description>Implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn).</Description>
     <Copyright>Copyright (c) 2021 Sergey Rybalkin</Copyright>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <PackageReleaseNotes>Upgraded to Roslyn version 3.8, support for negated not pattern in SP1131.</PackageReleaseNotes>
+    <PackageReleaseNotes>Upgraded to Roslyn version 4.0.</PackageReleaseNotes>
     <PackageTags>StyleCopPlus, StyleCop, CSharp, CodeAnalysis</PackageTags>
-    <Version>2.3.1</Version>
+    <Version>3.0.0</Version>
     <Company>Sergey Rybalkin</Company>
-    <AssemblyVersion>2.3.1.0</AssemblyVersion>
-    <FileVersion>2.3.1.0</FileVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.10.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.10.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.0.1" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
