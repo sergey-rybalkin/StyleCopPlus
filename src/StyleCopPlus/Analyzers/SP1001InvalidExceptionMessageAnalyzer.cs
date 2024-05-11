@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace StyleCopPlus.Analyzers
 {
     /// <summary>
-    /// SP3001 rule analyzer - validates that exception message follows best practices.
+    /// SP1001 rule analyzer - validates that exception message follows best practices.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class SP1001InvalidExceptionMessageAnalyzer : StyleCopPlusAnalyzer
@@ -17,7 +17,7 @@ namespace StyleCopPlus.Analyzers
 
         public const string Category = "Readability";
 
-        public const string Title = "Follow exception message guidelines.";
+        public const string Title = "Follow exception message guidelines";
 
         public const string MessageFormat =
             "Ensure that message is grammatically correct and that each sentence ends with a period";

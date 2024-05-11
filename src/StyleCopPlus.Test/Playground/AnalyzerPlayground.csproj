@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AnalyzerPlayground</RootNamespace>
     <AssemblyName>AnalyzerPlayground</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +58,8 @@
     <Compile Include="SP1001\ThrowWithoutMessage.cs" />
     <Compile Include="SP1001\ValidThrowExpression.cs" />
     <Compile Include="SP1001\ValidThrowStatement.cs" />
+    <Compile Include="SP1002\InvalidParameterName.cs" />
+    <Compile Include="SP1002\ValidParameterName.cs" />
     <Compile Include="SP1131\OperandWithinLambda.cs" />
     <Compile Include="SP2100\All.cs" />
     <Compile Include="SP2100\ConstructorDefinition.cs" />

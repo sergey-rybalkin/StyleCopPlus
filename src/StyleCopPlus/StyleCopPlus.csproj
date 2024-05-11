@@ -9,25 +9,26 @@
 
   <PropertyGroup>
     <PackageId>StyleCopPlus</PackageId>
-    <PackageVersion>3.0.0.0</PackageVersion>
+    <PackageVersion>3.1.0.0</PackageVersion>
     <Authors>Sergey Rybalkin</Authors>
     <PackageProjectUrl>http://vsixgallery.com/extension/StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sergey-rybalkin/StyleCopPlus</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn).</Description>
-    <Copyright>Copyright (c) 2021 Sergey Rybalkin</Copyright>
+    <Copyright>Copyright (c) 2024 Sergey Rybalkin</Copyright>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <PackageReleaseNotes>Upgraded to Roslyn version 4.0.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add SP1002 rule.</PackageReleaseNotes>
     <PackageTags>StyleCopPlus, StyleCop, CSharp, CodeAnalysis</PackageTags>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <Company>Sergey Rybalkin</Company>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
+    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <FileVersion>3.1.0.0</FileVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.0.1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.9.2" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
