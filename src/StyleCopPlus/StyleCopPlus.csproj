@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <PackageId>StyleCopPlus</PackageId>
-    <PackageVersion>3.1.0.0</PackageVersion>
+    <PackageVersion>3.1.1.0</PackageVersion>
     <Authors>Sergey Rybalkin</Authors>
     <PackageProjectUrl>http://vsixgallery.com/extension/StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sergey-rybalkin/StyleCopPlus</RepositoryUrl>
@@ -19,10 +19,10 @@
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <PackageReleaseNotes>Add SP1002 rule.</PackageReleaseNotes>
     <PackageTags>StyleCopPlus, StyleCop, CSharp, CodeAnalysis</PackageTags>
-    <Version>3.1.0</Version>
+    <Version>3.1.1</Version>
     <Company>Sergey Rybalkin</Company>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
-    <FileVersion>3.1.0.0</FileVersion>
+    <AssemblyVersion>3.1.1.0</AssemblyVersion>
+    <FileVersion>3.1.1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

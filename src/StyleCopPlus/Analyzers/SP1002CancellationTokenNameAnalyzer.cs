@@ -53,7 +53,7 @@ namespace StyleCopPlus.Analyzers
         {
             if (context.Node is ParameterSyntax parameter)
             {
-                if (parameter.Type.ToString() != nameof(CancellationToken))
+                if (parameter.Type?.ToString() != nameof(CancellationToken))
                     return;
 
                 if (parameter.Identifier.ToString() is TargetParameterName)
