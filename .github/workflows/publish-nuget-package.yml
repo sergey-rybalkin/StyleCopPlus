@@ -27,9 +27,4 @@ jobs:
       run: dotnet pack --configuration Release
 
     - name: Publish NuGet package
-      uses: nuget/nuget@v1
-      with:
-        command: push
-        nuget-api-key: ${{ secrets.NUGET_API_KEY }} # Make sure to add your NuGet API key as a secret in your repository
-        packages: '**/*.nupkg'
-        source: https://api.nuget.org/v3/index.json
+      run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
