@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-dotnet@v4
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./src/StyleCopPlus.Test/StyleCopPlus.Test.csproj
 
       - name: Build analyzer
         run: dotnet build ./src/StyleCopPlus.Test/StyleCopPlus.Test.csproj --no-restore --configuration Release
