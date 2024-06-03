@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
@@ -48,8 +48,8 @@ namespace StyleCopPlus.Test.Verifiers
             var sourceText = newDocument.GetTextAsync(CancellationToken.None).Result;
             var text = sourceText.ToString();
 
-            string normalizedText = text.Replace("\r\n", "\n").Replace("\t", "    ");
-            string normalizedExpected = expected.Replace("\r\n", "\n").Replace("\t", "    ");
+            string normalizedText = text.Replace("\r\n", "\n").Replace("\t", "    ").Trim();
+            string normalizedExpected = expected.Replace("\r\n", "\n").Replace("\t", "    ").Trim();
 
             Assert.AreEqual(normalizedExpected, normalizedText);
         }

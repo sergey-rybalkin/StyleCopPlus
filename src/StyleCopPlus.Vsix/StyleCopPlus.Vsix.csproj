@@ -4,8 +4,8 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <RootNamespace>StyleCopPlus.Vsix</RootNamespace>
-    <AssemblyName>StyleCopPlus.Vsix</AssemblyName>
+    <RootNamespace>StyleCopPlus</RootNamespace>
+    <AssemblyName>StyleCopPlus</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup>

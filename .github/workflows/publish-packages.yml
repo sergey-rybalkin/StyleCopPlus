@@ -1,0 +1,38 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Build
+        run: msbuild /m /p:Configuration=Release
+
+      - name: Pack NuGet package
+        run: dotnet pack ./src/StyleCopPlus/StyleCopPlus.csproj --configuration Release
+
+      - name: Publish NuGet package
+        run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+
+      - name: Get version number
+        id: get-version
+        run: echo | set /p="VERSION=" > "$GITHUB_OUTPUT" || git describe --abbrev=0 >> "$GITHUB_OUTPUT"
+
+      - name: Publish VSIX package
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get-version.outputs.VERSION }}
+          files: ./src/StyleCopPlus.Vsix/bin/Release/net472/StyleCopPlus.vsix
+          name: ${{ steps.get-version.outputs.VERSION }}

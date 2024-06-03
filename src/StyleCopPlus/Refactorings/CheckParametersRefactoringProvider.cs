@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
@@ -24,7 +24,7 @@ namespace StyleCopPlus.Refactorings
                 context.TargetNode,
                 context.CancellationToken);
 
-            if (null == symbol ||
+            if (symbol is null ||
                 !symbol.Type.IsReferenceType ||
                 symbol.HasExplicitDefaultValue ||
                 RefKind.None != symbol.RefKind)
@@ -40,7 +40,7 @@ namespace StyleCopPlus.Refactorings
             IParameterSymbol parameter)
         {
             string validationMethod =
-                "String" == parameter.Type.Name ? "ArgumentNotEmpty" : "ArgumentNotNull";
+                parameter.Type.Name is "String" ? "ArgumentNotEmpty" : "ArgumentNotNull";
 
             StatementSyntax validationStatement = ExpressionStatement(
                 InvocationExpression(
@@ -54,23 +54,14 @@ namespace StyleCopPlus.Refactorings
                             new SyntaxNodeOrToken[]
                             {
                                 Argument(
-                                    IdentifierName(parameter.Name)),
-                                Token(SyntaxKind.CommaToken),
-                                Argument(
-                                    InvocationExpression(
-                                        IdentifierName(@"nameof"))
-                                    .WithArgumentList(
-                                        ArgumentList(
-                                            SingletonSeparatedList(
-                                                Argument(
-                                                    IdentifierName(parameter.Name))))))
+                                    IdentifierName(parameter.Name))
                             }))));
 
             // Supports methods, constructors, operators etc. except for indexers.
             BaseMethodDeclarationSyntax method =
                 context.TargetNode.Ancestors().OfType<BaseMethodDeclarationSyntax>().FirstOrDefault();
 
-            if (null == method)
+            if (method is null)
                 return Task.FromResult(context.Document);
 
             var firstNode = method.Body.ChildNodes().FirstOrDefault();

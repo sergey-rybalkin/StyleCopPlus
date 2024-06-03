@@ -11,7 +11,7 @@ namespace StyleCopPlus.Vsix
         public const string Name = "StyleCopPlus";
         public const string Description = @"A set of analyzers and refactorings based on StyleCopPlus project implemented with Roslyn engine.";
         public const string Language = "en-US";
-        public const string Version = "3.1.0";
+        public const string Version = "3.2.0";
         public const string Author = "Sergey Rybalkin";
         public const string Tags = "StyleCopPlus";
     }

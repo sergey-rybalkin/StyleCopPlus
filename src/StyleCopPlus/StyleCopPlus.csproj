@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
@@ -8,22 +8,23 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>StyleCopPlus</PackageId>
-    <PackageVersion>3.1.1.0</PackageVersion>
+    <AssemblyVersion>3.2.0.0</AssemblyVersion>
     <Authors>Sergey Rybalkin</Authors>
-    <PackageProjectUrl>http://vsixgallery.com/extension/StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/sergey-rybalkin/StyleCopPlus</RepositoryUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>Implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn).</Description>
-    <Copyright>Copyright (c) 2024 Sergey Rybalkin</Copyright>
-    <NoPackageAnalysis>true</NoPackageAnalysis>
-    <PackageReleaseNotes>Add SP1002 rule.</PackageReleaseNotes>
-    <PackageTags>StyleCopPlus, StyleCop, CSharp, CodeAnalysis</PackageTags>
-    <Version>3.1.1</Version>
     <Company>Sergey Rybalkin</Company>
-    <AssemblyVersion>3.1.1.0</AssemblyVersion>
-    <FileVersion>3.1.1.0</FileVersion>
+    <Copyright>Copyright (c) 2024 Sergey Rybalkin</Copyright>
+    <Description>Implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn).</Description>
+    <FileVersion>3.2.0.0</FileVersion>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <PackageId>StyleCopPlus</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/sergey-rybalkin/StyleCopPlus</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>Migration to GitHub actions, other minor enhancements.</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>StyleCopPlus, StyleCop, CSharp, CodeAnalysis</PackageTags>
+    <PackageVersion>3.2.0.0</PackageVersion>
+    <RepositoryUrl>https://github.com/sergey-rybalkin/StyleCopPlus</RepositoryUrl>
+    <Version>3.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +36,10 @@
     <None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="true" PackagePath="tools" />
     <None Remove="bin\Debug\netstandard2.0\\StyleCopPlus.dll" />
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

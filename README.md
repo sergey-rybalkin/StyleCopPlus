@@ -1,18 +1,16 @@
 # StyleCopPlus Analyzers and Refactorings
 
-[![Build status](https://ci.appveyor.com/api/projects/status/k8pfm3e0miaqrada/branch/master?svg=true)](https://ci.appveyor.com/project/sergey-rybalkin/stylecopplus-analyzers/branch/master)
+[![CI Build](../../actions/workflows/ci.yml/badge.svg?branch=master)](../../actions/workflows/ci.yml)
 
-[![codecov](https://codecov.io/gh/sergey-rybalkin/StyleCopPlus/branch/master/graph/badge.svg)](https://codecov.io/gh/sergey-rybalkin/StyleCopPlus)
-
-This project is an implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn) as well as some 
-additional refactorings and analyzers. Original project is available on 
+This project is an implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn) as well as some
+additional refactorings and analyzers. Original project is available on
 [CodePlex](https://stylecopplus.codeplex.com/).
 
 ## Installation
-This project is available as a NuGet package and VSIX extension. Currently Roslyn does not support loading 
+This project is available as a NuGet package and VSIX extension. Currently Roslyn does not support loading
 refactorings from NuGet packages so you need to install VSIX extension in order to get full functionality.
 
-[Latest VSIX](https://www.vsixgallery.com/extension/StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204) and [NuGet Packages](https://ci.appveyor.com/project/sergey-rybalkin/stylecopplus-analyzers/build/artifacts)
+[Latest VSIX](https://github.com/sergey-rybalkin/StyleCopPlus/releases) and [NuGet Packages](https://www.nuget.org/packages/StyleCopPlus/)
 
 ## Analyzers
 
@@ -25,7 +23,7 @@ refactorings from NuGet packages so you need to install VSIX extension in order 
  - SP1002 (Cancellation token name) - validates that parameters of type `CancellationToken` are named `ct`.
 
 ## Configuration
-Analyzer line limits can be configured through [StyleCop configuration file](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/Configuration.md). Add the following snippet with configured values 
+Analyzer line limits can be configured through [StyleCop configuration file](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/Configuration.md). Add the following snippet with configured values
 to the end of the file:
 
     "styleCopPlusRules": {
@@ -37,7 +35,7 @@ to the end of the file:
 
 ## Refactorings
 
- - Check Parameters - adds null check code for method or constructor parameters.
+ - Check Parameters - adds custom null check code for method or constructor parameters.
  - Create Variable From Invocation - saves result of method or property to local variable.
  - Duplicate Method - creates an exact copy of the method under cursor.
  - Introduce Field - creates and initializes class field from constructor parameter.

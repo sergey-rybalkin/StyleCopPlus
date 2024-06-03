@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace AnalyzerPlayground.CheckParameters
 {
@@ -6,7 +6,7 @@ namespace AnalyzerPlayground.CheckParameters
     {
         public void TestMethod(Tuple<int> param1)
         {
-            Verify.ArgumentNotNull(param1, nameof(param1));
+            Verify.ArgumentNotNull(param1);
         }
     }
 }
