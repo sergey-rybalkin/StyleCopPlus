@@ -27,7 +27,7 @@ jobs:
         run: dotnet pack ./src/StyleCopPlus/StyleCopPlus.csproj --configuration Release
 
       - name: Publish NuGet package
-        run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
 
       - name: Get version number
         id: get-version
