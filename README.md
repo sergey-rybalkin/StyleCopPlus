@@ -1,6 +1,7 @@
 # StyleCopPlus Analyzers and Refactorings
 
 [![CI Build](../../actions/workflows/ci.yml/badge.svg?branch=master)](../../actions/workflows/ci.yml)
+![NuGet Version](https://img.shields.io/nuget/v/StyleCopPlus)
 
 This project is an implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn) as well as some
 additional refactorings and analyzers. Original project is available on
