@@ -1,0 +1,28 @@
+name: CI Playground
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Check current directory
+        run: Get-Location
+
+      - name: Run git
+        run: git describe --abbrev=0
+
+      - name: Get version number
+        id: get-version
+        run: Set-Content '$GITHUB_OUTPUT' -Value "VERSION=$(git describe --abbrev=0)" ${{ github.path}}
