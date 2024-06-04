@@ -13,12 +13,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
-
-      - name: Check current directory
-        run: Get-Location
 
       - name: Run git
         run: git describe --abbrev=0
