@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
@@ -31,11 +33,12 @@ jobs:
 
       - name: Get version number
         id: get-version
-        run: Set-Content '$GITHUB_OUTPUT' -Value "VERSION=$(git describe --abbrev=0)"
+        run: |
+          "package-version=$(git describe --abbrev=0)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
       - name: Publish VSIX package
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.get-version.outputs.VERSION }}
-          files: ./src/StyleCopPlus.Vsix/bin/Release/net472/StyleCopPlus.vsix
-          name: ${{ steps.get-version.outputs.VERSION }}
+          tag_name: ${{ steps.get-version.outputs.package-version }}
+          files: ./src/StyleCopPlus.Vsix/bin/Release/net472/StyleCopPlusVsix.vsix
+          name: StyleCopPlus v${{ steps.get-version.outputs.package-version }}

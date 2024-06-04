@@ -1,4 +1,4 @@
-name: Build and test analyzers
+name: CI
 
 on:
   push:
