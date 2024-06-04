@@ -24,4 +24,4 @@ jobs:
 
       - name: Get version number
         id: get-version
-        run: Set-Content '$GITHUB_OUTPUT' -Value "VERSION=$(git describe --abbrev=0)" ${{ github.path}}
+        run: Set-Content '$GITHUB_OUTPUT' -Value "VERSION=$(git describe --abbrev=0)"
