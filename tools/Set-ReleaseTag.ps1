@@ -1,4 +1,3 @@
-#Requires -Version 7.0
 <#
     .SYNOPSIS
         Creates new git tag with incremented application version as its name as well as updates version number
@@ -14,6 +13,8 @@
     .EXAMPLE
         Set-ReleaseTag -IncrementMajor
 #>
+
+#Requires -Version 7.0
 
 [CmdletBinding(PositionalBinding = $true, SupportsShouldProcess)]
 param(
