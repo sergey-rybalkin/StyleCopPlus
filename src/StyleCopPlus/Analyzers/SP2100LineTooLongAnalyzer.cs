@@ -15,7 +15,7 @@ namespace StyleCopPlus.Analyzers
 
         public const string Category = "Maintainability";
 
-        public const string Title = "Code line is too long.";
+        public const string Title = "Code line is too long";
 
         public const string MessageFormat = "Code line should not exceed {0} characters (now {1}).";
 

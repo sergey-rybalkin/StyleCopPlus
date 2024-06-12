@@ -16,7 +16,7 @@ namespace StyleCopPlus.Analyzers
 
         public const string Category = "Readability";
 
-        public const string Title = "Use constant pattern matching.";
+        public const string Title = "Use constant pattern matching";
 
         public const string MessageFormat =
             "Use constant pattern matching instead of comparisons with constant values";
@@ -56,6 +56,11 @@ namespace StyleCopPlus.Analyzers
 
         internal static bool IsLiteral(ExpressionSyntax expression, SemanticModel semanticModel)
         {
+            // "is not" pattern matching has only appeared in C# 8 so we shouldn't check earlier versions
+            CSharpParseOptions options = expression.SyntaxTree.Options as CSharpParseOptions;
+            if (options?.LanguageVersion < LanguageVersion.CSharp8)
+                return false;
+
             // Default expressions are most of the time constants, but not for default(MyStruct).
             if (expression.IsKind(SyntaxKind.DefaultExpression))
                 return true;

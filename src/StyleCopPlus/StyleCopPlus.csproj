@@ -8,12 +8,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <AssemblyVersion>3.3.0.0</AssemblyVersion>
     <Authors>Sergey Rybalkin</Authors>
     <Company>Sergey Rybalkin</Company>
     <Copyright>Copyright (c) 2024 Sergey Rybalkin</Copyright>
     <Description>Implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn).</Description>
-    <FileVersion>3.2.0.0</FileVersion>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <FileVersion>3.3.0.0</FileVersion>
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <PackageId>StyleCopPlus</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -22,9 +23,9 @@
     <PackageReleaseNotes>Migration to GitHub actions, other minor enhancements.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>StyleCopPlus, StyleCop, CSharp, CodeAnalysis</PackageTags>
-    <PackageVersion>3.2.0.0</PackageVersion>
+    <PackageVersion>3.3.0.0</PackageVersion>
     <RepositoryUrl>https://github.com/sergey-rybalkin/StyleCopPlus</RepositoryUrl>
-    <Version>3.2.0</Version>
+    <Version>3.3.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

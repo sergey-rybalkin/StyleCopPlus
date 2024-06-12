@@ -15,7 +15,7 @@ namespace StyleCopPlus.Analyzers
 
         public const string Category = "Maintainability";
 
-        public const string Title = "Method is too long.";
+        public const string Title = "Method is too long";
 
         public const string MessageFormat = "Method body should not exceed {0} lines (now {1}).";
 

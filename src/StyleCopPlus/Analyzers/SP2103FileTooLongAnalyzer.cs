@@ -15,7 +15,7 @@ namespace StyleCopPlus.Analyzers
 
         public const string Category = "Maintainability";
 
-        public const string Title = "File is too long.";
+        public const string Title = "File is too long";
 
         public const string MessageFormat = "File {0} should be no longer than {1} lines (now {2}).";
 

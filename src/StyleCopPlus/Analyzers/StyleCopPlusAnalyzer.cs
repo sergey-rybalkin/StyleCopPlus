@@ -29,7 +29,7 @@ namespace StyleCopPlus.Analyzers
         // Performance hack. All values in MethodSyntaxKinds are declared next to each other, so we don't have
         // to compare target value to each item in the array - range comparison is enough.
         private static readonly ushort MethodSyntaxLowerBound = (ushort)MethodSyntaxKinds.Min();
-        private static readonly ushort MethodSyntaxUppderBound = (ushort)MethodSyntaxKinds.Max();
+        private static readonly ushort MethodSyntaxUpperBound = (ushort)MethodSyntaxKinds.Max();
 
         /// <summary>
         /// Called once at session start to register actions in the analysis context.
@@ -65,7 +65,7 @@ namespace StyleCopPlus.Analyzers
             SyntaxNode block = context.CodeBlock;
             ushort blockKind = (ushort)block.RawKind;
 
-            return blockKind >= MethodSyntaxLowerBound && blockKind <= MethodSyntaxUppderBound;
+            return blockKind >= MethodSyntaxLowerBound && blockKind <= MethodSyntaxUpperBound;
         }
 
         /// <summary>

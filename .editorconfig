@@ -69,3 +69,5 @@ dotnet_naming_symbols.private_internal_fields.applicable_accessibilities = priva
 dotnet_naming_style.camel_case_underscore_style.required_prefix = _
 dotnet_naming_style.camel_case_underscore_style.capitalization = camel_case 
 
+# RS2008: Enable analyzer release tracking
+dotnet_diagnostic.RS2008.severity = none
