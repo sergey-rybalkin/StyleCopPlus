@@ -57,11 +57,6 @@ if (!$TagAnnotation) {
     $TagAnnotation = "Version ${majorVersion}.${minorVersion}"
 }
 
-# Create annotated git tag with an updated version
-if ($pscmdlet.ShouldProcess("repository $(Get-Location)", "git tag ${majorVersion}.${minorVersion}")) {
-    & git tag -a "${majorVersion}.${minorVersion}" -m "${TagAnnotation}"
-}
-
 # Update version number in source and configuration files
 if ($pscmdlet.ShouldProcess('StyleCopPlus.csproj', "Update nuget package version")) {
     (Get-Content ..\src\StyleCopPlus\StyleCopPlus.csproj) -replace 'Version>\d+\.\d+', "Version>${majorVersion}.${minorVersion}" |
@@ -69,9 +64,17 @@ if ($pscmdlet.ShouldProcess('StyleCopPlus.csproj', "Update nuget package version
 }
 
 if ($pscmdlet.ShouldProcess('VSIX package', "Update VSIX package version")) {
-    (Get-Content ..\src\StyleCopPlus.Vsix\source.extension.vsixmanifest) -replace 'Version="\d+\.\d+', "Version=""${majorVersion}.${minorVersion}" |
-    Set-Content ..\src\StyleCopPlus.Vsix\source.extension.vsixmanifest
+    $manifest = "..\src\StyleCopPlus.Vsix\source.extension.vsixmanifest"
+    $( Get-Content $manifest -First 2;
+        Get-Content $manifest | Select-Object -Skip 2 | % { $_ -creplace 'Version="\d+\.\d+', "Version=""${majorVersion}.${minorVersion}" }  ) |
+    Set-Content $manifest
 
-    (Get-Content ..\src\StyleCopPlus.Vsix\source.extension.cs) -replace '5d32dfd0e204" Version = "\d+\.\d+', "5d32dfd0e204"" Version = ""${majorVersion}.${minorVersion}" |
+    (Get-Content ..\src\StyleCopPlus.Vsix\source.extension.cs) -replace 'Version = "\d+\.\d+', "Version = ""${majorVersion}.${minorVersion}" |
     Set-Content ..\src\StyleCopPlus.Vsix\source.extension.cs
+}
+
+# Create annotated git tag with an updated version
+if ($pscmdlet.ShouldProcess("repository $(Get-Location)", "git commit + git tag")) {
+    & git commit -a -m "${TagAnnotation}"
+    & git tag -a "${majorVersion}.${minorVersion}" -m "${TagAnnotation}"
 }

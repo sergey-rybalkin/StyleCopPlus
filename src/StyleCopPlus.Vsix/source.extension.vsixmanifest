@@ -1,5 +1,5 @@
-<?xml Version="3.3" encoding="utf-8"?>
-<PackageManifest Version="3.3.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
         <Identity Id="StyleCopPlus..f472894e-d3a6-4fe0-a4fc-5d32dfd0e204" Version="3.3.0" Language="en-US" Publisher="Sergey Rybalkin"/>
         <DisplayName>StyleCopPlus</DisplayName>

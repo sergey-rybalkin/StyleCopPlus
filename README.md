@@ -4,7 +4,7 @@
 [![NuGet Version](https://img.shields.io/nuget/v/StyleCopPlus)](https://www.nuget.org/packages/StyleCopPlus)
 
 This project is an implementation of StyleCop+ rules using the .NET Compiler Platform (Roslyn) as well as some
-additional refactorings and analyzers. Original project is available on
+additional opinionated refactorings and analyzers. Original project is available on
 [CodePlex](https://stylecopplus.codeplex.com/).
 
 ## Installation
