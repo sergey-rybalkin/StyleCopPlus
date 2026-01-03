@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -18,9 +18,12 @@ namespace StyleCopPlus.Refactorings
         protected override IEnumerable<CodeAction> GetActions(
             SyntaxNodeRefactoringContext<MethodDeclarationSyntax> context)
         {
-            // Make duplicate method action available only on method identifier
-            if (!context.TargetNode.Identifier.Span.IntersectsWith(context.Span))
+            // Make action available only on method identifier or parameters list
+            if (!context.TargetNode.Identifier.Span.IntersectsWith(context.Span) &&
+                !context.TargetNode.ParameterList.Span.IntersectsWith(context.Span))
+            {
                 yield break;
+            }
 
             yield return CodeAction.Create("Duplicate method", t => DuplicateNode(context));
         }
@@ -32,9 +35,9 @@ namespace StyleCopPlus.Refactorings
             SyntaxTriviaList trivia = context.TargetNode.GetLeadingTrivia();
 
             // When necessary add additional empty line to separate new method with original
-            if (trivia.Count < 2)
+            if (trivia.Count is 0 || !trivia[0].IsKind(SyntaxKind.EndOfLineTrivia))
             {
-                trivia = trivia.Insert(0, SyntaxFactory.CarriageReturnLineFeed);
+                trivia = trivia.Insert(0, SyntaxFactory.ElasticLineFeed);
                 updatedNode = context.TargetNode.WithLeadingTrivia(trivia);
             }
 

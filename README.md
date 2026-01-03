@@ -8,10 +8,9 @@ additional opinionated refactorings and analyzers. Original project is available
 [CodePlex](https://stylecopplus.codeplex.com/).
 
 ## Installation
-This project is available as a NuGet package and VSIX extension. Currently Roslyn does not support loading
-refactorings from NuGet packages so you need to install VSIX extension in order to get full functionality.
+This project is available as a NuGet package. Visual Studio extension is no longer supported.
 
-[Latest VSIX](https://github.com/sergey-rybalkin/StyleCopPlus/releases) and [NuGet Packages](https://www.nuget.org/packages/StyleCopPlus/)
+[NuGet Packages](https://www.nuget.org/packages/StyleCopPlus/)
 
 ## Analyzers
 
@@ -37,7 +36,5 @@ to the end of the file:
 
 ## Refactorings
 
- - Check Parameters - adds custom null check code for method or constructor parameters.
- - Create Variable From Invocation - saves result of method or property to local variable.
  - Duplicate Method - creates an exact copy of the method under cursor.
- - Introduce Field - creates and initializes class field from constructor parameter.
+ - Delete Method - deletes method and its xml doc comments under cursor.

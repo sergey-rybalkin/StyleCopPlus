@@ -6,27 +6,26 @@
 
   <ItemGroup>
     <Compile Remove="Playground\**" />
+    <EmbeddedResource Remove="Playground\IntroduceField\**" />
     <None Remove="Playground\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Playground\DuplicateMethod\DuplicateInnerMethod.cs" />
+    <EmbeddedResource Include="Playground\DuplicateMethod\DuplicateInnerMethodGold.cs" />
+    <EmbeddedResource Include="Playground\DuplicateMethod\DuplicateFirstMethod.cs" />
+    <EmbeddedResource Include="Playground\DuplicateMethod\DuplicateFirstMethodGold.cs" />
+    <EmbeddedResource Include="Playground\DeleteMethod\DeleteMethodFromIdentifier.cs" />
+    <EmbeddedResource Include="Playground\DeleteMethod\DeleteMethodFromIdentifierGold.cs" />
+    <EmbeddedResource Include="Playground\DeleteMethod\DeleteMethodFromParams.cs" />
+    <EmbeddedResource Include="Playground\DeleteMethod\DeleteMethodFromParamsGold.cs" />
     <EmbeddedResource Include="Playground\SP2100\All.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\ConstructorCall.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\ConstructorCallGold.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\ConstructorCallGoldTyped.cs" />
     <EmbeddedResource Include="Playground\SP2100\ConstructorDefinition.cs" />
     <EmbeddedResource Include="Playground\SP2100\ConstructorDefinitionFixed.cs" />
     <EmbeddedResource Include="Playground\SP2100\ConstructorInvocation.cs" />
     <EmbeddedResource Include="Playground\SP2100\ConstructorInvocationFixed.cs" />
-    <EmbeddedResource Include="Playground\CheckParameters\ConstructorParameter.cs" />
-    <EmbeddedResource Include="Playground\CheckParameters\ConstructorParameterGold.cs" />
     <EmbeddedResource Include="Playground\SP2100\FluentApi.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\FluentApiCalls.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\FluentApiCallsGold.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\FluentApiCallsGoldTyped.cs" />
     <EmbeddedResource Include="Playground\SP2100\FluentApiFixed.cs" />
-    <EmbeddedResource Include="Playground\CheckParameters\GenericParameter.cs" />
-    <EmbeddedResource Include="Playground\CheckParameters\GenericParameterGold.cs" />
     <EmbeddedResource Include="Playground\SP1001\ThrowExpression.cs" />
     <EmbeddedResource Include="Playground\SP1001\ThrowStatement.cs" />
     <EmbeddedResource Include="Playground\SP1001\ThrowWithoutMessage.cs" />
@@ -60,32 +59,18 @@
     <EmbeddedResource Include="Playground\SP2100\MethodInvocationFixed.cs" />
     <EmbeddedResource Include="Playground\SP2100\MethodInvocationWithAssignment.cs" />
     <EmbeddedResource Include="Playground\SP2100\MethodInvocationWithAssignmentFixed.cs" />
-    <EmbeddedResource Include="Playground\CheckParameters\OutParameter.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\PropertyCall.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\PropertyCallGold.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\PropertyCallGoldTyped.cs" />
-    <EmbeddedResource Include="Playground\IntroduceField\ReadonlyField.cs" />
-    <EmbeddedResource Include="Playground\IntroduceField\ReadonlyFieldGold.cs" />
-    <EmbeddedResource Include="Playground\CheckParameters\ReferenceParameter.cs" />
-    <EmbeddedResource Include="Playground\CheckParameters\ReferenceParameterGold.cs" />
-    <EmbeddedResource Include="Playground\CheckParameters\RefParameter.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\StaticCall.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\StaticCallGold.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\StaticCallGoldTyped.cs" />
     <EmbeddedResource Include="Playground\SP2101\ValidClass.cs" />
     <EmbeddedResource Include="Playground\SP2102\ValidClass.cs" />
     <EmbeddedResource Include="Playground\SP2103\ValidClass.cs" />
-    <EmbeddedResource Include="Playground\CheckParameters\ValueTypeParameter.cs" />
-    <EmbeddedResource Include="Playground\CreateVariable\VoidCall.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="8.7.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="4.0.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="4.0.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.0.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.0.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.0.2" />
     <PackageReference Include="NSubstitute" Version="5.3.0" />
   </ItemGroup>
 

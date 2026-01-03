@@ -18,30 +18,14 @@ namespace StyleCopPlus.Test.Helpers
     [GeneratedCode("TestHelperGenerator", "1.0")]
     public static partial class DataHelper
     {
-public const string CheckParametersConstructorParameter = "CheckParameters.ConstructorParameter.cs";
-        public const string CheckParametersConstructorParameterGold = "CheckParameters.ConstructorParameterGold.cs";
-        public const string CheckParametersGenericParameter = "CheckParameters.GenericParameter.cs";
-        public const string CheckParametersGenericParameterGold = "CheckParameters.GenericParameterGold.cs";
-        public const string CheckParametersOutParameter = "CheckParameters.OutParameter.cs";
-        public const string CheckParametersReferenceParameter = "CheckParameters.ReferenceParameter.cs";
-        public const string CheckParametersReferenceParameterGold = "CheckParameters.ReferenceParameterGold.cs";
-        public const string CheckParametersRefParameter = "CheckParameters.RefParameter.cs";
-        public const string CheckParametersValueTypeParameter = "CheckParameters.ValueTypeParameter.cs";
-        public const string CreateVariableConstructorCall = "CreateVariable.ConstructorCall.cs";
-        public const string CreateVariableConstructorCallGold = "CreateVariable.ConstructorCallGold.cs";
-        public const string CreateVariableConstructorCallGoldTyped = "CreateVariable.ConstructorCallGoldTyped.cs";
-        public const string CreateVariableFluentApiCalls = "CreateVariable.FluentApiCalls.cs";
-        public const string CreateVariableFluentApiCallsGold = "CreateVariable.FluentApiCallsGold.cs";
-        public const string CreateVariableFluentApiCallsGoldTyped = "CreateVariable.FluentApiCallsGoldTyped.cs";
-        public const string CreateVariablePropertyCall = "CreateVariable.PropertyCall.cs";
-        public const string CreateVariablePropertyCallGold = "CreateVariable.PropertyCallGold.cs";
-        public const string CreateVariablePropertyCallGoldTyped = "CreateVariable.PropertyCallGoldTyped.cs";
-        public const string CreateVariableStaticCall = "CreateVariable.StaticCall.cs";
-        public const string CreateVariableStaticCallGold = "CreateVariable.StaticCallGold.cs";
-        public const string CreateVariableStaticCallGoldTyped = "CreateVariable.StaticCallGoldTyped.cs";
-        public const string CreateVariableVoidCall = "CreateVariable.VoidCall.cs";
-        public const string IntroduceFieldReadonlyField = "IntroduceField.ReadonlyField.cs";
-        public const string IntroduceFieldReadonlyFieldGold = "IntroduceField.ReadonlyFieldGold.cs";
+public const string DeleteMethodDeleteMethodFromIdentifier = "DeleteMethod.DeleteMethodFromIdentifier.cs";
+        public const string DeleteMethodDeleteMethodFromIdentifierGold = "DeleteMethod.DeleteMethodFromIdentifierGold.cs";
+        public const string DeleteMethodDeleteMethodFromParams = "DeleteMethod.DeleteMethodFromParams.cs";
+        public const string DeleteMethodDeleteMethodFromParamsGold = "DeleteMethod.DeleteMethodFromParamsGold.cs";
+        public const string DuplicateMethodDuplicateFirstMethod = "DuplicateMethod.DuplicateFirstMethod.cs";
+        public const string DuplicateMethodDuplicateFirstMethodGold = "DuplicateMethod.DuplicateFirstMethodGold.cs";
+        public const string DuplicateMethodDuplicateInnerMethod = "DuplicateMethod.DuplicateInnerMethod.cs";
+        public const string DuplicateMethodDuplicateInnerMethodGold = "DuplicateMethod.DuplicateInnerMethodGold.cs";
         public const string SP1001ThrowExpression = "SP1001.ThrowExpression.cs";
         public const string SP1001ThrowStatement = "SP1001.ThrowStatement.cs";
         public const string SP1001ThrowWithoutMessage = "SP1001.ThrowWithoutMessage.cs";

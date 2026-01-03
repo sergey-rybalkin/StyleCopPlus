@@ -67,15 +67,13 @@ namespace StyleCopPlus.Test.Verifiers
         protected void VerifyNoRefactoring(string resourceKey)
         {
             int cursorPosition;
-            string test = DataHelper.GetEmbeddedResource(
-                DataHelper.CreateVariableVoidCall,
-                out cursorPosition);
+            string test = DataHelper.GetEmbeddedResource(resourceKey, out cursorPosition);
 
             TextSpan cursorSpan = TextSpan.FromBounds(cursorPosition, cursorPosition);
             Document document = CreateDocument(test);
 
             var builder = ImmutableArray.CreateBuilder<CodeAction>();
-            Action<CodeAction> registerRefactoring = a => builder.Add(a);
+            Action<CodeAction> registerRefactoring = builder.Add;
             var provider = CreateProvider();
             var context = new CodeRefactoringContext(
                 document,
@@ -86,7 +84,7 @@ namespace StyleCopPlus.Test.Verifiers
             provider.ComputeRefactoringsAsync(context).Wait();
             ImmutableArray<CodeAction> refactorings = builder.ToImmutable();
 
-            Assert.AreEqual(refactorings.Length, 0);
+            Assert.IsEmpty(refactorings);
         }
     }
 }

@@ -30,15 +30,3 @@ jobs:
 
       - name: Publish NuGet package
         run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
-
-      - name: Get version number
-        id: get-version
-        run: |
-          "package-version=$(git describe --abbrev=0)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-
-      - name: Publish VSIX package
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.get-version.outputs.package-version }}
-          files: ./src/StyleCopPlus.Vsix/bin/Release/net472/StyleCopPlusVsix.vsix
-          name: StyleCopPlus v${{ steps.get-version.outputs.package-version }}
