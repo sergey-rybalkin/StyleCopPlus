@@ -15,7 +15,7 @@ This project is available as a NuGet package. Visual Studio extension is no long
 ## Analyzers
 
  - SP1001 (Invalid Exception Message) - validates exception message to match best practices. Inspired by [Microsoft guidelines](https://docs.microsoft.com/en-us/dotnet/api/system.exception.message?view=netcore-3.1#remarks) and [StackOverflow discussion](https://stackoverflow.com/questions/1136829/do-you-end-your-exception-messages-with-a-period/34136055).
- - SP1002 (Cancellation token name) - validates that parameters of type `CancellationToken` are named `ct`.
+ - SP1002 (Cancellation token name) - validates that parameters of type `CancellationToken` are named `ct` unless specified in base or interface method.
  - SP1003 (Separate return with empty line) - validates that return statement in block is separated with empty line.
  - SP1131 (Unsafe Condition Analyzer) - validates that constant pattern matching is used instead of `==` operator to avoid typos like `if (flag = true)`, also suggests using negated not pattern instead of `!=` operator.
  - SP2100 (Line Too Long Analyzer) - validates that code lines do not exceed 110 symbols.

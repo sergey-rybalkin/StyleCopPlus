@@ -21,7 +21,6 @@ namespace StyleCopPlus.Test.Analyzers
             DiagnosticResult expected = CreateResult(line, column);
 
             VerifyCSharpDiagnostic(test, expected);
-
         }
 
         [TestMethod]
@@ -33,6 +32,32 @@ namespace StyleCopPlus.Test.Analyzers
                 out _);
 
             VerifyCSharpDiagnostic(test);
+        }
+
+        [TestMethod]
+        public void DoesNotReport_InheritedParameterName()
+        {
+            string test = DataHelper.GetEmbeddedResource(
+                DataHelper.SP1002InheritedParameterName,
+                out int line,
+                out int column);
+
+            DiagnosticResult expected = CreateResult(line, column); // Expected on base class
+
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
+        [TestMethod]
+        public void DoesNotReport_ImplementedParameterName()
+        {
+            string test = DataHelper.GetEmbeddedResource(
+                DataHelper.SP1002ImplementedParameterName,
+                out int line,
+                out int column);
+
+            DiagnosticResult expected = CreateResult(line, column); // Expected on interface
+
+            VerifyCSharpDiagnostic(test, expected);
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()

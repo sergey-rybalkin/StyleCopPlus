@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Linq;
 using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -59,6 +60,11 @@ namespace StyleCopPlus.Analyzers
                 if (parameter.Identifier.ToString() is TargetParameterName)
                     return;
 
+                // Check if parameter name is predefined by an overridden method or interface implementation.
+                // Ignore those cases as they will trigger other diagnostics.
+                if (IsOverrideOrInterfaceImplementation(context, parameter))
+                    return;
+
                 context.ReportDiagnostic(
                     Diagnostic.Create(
                         Rule,
@@ -66,6 +72,42 @@ namespace StyleCopPlus.Analyzers
                         parameter.Identifier.Text.ToString(),
                         TargetParameterName));
             }
+        }
+
+        /// <summary>
+        /// Checks if the parameter belongs to a method that overrides a base method or implements an
+        /// interface.
+        /// </summary>
+        /// <param name="context">Syntax node context.</param>
+        /// <param name="parameter">Parameter syntax node.</param>
+        private static bool IsOverrideOrInterfaceImplementation(SyntaxNodeAnalysisContext context, ParameterSyntax parameter)
+        {
+            var methodDeclaration = parameter.Parent?.Parent as BaseMethodDeclarationSyntax;
+            if (methodDeclaration == null)
+                return false;
+
+            IMethodSymbol methodSymbol = context.SemanticModel.GetDeclaredSymbol(methodDeclaration);
+            if (methodSymbol == null)
+                return false;
+
+            if (methodSymbol.IsOverride)
+                return true;
+
+            // Check for explicit interface implementation
+            if (methodSymbol.ExplicitInterfaceImplementations.Length > 0)
+                return true;
+
+            // Check for implicit interface implementation
+            INamedTypeSymbol containingType = methodSymbol.ContainingType;
+            foreach (INamedTypeSymbol interfaceType in containingType.AllInterfaces)
+            {
+                ISymbol implementation = containingType.FindImplementationForInterfaceMember(
+                    interfaceType.GetMembers(methodSymbol.Name).FirstOrDefault());
+                if (SymbolEqualityComparer.Default.Equals(implementation, methodSymbol))
+                    return true;
+            }
+
+            return false;
         }
     }
 }
