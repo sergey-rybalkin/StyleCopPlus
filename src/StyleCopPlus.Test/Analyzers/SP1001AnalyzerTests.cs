@@ -69,6 +69,19 @@ namespace StyleCopPlus.Test.Analyzers
             VerifyCSharpDiagnostic(test);
         }
 
+        [TestMethod]
+        public void Reports_InvalidNamedMessageArgument()
+        {
+            string test = DataHelper.GetEmbeddedResource(
+                DataHelper.SP1001NamedMessageParameter,
+                out int line,
+                out int column);
+
+            DiagnosticResult expected = CreateResult(line, column);
+
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
             return new SP1001InvalidExceptionMessageAnalyzer();

@@ -26,6 +26,7 @@ public const string DeleteMethodDeleteMethodFromIdentifier = "DeleteMethod.Delet
         public const string DuplicateMethodDuplicateFirstMethodGold = "DuplicateMethod.DuplicateFirstMethodGold.cs";
         public const string DuplicateMethodDuplicateInnerMethod = "DuplicateMethod.DuplicateInnerMethod.cs";
         public const string DuplicateMethodDuplicateInnerMethodGold = "DuplicateMethod.DuplicateInnerMethodGold.cs";
+        public const string SP1001NamedMessageParameter = "SP1001.NamedMessageParameter.cs";
         public const string SP1001ThrowExpression = "SP1001.ThrowExpression.cs";
         public const string SP1001ThrowStatement = "SP1001.ThrowStatement.cs";
         public const string SP1001ThrowWithoutMessage = "SP1001.ThrowWithoutMessage.cs";

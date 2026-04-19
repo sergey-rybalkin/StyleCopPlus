@@ -26,6 +26,7 @@
     <EmbeddedResource Include="Playground\SP2100\ConstructorInvocationFixed.cs" />
     <EmbeddedResource Include="Playground\SP2100\FluentApi.cs" />
     <EmbeddedResource Include="Playground\SP2100\FluentApiFixed.cs" />
+    <EmbeddedResource Include="Playground\SP1001\NamedMessageParameter.cs" />
     <EmbeddedResource Include="Playground\SP1001\ThrowExpression.cs" />
     <EmbeddedResource Include="Playground\SP1001\ThrowStatement.cs" />
     <EmbeddedResource Include="Playground\SP1001\ThrowWithoutMessage.cs" />

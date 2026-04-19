@@ -101,10 +101,13 @@ namespace StyleCopPlus.Analyzers
                     .Expression;
 
             // If named parameter was not passed try to find it by index.
-            if (messageArgument == null && node.ArgumentList.Arguments.Count > messageParameterOrdinal)
+            if (messageArgument == null)
+            {
+                if (node.ArgumentList == null || node.ArgumentList.Arguments.Count <= messageParameterOrdinal)
+                    return;
+
                 messageArgument = node.ArgumentList.Arguments[messageParameterOrdinal].Expression;
-            else
-                return;
+            }
 
             Optional<object> messageValue = context.SemanticModel.GetConstantValue(messageArgument);
             if (!messageValue.HasValue)
