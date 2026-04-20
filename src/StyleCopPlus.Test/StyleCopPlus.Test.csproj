@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,6 +8,12 @@
     <Compile Remove="Playground\**" />
     <EmbeddedResource Remove="Playground\IntroduceField\**" />
     <None Remove="Playground\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Playground\SP1004\ReturnAfterStatementSameLine.cs" />
+    <Compile Include="Playground\SP1004\ReturnNotOnOwnLine.cs" />
+    <Compile Include="Playground\SP1004\ReturnOnOwnLine.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,6 +71,9 @@
     <EmbeddedResource Include="Playground\SP2101\ValidClass.cs" />
     <EmbeddedResource Include="Playground\SP2102\ValidClass.cs" />
     <EmbeddedResource Include="Playground\SP2103\ValidClass.cs" />
+    <EmbeddedResource Include="Playground\SP1004\ReturnOnOwnLine.cs" />
+    <EmbeddedResource Include="Playground\SP1004\ReturnNotOnOwnLine.cs" />
+    <EmbeddedResource Include="Playground\SP1004\ReturnAfterStatementSameLine.cs" />
   </ItemGroup>
 
   <ItemGroup>
