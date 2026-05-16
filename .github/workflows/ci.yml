@@ -8,6 +8,10 @@ on:
     paths:
       - "src/**"
       - ".github/workflows/**"
+  pull_request:
+    branches:
+      - master
+      - dev
 
 jobs:
   build:
@@ -20,11 +24,19 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v5
 
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Restore dependencies
         run: dotnet restore ./src/StyleCopPlus.Test/StyleCopPlus.Test.csproj
 
       - name: Build analyzer
-        run: dotnet build ./src/StyleCopPlus.Test/StyleCopPlus.Test.csproj --no-restore --configuration Release
+        run: dotnet build ./src/StyleCopPlus.Test/StyleCopPlus.Test.csproj --no-restore --configuration Debug
 
       - name: Run tests
-        run: dotnet test --no-build --configuration Release --verbosity normal
+        run: dotnet test --no-build --configuration Debug --verbosity normal
