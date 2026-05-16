@@ -63,4 +63,4 @@ This project is a Roslyn Compiler Analyzer that implements several rules and cod
 
 ---
 
-_This file is intended to help contributors use GitHub Copilot effectively and consistently in the Emmet.net project._
+_This file is intended to help contributors use GitHub Copilot effectively and consistently in the StyleCopPlus project._
